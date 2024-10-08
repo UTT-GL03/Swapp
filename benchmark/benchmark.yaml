@@ -1,7 +1,7 @@
 - name: Vinted – Articles à vendre
   url: https://www.vinted.fr/
   actions:
-    - name: Consulter les articles à vendre
+    - name: Consulter les articles à vendre de la page d'accueil
       type: scroll
     - name: Rechercher des articles spécifiques
       type: click
