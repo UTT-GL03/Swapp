@@ -1,16 +1,18 @@
 - name: Vinted – Articles à vendre
   url: https://www.vinted.fr/
   actions:
-    - name: Consulter les articles à vendre
+    - name: Consulter les articles à vendre de la page d'accueil
       type: scroll
     - name: Rechercher des articles spécifiques
       type: click
-      element: '.search-button'  # Le bouton de recherche
+      element: '#search_text'  # Le bouton de recherche
+      content: "blazer"
+      timeoutBefore: 1000
     - name: Filtrer par prix
       type: type
       element: 'input[name="price_max"]'  # Champ de saisie pour le prix maximum
       value: '50'  # Saisir 50 euros
-    - name: Appliquer le filtre
+    - name: Appliquer le filtre prix
       type: click
       element: '.apply-filters'  # Bouton pour appliquer les filtres
       pageChange: true
