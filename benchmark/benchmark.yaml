@@ -1,0 +1,35 @@
+- name: Vinted – Articles à vendre
+  url: https://www.vinted.fr/
+  actions:
+    - name: Consulter les articles à vendre
+      type: scroll
+    - name: Rechercher des articles spécifiques
+      type: click
+      element: '.search-button'  # Le bouton de recherche
+    - name: Filtrer par prix
+      type: type
+      element: 'input[name="price_max"]'  # Champ de saisie pour le prix maximum
+      value: '50'  # Saisir 50 euros
+    - name: Appliquer le filtre
+      type: click
+      element: '.apply-filters'  # Bouton pour appliquer les filtres
+      pageChange: true
+      waitForSelector: '.product-list'  # Attendre que la liste des produits soit visible
+
+- name: Depop – Articles à vendre
+  url: https://www.depop.com/fr/
+  actions:
+    - name: Consulter les articles à vendre
+      type: scroll
+    - name: Rechercher des articles spécifiques
+      type: click
+      element: '.search-icon'  # Le bouton de recherche
+    - name: Filtrer par prix
+      type: type
+      element: 'input[name="max_price"]'  # Champ de saisie pour le prix maximum
+      value: '50'  # Saisir 50 euros
+    - name: Appliquer le filtre
+      type: click
+      element: '.filter-button'  # Bouton pour appliquer les filtres
+      pageChange: true
+      waitForSelector: '.item-list'  # Attendre que la liste des articles soit visible
