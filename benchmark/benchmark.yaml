@@ -37,7 +37,7 @@
       type: scroll
     - name: Rechercher des articles spécifiques
       type: click
-      element: '.search-button'  # Le bouton de recherche
+      element: 'input[id="searchBar_input"]'  # Le bouton de recherche
     - name: Taper "veste en cuir" dans la barre de recherche
       type: type
       element: 'input[id="searchBar_input"]'  # Champ de saisie pour la recherche
