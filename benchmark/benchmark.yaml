@@ -5,21 +5,22 @@
       type: scroll
     - name: Rechercher des articles spécifiques
       type: click
-      element: '.search-button'  # Le bouton de recherche
+      element: '#search_text'  # Le bouton de recherche
     - name: Taper "veste en cuir" dans la barre de recherche
       type: type
-      element: 'search_text'  # Champ de saisie pour la recherche
+      element: '#search_text'  # Champ de saisie pour la recherche
       value: 'veste en cuir'  # Saisir "veste en cuir"
     - name: Appuyer sur Entrée
       type: type
-      element: 'search_text'  # Champ de saisie pour la recherche
+      element: '#search_text'  # Champ de saisie pour la recherche
       value: '\n'  # Simuler l'appui sur Entrée
+      pageChange: true
     - name: Filtrer par prix
       type: click
-      element: 'button[data-testid="catalog--price-filter--trigger"]'  # Champ de saisie pour le prix maximum
+      element: 'button[data-testid="catalog--price-filter--trigger"]'  
     - name: Définir le prix minimum
       type: type
-      element: 'input[name="price_from"]'  # Champ de saisie pour le prix maximum
+      element: 'input[name="price_from"]'  # Champ de saisie pour le prix minimum
       value: '0'  # Saisir 0 euros
       pageChange: true
     - name: Définir le prix maximum
@@ -36,13 +37,27 @@
       type: scroll
     - name: Rechercher des articles spécifiques
       type: click
-      element: '.search-icon'  # Le bouton de recherche
-    - name: Filtrer par prix
+      element: '.search-button'  # Le bouton de recherche
+    - name: Taper "veste en cuir" dans la barre de recherche
       type: type
-      element: 'input[name="max_price"]'  # Champ de saisie pour le prix maximum
+      element: 'input[id="searchBar_input"]'  # Champ de saisie pour la recherche
+      value: 'veste en cuir'  # Saisir "veste en cuir"
+    - name: Cliquer sur la flèche "Search"
+      type: click
+      element: 'button[data-testid="searchBar_submit-btn"]'  # Champ de saisie pour la recherche
+      pageChange: true
+    - name: Filtrer par prix
+      type: click
+      element: 'button[data-testid="dropdown-trigger"]:nth-of-type(4)'  
+    - name: Définir le prix minimum
+      type: type
+      element: 'input[id="min-input"]'  # Champ de saisie pour le prix minimum
+      value: '0'  # Saisir 0 euros
+    - name: Définir le prix maximum
+      type: type
+      element: 'input[name="max-input"]'  # Champ de saisie pour le prix maximum
       value: '50'  # Saisir 50 euros
     - name: Appliquer le filtre
       type: click
-      element: '.filter-button'  # Bouton pour appliquer les filtres
+      element: '.PriceFilter-styles__StyledSubmitButton-sc-1adc471c-3 fhNMNF'
       pageChange: true
-      waitForSelector: '.item-list'  # Attendre que la liste des articles soit visible
