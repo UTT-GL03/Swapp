@@ -9,14 +9,13 @@
       element: '#search_text'  # Le bouton de recherche
 
     - name: Taper "veste en cuir" dans la barre de recherche
-      type: type
+      type: text
       element: '#search_text'  # Champ de saisie pour la recherche
       content: 'veste en cuir'  # Saisir "veste en cuir"
 
-    - name: Appuyer sur Entrée
-      type: type
-      element: '#search_text'  # Champ de saisie pour la recherche
-      value: '\n'  # Simuler l'appui sur Entrée
+    - name: Cliquer sur la première suggestion
+      type: click
+      element: 'li.pile__element:nth-child(1)'
       pageChange: true
 
     - name: Filtrer par prix
