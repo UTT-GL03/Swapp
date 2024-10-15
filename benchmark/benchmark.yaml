@@ -2,20 +2,25 @@
   url: https://www.vinted.fr/
   actions:
     - name: Accepter les cookies
+      screenshot: vinted_cookies.png
+      waitForSelector: '#onetrust-accept-btn-handler'
       type: click
       element: '#onetrust-accept-btn-handler'
 
     - name: Consulter les articles à vendre de la page d'accueil
       type: scroll
+      screenshot: vinted_scroll.png
 
     - name: Rechercher des articles spécifiques
       type: click
       element: '#search_text'  # Le bouton de recherche
+      screenshot: vinted_search.png
 
     - name: Taper "veste en cuir" dans la barre de recherche
       type: text
       element: '#search_text'  # Champ de saisie pour la recherche
       content: 'veste en cuir'  # Saisir "veste en cuir"
+      screenshot: vinted_search_text.png
 
     - name: Cliquer sur la première suggestion
       type: click
@@ -26,55 +31,72 @@
     - name: Filtrer par prix
       type: click
       element: 'button[data-testid="catalog--price-filter--trigger"]'  
+      screenshot: vinted_price.png
 
     - name: Définir le prix minimum
       type: text
       element: 'input[name="price_from"]'  # Champ de saisie pour le prix minimum
       content: '0'  # Saisir 0 euros
       pageChange: true
+      screenshot: vinted_price_min.png
       
     - name: Définir le prix maximum
       type: text
       element: 'input[name="price_to"]'  # Champ de saisie pour le prix maximum
       content: '50'  # Saisir 50 euros
       pageChange: true
+      screenshot: vinted_price_max.png
 
 
 - name: Depop – Articles à vendre
   url: https://www.depop.com/fr/
   actions:
+    - name: Accepter les cookies
+      screenshot: depop_cookies.png
+      waitForSelector: 'button[data-testid="cookieBanner__acceptAllButton"]'
+      type: click
+      element: 'button[data-testid="cookieBanner__acceptAllButton"]'
+
     - name: Consulter les articles à vendre
       type: scroll
+      screenshot: depop_scroll.png
 
     - name: Rechercher des articles spécifiques
       type: click
       element: 'input[id="searchBar__input"]'  # Le bouton de recherche
+      screenshot: depop_search.png
 
     - name: Taper "veste en cuir" dans la barre de recherche
       type: type
       element: 'input[id="searchBar__input"]'  # Champ de saisie pour la recherche
       content: 'veste en cuir'  # Saisir "veste en cuir"
+      screenshot: depop_search_text.png
 
     - name: Cliquer sur la flèche "Search"
       type: click
       element: 'button[data-testid="searchBar_submit-btn"]'  # Champ de saisie pour la recherche
       pageChange: true
+      screenshot: depop_search_launch.png
 
     - name: Filtrer par prix
       type: click
       element: 'button[data-testid="dropdown-trigger"]:nth-of-type(4)'  
+      screenshot: depop_price.png
 
     - name: Définir le prix minimum
       type: type
       element: 'input[id="min-input"]'  # Champ de saisie pour le prix minimum
       value: '0'  # Saisir 0 euros
+      screenshot: depop_price_min.png
 
     - name: Définir le prix maximum
       type: type
       element: 'input[name="max-input"]'  # Champ de saisie pour le prix maximum
       value: '50'  # Saisir 50 euros
+      screenshot: depop_price_max.png
 
     - name: Appliquer le filtre
       type: click
       element: '.PriceFilter-styles__StyledSubmitButton-sc-1adc471c-3 fhNMNF'
       pageChange: true
+      screenshot: depop_price_launch.png
