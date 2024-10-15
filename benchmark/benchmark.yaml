@@ -1,6 +1,10 @@
 - name: Vinted – Articles à vendre
   url: https://www.vinted.fr/
   actions:
+    - name: Accepter les cookies
+      type: click
+      element: '#onetrust-accept-btn-handler'
+
     - name: Consulter les articles à vendre de la page d'accueil
       type: scroll
 
