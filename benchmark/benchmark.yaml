@@ -17,21 +17,22 @@
       type: click
       element: 'li.pile__element:nth-child(1)'
       pageChange: true
+      waitForSelector: div.u-flexbox.u-flex-wrap  # Attendre que la page charge (notamment les boutons de filtres)
 
     - name: Filtrer par prix
       type: click
       element: 'button[data-testid="catalog--price-filter--trigger"]'  
 
     - name: Définir le prix minimum
-      type: type
+      type: text
       element: 'input[name="price_from"]'  # Champ de saisie pour le prix minimum
-      value: '0'  # Saisir 0 euros
+      content: '0'  # Saisir 0 euros
       pageChange: true
       
     - name: Définir le prix maximum
-      type: type
+      type: text
       element: 'input[name="price_to"]'  # Champ de saisie pour le prix maximum
-      value: '50'  # Saisir 50 euros
+      content: '50'  # Saisir 50 euros
       pageChange: true
 
 
