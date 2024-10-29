@@ -3,10 +3,6 @@
 @tailwind utilities;
 
 :root {
-  /* color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424; */
-
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -45,20 +41,15 @@ body {
   scroll-behavior: smooth;
 }
 
-header {
+#header-home {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: flex-start;
-  margin: 3rem;
+  margin: 3rem auto;
+  padding: 0 3rem;
+  max-width: 1400px;
 }
-
-#logo{
-  fill:var(--regular-primary-color);
-  height: 125px;
-  width: 140px;
-}
-
 
 button{
 	cursor: pointer;
@@ -111,4 +102,15 @@ select:focus {
   background: var(--pale-secondary-color);
 }
 
+
+@media screen and (max-width: 850px) {
+  #header-home {
+    flex-direction: column;
+    gap: 40px;
+    justify-content: center;
+    align-items: center;
+    margin: 3rem auto;
+    padding: 0 1.5rem;
+  }
+}
 

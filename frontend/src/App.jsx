@@ -1,11 +1,11 @@
 import React from 'react';
-import logo from './assets/react-svg.png';
+import logo from './assets/swapp-logo.svg';
 import './App.css';
 
 // Composant Header
 const Header = () => {
   return (
-    <header>
+    <header id="header-home">
       <div id="container-search" className=""> {/* Optional max-width */}
         <img id="logo" src={logo} alt='logo' />
         <input

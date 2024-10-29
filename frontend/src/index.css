@@ -15,7 +15,11 @@
   gap: 20px;
 }
 
-header nav ul {
+#logo{
+  width: 300px;
+}
+
+#header-home nav ul {
   list-style: none;
   display: flex;
   flex-direction: column;
@@ -27,6 +31,9 @@ header nav ul {
   text-align: left;
   padding: 12px 1em;
   margin: 0;
+
+  text-transform:none;
+
 
   background-color: white;
   color: var(--regular-secondary-color);
