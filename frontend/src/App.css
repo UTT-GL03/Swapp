@@ -18,9 +18,11 @@
   --pale-primary-color: #ffba92;
   --light-primary-color: #ffab7b;
   --regular-primary-color: #cd621e;
-  --regular-secondary-color: #eee2c6;
-  --light-secondary-color: #fff9ea;
-  --light-bkg-color: #f0f0f6;
+  --regular-secondary-color: #1b5058;
+  --light-secondary-color: #c3d1cc;
+  --pale-secondary-color: #e8eceb;
+  --extra-pale-secondary-color: #eff2f1;
+  --light-bkg-color: #fff9ea;
   --dark-bkg-color: #242424;
 }
 
@@ -38,8 +40,7 @@ body {
   color: var(--dark-bkg-color);
   margin: 0;
   padding: 0;
-  font-size:18px;
-  font-size: 100%;
+  font-size:14px;
   box-sizing: border-box;
   scroll-behavior: smooth;
 }
@@ -55,23 +56,9 @@ header {
 #logo{
   fill:var(--regular-primary-color);
   height: 125px;
+  width: 140px;
 }
 
-footer {
-  position: fixed;
-  width: 100%;
-  bottom:0;
-  left:0;
-  display: flex;
-  flex-direction: row; /* This makes items arrange in a row */
-  justify-content: space-between; /* Ensures space between items */
-  padding: 0 30px 20px 30px; 
-  color: white;
-}
-
-footer p, footer h3{
-    color: white;
-}
 
 button{
 	cursor: pointer;
@@ -81,7 +68,7 @@ button{
   margin: 0 auto;
   
   margin-top: 25px;
-  padding: 12px 50px;
+  padding: 8px 30px;
 
   border-radius: 24px;
   border: 1px solid var(--regular-primary-color);
@@ -98,8 +85,8 @@ button{
 button:hover {
     background-color: white;
     color: var(--regular-primary-color);
-    border: 1px solid;
     border-color: var(--regular-primary-color);
+    border: 1px solid;
     border-radius: 25px;
     text-decoration: none;
  }
@@ -110,50 +97,18 @@ button:hover {
   box-sizing: border-box;
   border-radius: 20px;
   border: 1px solid white;
-  padding: 0.4em 1em;
-  background: var(--light-bkg-color);
+  padding: 0.6em 1em;
+  background: var(--extra-pale-secondary-color);
 }
 
 input::placeholder {
-  color: lightgrey; 
+  color: var(--regular-secondary-color); 
 }
 
 input:focus,
 select:focus {
-outline: none;
+  outline: none;
+  background: var(--pale-secondary-color);
 }
 
 
-#container-search {
-  display: flex;
-  flex-direction: column;
-  padding: 2rem 3rem;
-  background: white;
-  border-radius: 20px;
-  gap: 40px;
-}
-
-#container-user{
-  min-width: fit-content;
-  display: flex;
-  flex-direction: row;
-  gap: 20px;
-}
-
-header nav ul {
-  list-style: none;
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-}
-
-#container-search button{
-  width: 300px;
-  text-align: left;
-  padding: 12px 1em;
-  margin: 0;
-}
-
-#container-user button{
-  margin: 0;
-}

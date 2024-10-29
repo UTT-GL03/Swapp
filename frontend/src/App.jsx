@@ -1,5 +1,5 @@
 import React from 'react';
-import logo from './assets/react.svg';
+import logo from './assets/react-svg.png';
 import './App.css';
 
 // Composant Header
@@ -34,39 +34,11 @@ const Header = () => {
 };
 
 
-// Composant Footer
-const Footer = () => {
-  return (
-    <footer>
-        <div>
-          <h3 className="font-bold mb-4">Find</h3>
-          <p>Text</p>
-        </div>
-        <div>
-          <h3 className="font-bold mb-4">Help</h3>
-          <p>Text</p>
-        </div>
-        <div>
-          <h3 className="font-bold mb-4">Socials</h3>
-          <div className="space-y-2">
-            {Array.from({ length: 2 }).map((_, index) => (
-              <div key={index} className="p-2 border rounded">
-                SocialMedia {index + 1}
-              </div>
-            ))}
-          </div>
-        </div>
-    </footer>
-  );
-};
-
-
 // Composant App principal
 function App() {
   return (
     <div>
       <Header />
-      <Footer />
     </div>
   );
 }
