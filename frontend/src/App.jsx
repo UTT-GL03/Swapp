@@ -1,48 +1,107 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import data from './assets/sample_data.json'
+import React from 'react';
 import './App.css'
 
+// Composant Header
+const Header = () => {
+  return (
+    <header className="p-4 shadow-md">
+      <div className="container mx-auto flex justify-between items-center">
+        <div className="w-40 h-16 border rounded">
+          <span className="text-lg">Logo</span>
+        </div>
+        
+        <div className="flex-grow mx-8">
+          <input
+            type="search"
+            placeholder="Rechercher..."
+            className="w-full p-2 border rounded"
+          />
+        </div>
+        
+        <div className="flex gap-4">
+          <button className="px-4 py-2 border rounded hover:bg-gray-100">
+            Panier
+          </button>
+          <button className="px-4 py-2 border rounded hover:bg-gray-100">
+            Compte
+          </button>
+        </div>
+      </div>
+      
+      <nav className="mt-4">
+        <div className="container mx-auto">
+          <h2 className="font-bold mb-2">Categories</h2>
+          <ul className="space-y-2">
+            {Array.from({ length: 5 }).map((_, index) => (
+              <li key={index}>
+                <button className="w-full p-2 text-left border rounded hover:bg-gray-100">
+                  Catégorie {index + 1}
+                </button>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </nav>
+    </header>
+  );
+};
+
+// Composant Main Content
+const MainContent = () => {
+  return (
+    <main className="flex-grow">
+      <div className="h-full bg-gray-100 flex items-center justify-center text-gray-400">
+        Background Image
+      </div>
+    </main>
+  );
+};
+
+// Composant Footer
+const Footer = () => {
+  return (
+    <footer className="bg-gray-50 border-t">
+      <div className="container mx-auto p-4">
+        <div className="grid grid-cols-3 gap-8">
+          <div>
+            <h3 className="font-bold mb-4">Find</h3>
+            <div className="p-4 border rounded">
+              <p>Text</p>
+            </div>
+          </div>
+          
+          <div>
+            <h3 className="font-bold mb-4">Help</h3>
+            <div className="p-4 border rounded">
+              <p>Text</p>
+            </div>
+          </div>
+          
+          <div>
+            <h3 className="font-bold mb-4">Socials</h3>
+            <div className="space-y-2">
+              {Array.from({ length: 2 }).map((_, index) => (
+                <div key={index} className="p-2 border rounded">
+                  SocialMedia {index + 1}
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+  );
+};
+
+// Composant App principal
 function App() {
-  const [count, setCount] = useState(0)
-  console.log(data)
-
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        {/*
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        */}
-        <Counter count={count} setCount={setCount} />
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <div className="min-h-screen flex flex-col">
+      <Header />
+      <MainContent />
+      <Footer />
+    </div>
+  );
 }
 
-function Counter({ count, setCount }) {
-  return (
-    <button onClick={() => setCount((count) => count + 1)}>
-      count is {count}
-    </button>
-  )
-}
-
-export default App
+export default App;
