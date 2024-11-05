@@ -38,20 +38,20 @@ margin: 0 auto;
 padding: 8px 30px;
 
 border-radius: 24px;
-border: 1px solid var(--regular-secondary-color);
+border: 1px solid var(--regular-primary-color);
 
 font-weight: 400;
 letter-spacing: .1em;
 
-background-color: var(--regular-secondary-color);
+background-color: var(--regular-primary-color);
 color: white;
 transition-duration: 0.2s;
 }
 
 button:hover {
   background-color: white;
-  color: var(--regular-secondary-color);
-  border-color: var(--regular-secondary-color);
+  color: var(--regular-primary-color);
+  border-color: var(--regular-primary-color);
   border: 1px solid;
   border-radius: 25px;
   text-decoration: none;
