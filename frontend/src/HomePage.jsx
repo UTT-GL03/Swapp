@@ -21,13 +21,13 @@ const Header = () => {
       <div id="btn-container" className="conteneur">
         <div>
           <button>
-            <i className="fa fa-shopping-cart button-icon"></i>
+            <i className="fa fa-shopping-cart button-icon-left"></i>
             Mon panier
           </button>
         </div>
         <div>
           <button>
-            <i className="fa fa-user button-icon"></i>
+            <i className="fa fa-user button-icon-left"></i>
             Mon compte
           </button>
         </div>

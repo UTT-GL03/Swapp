@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import fashionItems from './assets/sample_data.json';
 import './SearchResults.css';
@@ -7,26 +7,35 @@ import Footer from './Footer';
 
 const SearchResults = () => {
   const navigate = useNavigate();
-  const query = new URLSearchParams(useLocation().search).get('q') || ''; // Assurez-vous que query est une chaîne
+  const location = useLocation();
+  const query = new URLSearchParams(location.search).get('q') || ''; // Récupère la query de l'URL, ou vide par défaut
+
+  const [prevQuery, setPrevQuery] = useState('');
+  const [filteredArticles, setFilteredArticles] = useState([]);
 
   const handleItemClick = (url) => {
     navigate(url);
   };
 
-  // Accéder à la liste des articles
-  const articles = fashionItems.articles || []; // Définit un tableau vide par défaut si articles est indéfini
-
-  // Filtrer les articles en fonction du terme de recherche
-  const filteredArticles = articles.filter(item =>
-    item.title.toLowerCase().includes(query.toLowerCase()) || // Filtrer par titre
-    item.category.toLowerCase().includes(query.toLowerCase()) // Filtrer par catégorie
-  );
+  useEffect(() => {
+    if (query !== prevQuery) {
+      const articles = fashionItems.articles || []; // Récupère les articles
+      const newFilteredArticles = query
+        ? articles.filter(item =>
+            item.title.toLowerCase().includes(query.toLowerCase()) || // Filtrer par titre
+            item.category.toLowerCase().includes(query.toLowerCase()) // Filtrer par catégorie
+          )
+        : articles; // Si la query est vide, retourne tous les articles
+      setFilteredArticles(newFilteredArticles);
+      setPrevQuery(query);
+    }
+  }, [query, prevQuery]);
 
   return (
     <div>
       <Header />
       <div className="Items conteneur">
-        {filteredArticles.length > 0 ? ( // Vérifier s'il y a des articles correspondants
+        {filteredArticles.length > 0 ? (
           filteredArticles.map((item) => (
             <div
               key={item.id}
@@ -45,6 +54,7 @@ const SearchResults = () => {
           <div>Aucun article trouvé pour "{query}".</div> // Message si aucun article ne correspond
         )}
       </div>
+      <div className='space'></div>
       <Footer />
     </div>
   );

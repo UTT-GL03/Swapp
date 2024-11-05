@@ -7,10 +7,15 @@ const Header = () => {
   const location = useLocation();
   const query = new URLSearchParams(location.search).get('q') || '';
 
-  const handleSearchChange = (e) => {
-    const newQuery = e.target.value;
-    // Met à jour l'URL avec la nouvelle requête de recherche
-    navigate(`?q=${newQuery}`);
+  const handleSearchKeyPress = (e) => {
+    if (e.key === 'Enter') {
+      e.preventDefault(); // Empêche le rechargement de la page
+      const newQuery = e.target.value;
+      if (newQuery !== query) {
+        // Encode la nouvelle query pour garantir qu'elle est correctement formatée dans l'URL
+        navigate(`?q=${encodeURIComponent(newQuery)}`);
+      }
+    }
   };
 
   return (
@@ -18,24 +23,27 @@ const Header = () => {
       <div id="main-header" className="conteneur">
         <div id="main-header-search">
           <img id="logo2" src={logo} alt="Swapp logo" />
-          <form id="search-form" name="search-form" action="" method="post">
-            <input
-              type="text"
-              id="input-search"
-              name="search"
-              placeholder="Search..."
-              value={query}
-              onChange={handleSearchChange} // Écoute les changements dans le champ de recherche
-              required
-            />
-          </form>
+          <div id="full-search">
+            <button>Catégorie<i className="fa fa-angle-down button-icon-right"></i></button>
+            <form id="search-form" name="search-form" action="" method="post" onSubmit={(e) => e.preventDefault()}>
+              <input
+                type="text"
+                id="input-search"
+                name="search"
+                placeholder="Search..."
+                defaultValue={query}
+                onKeyDown={handleSearchKeyPress} // Lance la recherche uniquement lors de l'appui sur Entrée
+                required
+              />
+            </form>
+          </div>
         </div>
         <div id="main-header-buttons">
           <div>
-            <button><i className="fa fa-shopping-cart button-icon"></i>Mon panier</button>
+            <button><i className="fa fa-shopping-cart button-icon-left"></i>Mon panier</button>
           </div>
           <div>
-            <button><i className="fa fa-user button-icon"></i>Mon compte</button>
+            <button><i className="fa fa-user button-icon-left"></i>Mon compte</button>
           </div>
         </div>
       </div>
