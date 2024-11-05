@@ -4,7 +4,6 @@ import './HomePage.css';
 import { useNavigate } from 'react-router-dom';
 import logo from './assets/swapp-logo.svg';
 import Footer from './Footer';
-import { Routes, Route } from 'react-router-dom';
 
 // Header component
 const Header = () => {
@@ -13,7 +12,8 @@ const Header = () => {
   const handleSearchSubmit = (e) => {
     e.preventDefault();
     const searchTerm = e.target.elements.search.value;
-    navigate(`/search?query=${encodeURIComponent(searchTerm)}`);
+    // Utilisation du bon paramètre pour la recherche
+    navigate(`/search?q=${encodeURIComponent(searchTerm)}`);
   };
 
   return (
