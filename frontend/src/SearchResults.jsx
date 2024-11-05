@@ -1,6 +1,6 @@
 import React from 'react';
 import { useLocation } from 'react-router-dom';
-import fashionItems from './assets/items_data.json';
+import fashionItems from './assets/sample_data.json';
 import './searchResults.css';
 import logo from './assets/swapp-logo.svg';
 
@@ -11,6 +11,9 @@ const SearchResults = () => {
   const handleItemClick = (url) => {
     navigate(url);
   };
+
+   // Accéder à la liste des articles
+   const articles = fashionItems.articles || []; // Définit un tableau vide par défaut si articles est indéfini
 
   return (
     <div>
@@ -43,14 +46,14 @@ const SearchResults = () => {
     </header>
 
       <div className="Items conteneur">
-        {fashionItems.map((item) => (
+        {articles.map((item) => (
             <div
               key={item.id}
               className="Item"
               onClick={() => handleItemClick(item.url)}
               style={{ cursor: 'pointer' }}
             >
-              <img src={item.image} alt={item.title} />
+              <img src={item.image || 'https://via.placeholder.com/150'} alt={item.title} />
               <div className="Item-Content">
                 <div className="Item-Title">{item.title}</div>
                 <div className="Item-Price">${item.price.toFixed(2)}</div>
