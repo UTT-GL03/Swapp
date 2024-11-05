@@ -29,11 +29,22 @@ Nous faisons l'hypothèse que les utilisateurs visitent les plateformes de vente
 3. L’utilisateur accède à la page d'accueil où sont affichés les articles les plus récents ou les articles mis en avant.
 4. Il scrolle jusqu’en bas.
 
-## Scénario 2 : "Rechercher des articles spécifiques"
+## Scénario 2 : "Rechercher des articles spécifiques et rajouter l'un des articles dans le panier"
 1. L’utilisateur clique sur la barre de recherche et entre le mot-clé “veste en cuir”.
 2. Il clique sur "Rechercher" et attend les résultats.
 3. Il clique sur un filtre de prix.
 4. Il entre 0 en prix minimum.
 5. Il entre 50 en prix maximum.
 6. Il parcourt la liste des résultats affichés.
+7. Cliquer sur une annonce
+8. Ajouter au panier (Cliquer “acheter” sur Vinted)
+
+## Scénario 3 : "Déposer une annonce" 
+1. L’utilisateur clique sur le bouton pour déposer une annonce
+2. Il ajoute une photo.
+3. Il ajoute une description.
+4. Il écrit des détails (taille, …)
+5. Il poste  l’annonce.
+
+
 
