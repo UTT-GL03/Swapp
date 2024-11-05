@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import './App.css';
-import './index.css';
+import './HomePage.css';
 import { useNavigate } from 'react-router-dom';
 import logo from './assets/swapp-logo.svg';
 import Footer from './Footer';
@@ -73,7 +73,9 @@ function HomePage() {
   return (
     <div>
       <Header />
-      <Footer />
+      <div className="absolute-footer">
+        <Footer />
+      </div>
     </div>
   );
 }

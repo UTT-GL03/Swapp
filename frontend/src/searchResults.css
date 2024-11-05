@@ -10,59 +10,7 @@ body {
     display: flex;
     flex-direction: column;
   }
-  
-  header{
-    display: flex;
-    flex-direction: column;
-    justify-content: left;
-    width: 100%;
-    padding: 20px 0;
-    gap: 30px;
-}
 
-#main-header{
-    width: 100%;
-    display: flex;
-    flex-direction: wrap;
-    justify-content: space-between;
-    align-items: center;
-}
-
-#main-header-search,
-#main-header-buttons{
-    display: flex;
-    flex-direction: row;
-    gap: 20px;
-    flex-wrap: nowrap;
-    align-items: center;
-}
-
-#logo2{
-    width: 120px;
-}
-
-#main-header-filters{
-    width: 100%;
-    display: flex;
-    gap: 20px;
-    flex-direction: wrap;
-    align-items: center;
-}
-
-#main-header-filters{
-    list-style: none;
-  }
-  
-#main-header-filters li button{
-    background-color: unset;
-    color: var(--regular-secondary-color);
-    border-color: var(--regular-secondary-color);
-  }
-
-#main-header-filters li button:hover {
-    background: white;
-}
-  
   
   /* Items Styles */
   .Items {
