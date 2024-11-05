@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import fashionItems from './assets/sample_data.json';
-import './SearchResults.css';
+import './css/SearchResults.css';
 import Header from './Header';
 import Footer from './Footer';
 

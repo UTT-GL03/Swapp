@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
-import './App.css';
-import './HomePage.css';
+import './css/App.css';
+import './css/HomePage.css';
 import { useNavigate } from 'react-router-dom';
 import logo from './assets/swapp-logo.svg';
 import Footer from './Footer';
