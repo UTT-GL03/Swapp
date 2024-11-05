@@ -1,54 +1,85 @@
-#container-search {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 2rem 3rem;
-  background: white;
-  border-radius: 20px;
-  gap: 40px;
+body{
+  background-image: url("./assets/swapp-home-bkg.png");
+  background-repeat: no-repeat; 
+  background-size: cover; 
+  background-position: center;
 }
-
-#container-user{
-  min-width: fit-content;
-  display: flex;
-  flex-direction: row;
-  gap: 20px;
+.button-icon{
+  margin-right: 10px;
 }
 
 #logo{
-  width: 300px;
+  width: 600px;
 }
 
-#header-home nav ul {
+#main-container{
+margin: 0 auto;
+position:absolute;
+top: 35%;
+left: 50%;
+transform: translate(-50%, -35%);
+text-align: center;
+}
+
+.categories-list{
+  margin: 20px 0 40px 0;
+}
+
+.categories-list ul {
+  padding: 0;
+  margin: 0;
   list-style: none;
-  display: flex;
-  flex-direction: column;
+  display: flex; 
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
   gap: 20px;
+  justify-content: center;
 }
 
-#container-search button{
-  width: 300px;
-  text-align: left;
-  padding: 12px 1em;
-  margin: 0;
+.categories-list ul li {
+  opacity: .6;
+  transition: all 0.4s ease;
+}
 
-  text-transform:none;
-
-
-  background-color: white;
+.categories-list ul li:not(:last-child)::after {
+  content: "|";
+  margin-left: 20px;
   color: var(--regular-secondary-color);
-  border-color: var(--light-secondary-color);
+  opacity: 0.3;
 }
 
-#container-search button:hover{
-  width: 300px;
-  text-align: left;
-  padding: 12px 1em;
-  margin: 0;
-
-  background-color: var(--pale-secondary-color);
+.categories-list ul li a {
+  text-decoration: none;
+  color: var(--regular-secondary-color);
+  font-weight: 600;
+  transition: all 0.4s ease;
 }
 
-#container-user button{
-  margin: 0;
+.categories-list ul li a:hover {
+  text-shadow: 0 0 .01px var(--regular-secondary-color);
+  opacity: 1;
+}
+
+.categories-list ul li:hover {
+  opacity: 1;
+}
+
+#btn-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: flex-end;
+  align-items: center; 
+  padding-top: 20px;
+}
+
+@media screen and (max-width: 620px) {
+  #logo {
+    width: 300px;
+  }
+  #btn-container {
+      justify-content: center;
+  }
 }
