@@ -1,6 +1,8 @@
 import React from 'react';
 import { useLocation } from 'react-router-dom';
 import './searchResults.css';
+import logo from './assets/swapp-logo.svg';
+
 
 const SearchResults = () => {
   const query = new URLSearchParams(useLocation().search).get('q');
@@ -135,24 +137,34 @@ const SearchResults = () => {
   return (
     <div>
       <div className="Frontpage">
-        <div className="Headers">
-          <div className="Logo">Logo</div>
-          <div className="CategoryDropdown">Category/Dropdown</div>
-          <div className="SearchBar">
-            <input type="text" placeholder="Search..." value={query} />
-          </div>
-          <div className="Basket">Basket</div>
-          <div className="Account">Account (Sign In or Profile)</div>
+      <header>
+        <div id="main-header" className="conteneur">
+            <div id="main-header-search">
+                <img id="logo2" src={logo} alt="Swapp logo" />
+                <form id="search-form" name="search-form" action="" method="post">
+                    <input type="text" id="input-search" name="search" placeholder="Search..." value={query} required/>
+                </form>
+            </div>
+            <div id="main-header-buttons">
+                <div><button><i className="fa fa-shopping-cart button-icon"></i>Mon panier</button></div>
+                <div><button><i className="fa fa-user button-icon"></i>Mon compte</button></div>
+            </div>
         </div>
-        <div className="Filters">
-          <div className="Filter">Filter</div>
-          <div className="Filter">Filter</div>
-          <div className="Filter">Filter</div>
-          <div className="Filter">Filter</div>
-          <div className="Filter">Filter</div>
-          <div className="Filter">Filter</div>
+        <div>
+            <nav>
+                <ul id="main-header-filters" className="conteneur">
+                    <li><button>Filtre</button></li>
+                    <li><button>Filtre</button></li>
+                    <li><button>Filtre</button></li>
+                    <li><button>Filtre</button></li>
+                    <li><button>Filtre</button></li>
+                    <li><button>Filtre</button></li>
+                </ul>
+            </nav>
         </div>
-        <div className="Items">
+    </header>
+
+        <div className="Items conteneur">
         {sampleData.map((item) => (
             <div
               key={item.id}
