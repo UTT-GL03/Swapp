@@ -1,6 +1,4 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
-import logo from './assets/swapp-logo.svg';
 import SearchResults from './SearchResults';
 import HomePage from './HomePage';
 import { Routes, Route } from 'react-router-dom';
