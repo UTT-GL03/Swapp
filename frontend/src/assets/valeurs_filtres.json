@@ -1,0 +1,46 @@
+{
+    "Catégories": [
+      "Pulls & gilets",
+      "Manteaux & vestes",
+      "Tee-shirts & chemises",
+      "Robes",
+      "Jupes",
+      "Pantalons",
+      "Chaussures",
+      "Sacs",
+      "Ceintures",
+      "Sous-vêtements"
+    ],
+    "Tailles": {
+      "Vêtements": [
+        "XXS", "XS", "S", "M", "L", "XL", "XXL", "XXXL"
+      ],
+      "Chaussures": [
+        "34", "35", "36", "37", "38", "39", "40", "41", "42", "43", "44", "45", "46", "47"
+      ],
+      "Soutiens-Gorge": [
+        "80A", "85A", "90A", "95A", 
+        "80B", "85B", "90B", "95B", 
+        "80C", "85C", "90C", "95C",
+        "80D", "85D", "90D", "95D", 
+        "80E", "85E", "90E", "95E",
+        "80F", "85F", "90F", "95F", 
+        "80G", "85G", "90G", "95G"
+      ]
+    },
+    "Etat": [
+      "Neuf", "Très bon état", "Bon état", "Etat satisfaisant"
+    ],
+    "Couleurs": [
+      "Blanc", "Noir", "Gris", "Bleu", "Rouge", "Rose", "Jaune", "Vert", "Orange", "Violet", 
+      "Marron", "Beige", "Taupe", "Corail", "Bordeaux", "Marine", "Turquoise", "Lavande", 
+      "Saumon", "Prune", "Menthe", "Pêche", "Khaki", "Moutarde", "Acier", "Ivoire", "Fuchsia", 
+      "Camel", "Chartreuse"
+    ],
+    "Matières": [
+      "Coton", "Laine", "Viscose", "Soie", "Lin", "Cachemire", "Acrylique", "Nylon", "Cuir", 
+      "Simili-cuir", "Velours", "Denim", "Satin", "Velours côtelé", "Jersey", 
+      "Faux-fur", "Dentelle", "Tweed", "Tulle", "Bambou", "Microfibre"
+    ]
+  }
+  

@@ -3,6 +3,7 @@ import './css/App.css';
 import './css/HomePage.css';
 import { useNavigate } from 'react-router-dom';
 import logo from './assets/swapp-logo.svg';
+import valeursFiltres from './assets/valeurs_filtres.json';
 import Footer from './Footer';
 
 // Header component
@@ -15,6 +16,9 @@ const Header = () => {
     // Utilisation du bon paramètre pour la recherche
     navigate(`/search?q=${encodeURIComponent(searchTerm)}`);
   };
+
+  const filtres = valeursFiltres.Catégories || []; // Récupère les articles
+
 
   return (
     <>
@@ -35,10 +39,10 @@ const Header = () => {
       <div id="main-container" className="conteneur">
         <img id="logo" src={logo} alt="Swapp logo" />
         <nav className="categories-list">
-          <ul>
-            {Array.from({ length: 6 }).map((_, index) => (
-              <li key={index}>
-                <a href="">Catégorie</a>
+        <ul>
+            {filtres.map((categorie) => (
+              <li key={categorie}>
+                <a href="">{categorie}</a>
               </li>
             ))}
           </ul>
