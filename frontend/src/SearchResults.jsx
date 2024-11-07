@@ -43,7 +43,7 @@ const SearchResults = () => {
               onClick={() => handleItemClick(item.url)}
               style={{ cursor: 'pointer' }}
             >
-              <img src={item.image || 'https://via.placeholder.com/150'} alt={item.title} />
+              <img src={item.image || 'https://placehold.co/150/e5eeeb/c3d1cc'} alt={item.title} />
               <div className="Item-Content">
                 <div className="Item-Title">{item.title}</div>
                 <div className="Item-Price">${item.price.toFixed(2)}</div>
