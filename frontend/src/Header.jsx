@@ -9,12 +9,15 @@ const Header = () => {
   const query = new URLSearchParams(location.search).get('q') || '';
 
   const valeursFiltres = filtresData?.Filtres || [];
+  const categories = filtresData?.Catégories || [];
   const [filters, setFilters] = useState([]);
   const [openDropdown, setOpenDropdown] = useState(null); // Track the open dropdown
   const [selectedValues, setSelectedValues] = useState({}); // Store selected filter values
   const [priceRange, setPriceRange] = useState({ min: '', max: '' }); // Store min and max price
+  const [openCategoriesDropdown, setOpenCategoriesDropdown] = useState(false); // Track the open Categories dropdown
 
   const dropdownRef = useRef(null);
+  const categoriesDropdownRef = useRef(null);
 
   useEffect(() => {
     // Generate filter buttons with the count of available values
@@ -43,6 +46,11 @@ const Header = () => {
     setOpenDropdown(openDropdown === filterName ? null : filterName);
   };
 
+  // Toggle Categories dropdown visibility
+  const handleCategoriesDropdownToggle = () => {
+    setOpenCategoriesDropdown(!openCategoriesDropdown);
+  };
+
   // Handle the checking state
   const handleCheckboxChange = (filterName, value) => {
     setSelectedValues(prevState => {
@@ -67,6 +75,9 @@ const Header = () => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
         setOpenDropdown(null);
       }
+      if (categoriesDropdownRef.current && !categoriesDropdownRef.current.contains(event.target)) {
+        setOpenCategoriesDropdown(false);
+      }
     };
 
     document.addEventListener("mousedown", handleClickOutside);
@@ -74,6 +85,22 @@ const Header = () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
+
+
+    // Render Categories dropdown
+    const renderCategoriesDropdown = () => {
+      return (
+        <div className="dropdown-content" ref={categoriesDropdownRef}>
+          <div className="dropdown-content-inner categories-dropdown-inner">
+            {categories.map((category, index) => (
+              <div key={index} className="category-item">
+                {category}
+              </div>
+            ))}
+          </div>
+        </div>
+      );
+    };
 
   // Render standard dropdown for filters
   const renderDropdown = (filterName, values) => {
@@ -179,7 +206,14 @@ const Header = () => {
         <div id="main-header-search">
           <img id="logo2" src={logo} alt="Swapp logo" />
           <div id="full-search">
-            <button>Catégorie<i className="fa fa-angle-down button-icon-right"></i></button>
+            <li className="filter-item">
+              <button
+                onClick={handleCategoriesDropdownToggle}
+              >
+                Catégories<i className="fa fa-angle-down button-icon-right"></i>
+              </button>
+              {openCategoriesDropdown && renderCategoriesDropdown()}
+            </li>
             <form id="search-form" name="search-form" action="" method="post" onSubmit={(e) => e.preventDefault()}>
               <input
                 type="text"

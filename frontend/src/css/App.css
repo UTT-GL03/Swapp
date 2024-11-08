@@ -169,10 +169,6 @@ header{
   align-items: center;
 }
 
-#main-header-filters{
-  list-style: none;
-}
-
 #main-header-filters li button{
   background-color: white;
   color: var(--regular-secondary-color);
@@ -202,16 +198,17 @@ header{
 
 .filter-item {
   position: relative;
+  list-style: none;
 }
 
 .dropdown-content {
   position: absolute;
   z-index: 10;
-  top: 100%;
+  /* top: 100%; */
   left: 0;
 
   width: max-content;
-  min-width: 100%;
+  /* min-width: 100%; */
 
   background-color: white;
   border: 1px solid var(--pale-secondary-color);
@@ -256,6 +253,20 @@ header{
   scrollbar-color: var(--regular-secondary-color) #E8E8E8;
 }
 
+.categories-dropdown-inner {
+  max-height: none; /* Disable the height limit */
+  overflow-y: visible; /* Disable vertical scroll */
+  padding-right: 0; /* No need for padding on the right */
+}
+.category-item {
+  padding: 4px 0;
+  cursor: pointer;
+}
+.category-item:hover,
+.checkbox-label:hover {
+  color: var(--regular-primary-color);
+}
+
 .checkbox-label {
   display: flex;
   flex-direction: row-reverse; /* Inverse l'ordre : texte à gauche, checkbox à droite */
@@ -288,12 +299,12 @@ header{
 }
 
 .input-price{
-  width: 70px;
+  width: 50px;
   box-sizing: border-box;
   border: none;
   border-bottom: 1px solid var(--pale-secondary-color);
   box-shadow: none;
-  padding: 8px;
+  padding: 8px 8px 8px 0;
   background: white;
 }
 .input-price:focus {
