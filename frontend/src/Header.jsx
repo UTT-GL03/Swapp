@@ -8,14 +8,20 @@ const Header = () => {
   const location = useLocation();
   const query = new URLSearchParams(location.search).get('q') || '';
 
+  const handleLogoClick = () => {
+    navigate('/'); // Redirige vers la page d'accueil
+  };
+
   const valeursFiltres = filtresData?.Filtres || [];
   const categories = filtresData?.Catégories || [];
+
   const [filters, setFilters] = useState([]);
-  const [openDropdown, setOpenDropdown] = useState(null); // Track the open dropdown
-  const [selectedValues, setSelectedValues] = useState({}); // Store selected filter values
   const [priceRange, setPriceRange] = useState({ min: '', max: '' }); // Store min and max price
-  const [openCategoriesDropdown, setOpenCategoriesDropdown] = useState(false); // Track the open Categories dropdown
+  const [selectedValues, setSelectedValues] = useState({}); // Store selected filter values
   const [selectedCategory, setSelectedCategory] = useState(categories[0] || ''); // Set the default selected category to the first one
+
+  const [openDropdown, setOpenDropdown] = useState(null); // Track the open dropdown
+  const [openCategoriesDropdown, setOpenCategoriesDropdown] = useState(false); // Track the open Categories dropdown
 
   const dropdownRef = useRef(null);
   const categoriesDropdownRef = useRef(null);
@@ -30,6 +36,14 @@ const Header = () => {
     filterButtons.push({ name: "Prix" });
     setFilters(filterButtons);
   }, []);
+
+    // Fonction helper pour vérifier si un filtre est actif
+    const isFilterActive = (filterName) => {
+      if (filterName === 'Prix') {
+        return priceRange.min !== '' || priceRange.max !== '';
+      }
+      return selectedValues[filterName]?.length > 0;
+    };
 
   // Handle search on Enter key press
   const handleSearchKeyPress = (e) => {
@@ -190,15 +204,25 @@ const Header = () => {
   const renderFilterButtons = () => (
     filters.map((filter, index) => {
       const filterValues = valeursFiltres[filter.name];
+      const isActive = isFilterActive(filter.name);
       return (
         <li key={index} className="filter-item">
           <button
+            className={isActive ? 'active' : ''}
             onClick={(e) => {
               e.preventDefault();
               handleDropdownToggle(filter.name);
             }}
           >
-            {filter.name}<i className="fa fa-angle-down button-icon-right"></i>
+            {filter.name}
+            {isActive && (
+              <span className="filter-count">
+                {filter.name === 'Prix' 
+                  ? '1'
+                  : selectedValues[filter.name]?.length}
+              </span>
+            )}
+            <i className="fa fa-angle-down button-icon-right"></i>
           </button>
           {openDropdown === filter.name && renderDropdown(filter.name, filterValues)}
         </li>
@@ -210,7 +234,13 @@ const Header = () => {
     <header>
       <div id="main-header" className="conteneur">
         <div id="main-header-search">
-          <img id="logo2" src={logo} alt="Swapp logo" />
+                    <img 
+            id="logo2" 
+            src={logo} 
+            alt="Swapp logo" 
+            onClick={handleLogoClick} 
+            style={{ cursor: 'pointer' }} // Change le curseur pour indiquer que c'est cliquable
+          />
           <div id="full-search">
             <li className="filter-item">
               <button
