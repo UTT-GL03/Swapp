@@ -1,16 +1,17 @@
 {
-    "Catégories": [
-      "Pulls & gilets",
-      "Manteaux & vestes",
-      "Tee-shirts & chemises",
-      "Robes",
-      "Jupes",
-      "Pantalons",
-      "Chaussures",
-      "Sacs",
-      "Ceintures",
-      "Sous-vêtements"
-    ],
+  "Catégories": [
+    "Pulls & gilets",
+    "Manteaux & vestes",
+    "Tee-shirts & chemises",
+    "Robes",
+    "Jupes",
+    "Pantalons",
+    "Sous-vêtements",
+    "Chaussures",
+    "Sacs",
+    "Ceintures"
+  ],
+  "Filtres": {
     "Tailles": {
       "Vêtements": [
         "XXS", "XS", "S", "M", "L", "XL", "XXL", "XXXL"
@@ -43,4 +44,4 @@
       "Faux-fur", "Dentelle", "Tweed", "Tulle", "Bambou", "Microfibre"
     ]
   }
-  
+}

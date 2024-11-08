@@ -65,7 +65,7 @@ button:hover {
   margin-left: 10px;
 }
 
-input{
+.input-search{
   text-align: center;
   width: 300px;
   box-sizing: border-box;
@@ -81,7 +81,7 @@ input::placeholder {
   color: var(--light-secondary-color); 
 }
 
-input:focus,
+.input-search:focus,
 select:focus {
 outline: none;
 box-shadow: 5px 5px 100px var(--light-secondary-color);
@@ -96,7 +96,11 @@ box-shadow: 5px 5px 100px var(--light-secondary-color);
   text-align: justify;
 } 
 
-
+h4{
+  font-weight: 700;
+  color: var(--regular-secondary-color);
+  margin: 16px 0 8px 0;
+}
 /* --------------------------- Header -------------------------- */
 
 
@@ -267,6 +271,47 @@ header{
 .checkbox-label input[type="checkbox"] {
   width: auto;
   box-shadow: none; 
+}
+
+.price-filter{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  gap: 30px;
+}
+
+.price-filter-min,
+.price-filter-max{
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.input-price{
+  width: 70px;
+  box-sizing: border-box;
+  border: none;
+  border-bottom: 1px solid var(--pale-secondary-color);
+  box-shadow: none;
+  padding: 8px;
+  background: white;
+}
+.input-price:focus {
+  outline: none;
+  box-shadow: none;
+  border-bottom: 1px solid var(--light-secondary-color);
+}
+.input-price::placeholder {
+  color: var(--pale-secondary-color); 
+}
+input[type=number]::-webkit-outer-spin-button,
+input[type=number]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+/* For Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
 }
 
 /* --------------------------- Footer -------------------------- */

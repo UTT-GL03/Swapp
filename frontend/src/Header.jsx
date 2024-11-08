@@ -1,30 +1,33 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import logo from './assets/swapp-logo.svg';
 import filtresData from './assets/valeurs_filtres.json';
-
 
 const Header = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const query = new URLSearchParams(location.search).get('q') || '';
 
-  const valeursFiltres = filtresData || [];
+  const valeursFiltres = filtresData?.Filtres || [];
   const [filters, setFilters] = useState([]);
   const [openDropdown, setOpenDropdown] = useState(null); // Track the open dropdown
   const [selectedValues, setSelectedValues] = useState({}); // Store selected filter values
+  const [priceRange, setPriceRange] = useState({ min: '', max: '' }); // Store min and max price
+
+  const dropdownRef = useRef(null);
 
   useEffect(() => {
     // Generate filter buttons with the count of available values
-    const filterButtons = Object.keys(valeursFiltres).map((filterKey) => {
-      const filterValues = valeursFiltres[filterKey];
-      return {
-        name: filterKey,
-      };
-    });
+    const filterButtons = Object.keys(valeursFiltres).map((filterKey) => ({
+      name: filterKey,
+    }));
+
+    // Add the custom "Prix" filter button
+    filterButtons.push({ name: "Prix" });
     setFilters(filterButtons);
   }, []);
 
+  // Handle search on Enter key press
   const handleSearchKeyPress = (e) => {
     if (e.key === 'Enter') {
       e.preventDefault();
@@ -35,10 +38,12 @@ const Header = () => {
     }
   };
 
+  // Toggle dropdown visibility
   const handleDropdownToggle = (filterName) => {
-    setOpenDropdown(openDropdown === filterName ? null : filterName); // Toggle the dropdown
+    setOpenDropdown(openDropdown === filterName ? null : filterName);
   };
 
+  // Handle the checking state
   const handleCheckboxChange = (filterName, value) => {
     setSelectedValues(prevState => {
       const currentSelection = prevState[filterName] || [];
@@ -50,10 +55,84 @@ const Header = () => {
     });
   };
 
-  const renderDropdown = (filterName, values) => (
-    <div className="dropdown-content">
-      <div className="dropdown-content-inner">
-        {values.map((value, index) => (
+  // Handle price range input change
+  const handlePriceChange = (e) => {
+    const { name, value } = e.target;
+    setPriceRange((prevRange) => ({ ...prevRange, [name]: value }));
+  };
+
+  // Close dropdown on outside click
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setOpenDropdown(null);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
+  // Render standard dropdown for filters
+  const renderDropdown = (filterName, values) => {
+    if (filterName === 'Prix') {
+      // Custom dropdown content for "Prix"
+      return (
+        <div className="dropdown-content" ref={dropdownRef}>
+          <div className="dropdown-content-inner">
+            <div className="price-filter">
+              <div className="price-filter-min">
+                <label htmlFor="price-min">De</label>
+                <input
+                  type="number"
+                  id="price-min"
+                  className="input-price"
+                  name="min"
+                  value={priceRange.min}
+                  onChange={handlePriceChange}
+                  placeholder="Min"
+                />
+              </div>
+              <div className="price-filter-max">
+                <label htmlFor="price-max">À</label>
+                <input
+                  type="number"
+                  id="price-max"
+                  className="input-price"
+                  name="max"
+                  value={priceRange.max}
+                  onChange={handlePriceChange}
+                  placeholder="Max"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      );
+    }
+
+    // Default filter dropdown content
+    const renderFilterValues = (filterValues) => {
+      if (typeof filterValues === 'object' && !Array.isArray(filterValues)) {
+        return Object.keys(filterValues).map((subcategory, index) => (
+          <div key={index}>
+            <h4>{subcategory}</h4>
+            {filterValues[subcategory].map((value, valueIndex) => (
+              <label key={valueIndex} className="checkbox-label">
+                <input
+                  type="checkbox"
+                  checked={selectedValues[filterName]?.includes(value) || false}
+                  onChange={() => handleCheckboxChange(filterName, value)}
+                />
+                {value}
+              </label>
+            ))}
+          </div>
+        ));
+      } else {
+        return filterValues.map((value, index) => (
           <label key={index} className="checkbox-label">
             <input
               type="checkbox"
@@ -62,21 +141,33 @@ const Header = () => {
             />
             {value}
           </label>
-        ))}
+        ));
+      }
+    };
+
+    return (
+      <div className="dropdown-content" ref={dropdownRef}>
+        <div className="dropdown-content-inner">
+          {renderFilterValues(values)}
+        </div>
       </div>
-    </div>
-  );
+    );
+  };
 
   const renderFilterButtons = () => (
     filters.map((filter, index) => {
       const filterValues = valeursFiltres[filter.name];
-      const values = Array.isArray(filterValues) ? filterValues : Object.values(filterValues).flat();
       return (
         <li key={index} className="filter-item">
-          <button onClick={() => handleDropdownToggle(filter.name)}>
-            {filter.name}
+          <button
+            onClick={(e) => {
+              e.preventDefault();
+              handleDropdownToggle(filter.name);
+            }}
+          >
+            {filter.name}<i className="fa fa-angle-down button-icon-right"></i>
           </button>
-          {openDropdown === filter.name && renderDropdown(filter.name, values)}
+          {openDropdown === filter.name && renderDropdown(filter.name, filterValues)}
         </li>
       );
     })
@@ -92,7 +183,7 @@ const Header = () => {
             <form id="search-form" name="search-form" action="" method="post" onSubmit={(e) => e.preventDefault()}>
               <input
                 type="text"
-                id="input-search"
+                className="input-search"
                 name="search"
                 placeholder="Search..."
                 defaultValue={query}

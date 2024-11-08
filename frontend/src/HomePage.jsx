@@ -54,7 +54,7 @@ const Header = () => {
         >
           <input
             type="text"
-            id="input-search"
+            className="input-search"
             name="search"
             placeholder="Rechercher"
             required
