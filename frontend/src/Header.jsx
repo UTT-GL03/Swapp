@@ -15,6 +15,7 @@ const Header = () => {
   const [selectedValues, setSelectedValues] = useState({}); // Store selected filter values
   const [priceRange, setPriceRange] = useState({ min: '', max: '' }); // Store min and max price
   const [openCategoriesDropdown, setOpenCategoriesDropdown] = useState(false); // Track the open Categories dropdown
+  const [selectedCategory, setSelectedCategory] = useState(categories[0] || ''); // Set the default selected category to the first one
 
   const dropdownRef = useRef(null);
   const categoriesDropdownRef = useRef(null);
@@ -86,21 +87,26 @@ const Header = () => {
     };
   }, []);
 
+  // Handle category selection
+  const handleCategorySelection = (category) => {
+    setSelectedCategory(category); // Update the selected category
+    setOpenCategoriesDropdown(false); // Close the dropdown after selection
+  };
 
-    // Render Categories dropdown
-    const renderCategoriesDropdown = () => {
-      return (
-        <div className="dropdown-content" ref={categoriesDropdownRef}>
-          <div className="dropdown-content-inner categories-dropdown-inner">
-            {categories.map((category, index) => (
-              <div key={index} className="category-item">
-                {category}
-              </div>
-            ))}
-          </div>
+  // Render Categories dropdown with selected category excluded
+  const renderCategoriesDropdown = () => {
+    return (
+      <div className="dropdown-content" ref={categoriesDropdownRef}>
+        <div className="dropdown-content-inner categories-dropdown-inner">
+          {categories.filter(category => category !== selectedCategory).map((category, index) => (
+            <div key={index} className="category-item" onClick={() => handleCategorySelection(category)}>
+              {category}
+            </div>
+          ))}
         </div>
-      );
-    };
+      </div>
+    );
+  };
 
   // Render standard dropdown for filters
   const renderDropdown = (filterName, values) => {
@@ -210,7 +216,7 @@ const Header = () => {
               <button
                 onClick={handleCategoriesDropdownToggle}
               >
-                Catégories<i className="fa fa-angle-down button-icon-right"></i>
+                {selectedCategory || "Catégories"} <i className="fa fa-angle-down button-icon-right"></i>
               </button>
               {openCategoriesDropdown && renderCategoriesDropdown()}
             </li>

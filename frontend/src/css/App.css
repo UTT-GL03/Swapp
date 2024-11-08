@@ -155,6 +155,8 @@ header{
   color: var(--regular-secondary-color);
   border-color: var(--pale-secondary-color);
   border-radius: 20px 0 0 20px;
+  min-width: 255px;
+  text-align: left;
 }
 
 #full-search button:hover{
@@ -165,7 +167,7 @@ header{
   width: 100%;
   display: flex;
   gap: 20px;
-  flex-direction: wrap;
+  flex-direction: wrap; 
   align-items: center;
 }
 
@@ -181,7 +183,7 @@ header{
   border-color: var(--light-secondary-color);
 }
 
-@media screen and (max-width: 1050px) {
+@media screen and (max-width: 1150px) {
   #main-header-search {
       flex-direction: column;
       align-items: flex-start;
@@ -261,6 +263,7 @@ header{
 .category-item {
   padding: 4px 0;
   cursor: pointer;
+  min-width: 190px;
 }
 .category-item:hover,
 .checkbox-label:hover {
