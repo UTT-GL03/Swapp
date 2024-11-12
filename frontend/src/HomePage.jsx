@@ -66,13 +66,13 @@ const Header = () => {
 };
 
 function HomePage() {
-  useEffect(() => {
-    document.body.classList.add('homepage-background');
+  // useEffect(() => {
+  //   document.body.classList.add('homepage-background');
   
-    return () => {
-      document.body.classList.remove('homepage-background');
-    };
-  }, []);
+  //   return () => {
+  //     document.body.classList.remove('homepage-background');
+  //   };
+  // }, []);
 
   return (
     <div>
