@@ -1,9 +1,6 @@
-/* .homepage-background {
-  background-image: url("../assets/swapp-home-bkg.png");
-  background-repeat: no-repeat; 
-  background-size: cover; 
-  background-position: center;
-} */
+.homepage-background {
+  background: radial-gradient(white, white, var(--pale-secondary-color));
+}
 
 #logo{
   width: 600px;
