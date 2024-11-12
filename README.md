@@ -26,10 +26,10 @@ Pour contrer l’effet rebond, Swapp s’efforcera de limiter la stimulation art
 
 Enfin, il est essentiel de rappeler que si les plateformes de seconde main ont révolutionné le marché de l'occasion en le rendant accessible, elles doivent aussi trouver un équilibre entre accessibilité et durabilité pour préserver leur impact écologique positif initial.
 
-# Scénarios d'usage et impacts
+# Scénarios d'usage
 Nous faisons l'hypothèse que les utilisateurs visitent les plateformes de vente d'articles de seconde main lors de moments opportunistes, que ce soit pendant leurs pauses, dans les transports en commun ou à la maison. Ces visites peuvent être motivées par la recherche d'articles spécifiques, la découverte de bonnes affaires ou la consultation de nouveautés.
 
-## Scénario 1 : "Consulter les articles de la page de recherche"
+## Scénario 1 : Consulter les articles de la page de recherche
 Ce scénario répond à l’un des besoins primaires d’un utilisateur qui découvre la plateforme. La présentation d’articles récents ou populaires lui permet d’explorer le catalogue facilement. Cela attire les nouveaux visiteurs et augmente leur engagement initial sans demander un investissement immédiat (comme une inscription), facilitant la découverte de la plateforme.
 
 #### Étapes :
@@ -39,7 +39,7 @@ Ce scénario répond à l’un des besoins primaires d’un utilisateur qui déc
 4.  Il scrolle jusqu’en bas pour voir plus d'articles.
 
 
-## Scénario 2 : "Rechercher des articles spécifiques et ajouter un article au panier"
+## Scénario 2 : Rechercher des articles spécifiques et ajouter un article au panier
 Ce scénario montre l’expérience utilisateur pour trouver un produit spécifique, ce qui est essentiel pour les acheteurs ayant un besoin ou une préférence particulière. Ajouter un article au panier sans procéder à l’achat final évite l'accumulation d'achats impulsifs, limitant ainsi l'impact écologique et encourageant une consommation réfléchie.
 
 Remarque : L’absence d’un scénario allant jusqu’à l’achat s’explique par la volonté de limiter l’achat compulsif et de privilégier une expérience écoresponsable, en encourageant l’utilisateur à se poser des questions avant de finaliser sa commande.
@@ -122,7 +122,8 @@ Nous avons fait le test sur 5 pages :
 - https://www.etsy.com/fr
 - https://www.geev.com/fr/recherche/objets?location=48.862725%2C2.287592&type=donation&distance=15000
 
-Sur ces 5 pages, seuls 2 ont fonctionné correctement : Vinted et Geev. Deepop a "Scenario failed" et Leboncoin et Etsy sont bloqués sur des pages de Captcha.
+Sur ces 5 pages, seules 2 ont fonctionné correctement : Vinted et Geev. Deepop a "Scenario failed" et Leboncoin et Etsy sont bloqués sur des pages de Captcha.
 
 Voici le résultat pour Vinted : [Résultat GreenFrame Vinted](https://app.greenframe.io/analyses/547cd8a6-e40c-4a03-b636-f107d62ddc51)
+
 Voici le résulat pour Geev : [Résultat GreenFrame Geev](https://app.greenframe.io/analyses/9aab1aad-f384-4412-93f9-d540625cb52d)
