@@ -77,3 +77,14 @@ Fig4 : Prototype 1 - Screenshot de la page d'accueil
 Fig5 : Prototype 1 - Screenshot de la page de recherche
 
 Le nombre d'éléments à récupérer par recherche n'est pas encore établi, mais le sera au prototype suivant. Il ne sera alors possible que d'afficher 20 éléments à la fois.
+
+## Prototype 2 
+
+
+
+
+# GreenFrame
+
+## Swapp Benchmark
+
+Nous avons fait le test sur 5 pages :
