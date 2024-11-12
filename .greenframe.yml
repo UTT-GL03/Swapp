@@ -1,5 +1,5 @@
 baseURL: http://localhost
-projectName: swapp
+projectName: Swapp
 scenarios:
     - path: ./benchmark/scenario1.js
       name: Consulter les titres
