@@ -88,3 +88,13 @@ Le nombre d'éléments à récupérer par recherche n'est pas encore établi, ma
 ## Swapp Benchmark
 
 Nous avons fait le test sur 5 pages :
+- https://www.vinted.fr/
+- https://www.depop.com/fr/
+- https://www.leboncoin.fr/
+- https://www.etsy.com/fr
+- https://www.geev.com/fr/recherche/objets?location=48.862725%2C2.287592&type=donation&distance=15000
+
+Sur ces 5 pages, seuls 2 ont fonctionné correctement : Vinted et Geev. Deepop a "Scenario failed" et Leboncoin et Etsy sont bloqués sur des pages de Captcha.
+
+Voici le résultat pour Vinted : [Résultat GreenFrame Vinted](https://app.greenframe.io/analyses/547cd8a6-e40c-4a03-b636-f107d62ddc51)
+Voici le résulat pour Geev : [Résultat GreenFrame Geev](https://app.greenframe.io/analyses/9aab1aad-f384-4412-93f9-d540625cb52d)
