@@ -16,35 +16,63 @@ Enfin, ces plateformes renforcent les liens sociaux en créant des communautés 
 
 
 ## Effets de la numérisation
-La numérisation de la vente et de l’échange d’articles de seconde main a permis de démocratiser l'accès à ce type de services et de créer des communautés massives d'acheteurs et de vendeurs. Des millions de transactions sont réalisées chaque année via ces plateformes. Bien que ça n’ait pas été l’objectif, un effet rebond s’est installé : là que l’échange fiable de biens qualitatifs à coûts dérisoires est facilité, les utilisateurs consomment plus que jamais. Du côté des vendeurs, il est probable que l'argent obtenu par la vente ne soit pas épargné, mais réinjecté dans des achats, qu’ils soient d'occasion ou neufs, ce qui compromet l'idée d'une véritable économie circulaire. Cette démesure s’illustre sur Vinted par la création de comptes “pro” d’utilisateurs qui capitalisent sur ce commerce (source : [Le Parisien](https://www.leparisien.fr/etudiant/vie-etudiante/a-20-ans-ils-gagnent-tous-les-mois-plusieurs-milliers-deuros-grace-a-vinted-PRLCSUNQ45BNFFM5GM7HASBVRI.php)).
+La numérisation de la vente et de l’échange d’articles de seconde main a permis de démocratiser l'accès à ce type de services et de créer des communautés massives d'acheteurs et de vendeurs. Avant l’ère numérique, la revente d'articles se limitait à des pratiques locales comme les vide-greniers, les marchés de seconde main, ou encore les associations caritatives. Ces échanges restaient limités par les contraintes géographiques et le faible nombre d'acheteurs potentiels. Avec l'essor des plateformes numériques, les transactions se font désormais à grande échelle, ouvrant des possibilités accrues de trouver des acheteurs ou des vendeurs, mais avec un coût écologique amplifié par le trafic en ligne.
 
-D’autre part, chaque interaction numérique, qu'il s'agisse de la consultation des annonces, de l'envoi de messages, ou de la gestion des paiements et expéditions, a un coût écologique.L'impact environnemental d'une annonce en ligne peut sembler négligeable au premier abord, mais lorsqu'on considère les millions d'utilisateurs actifs et les multiples images, descriptions et requêtes serveur générées, cela devient significatif. De plus, des mécanismes incitatifs (comme les notifications push et les algorithmes de recommandation) poussent les utilisateurs à passer plus de temps sur la plateforme, augmentant ainsi leur empreinte numérique. La facilité d'achat en ligne peut parfois inciter à une surconsommation numérique, réduisant ainsi l'impact positif initial de la seconde main.
+Bien que ça n’ait pas été l’objectif, un effet rebond s’est installé : l'échange facilité de biens qualitatifs à coûts dérisoires incite les utilisateurs à consommer plus que jamais. Du côté des vendeurs, il est probable que l'argent obtenu par la vente ne soit pas épargné, mais réinjecté dans des achats, qu’ils soient d'occasion ou neufs, ce qui compromet l'idée d'une véritable économie circulaire. Cette démesure s’illustre sur Vinted par la création de comptes “pro” d’utilisateurs qui capitalisent sur ce commerce (source : [Le Parisien](https://www.leparisien.fr/etudiant/vie-etudiante/a-20-ans-ils-gagnent-tous-les-mois-plusieurs-milliers-deuros-grace-a-vinted-PRLCSUNQ45BNFFM5GM7HASBVRI.php)).
+
+D’autre part, chaque interaction numérique, qu'il s'agisse de la consultation des annonces, de l'envoi de messages, ou de la gestion des paiements et expéditions, a un coût écologique. L'impact environnemental d'une annonce en ligne peut sembler négligeable au premier abord, mais lorsqu'on considère les millions d'utilisateurs actifs et les multiples images, descriptions et requêtes serveur générées, cela devient significatif. De plus, des mécanismes incitatifs (comme les notifications push et les algorithmes de recommandation) poussent les utilisateurs à passer plus de temps sur la plateforme, augmentant ainsi leur empreinte numérique.
+
+Pour contrer l’effet rebond, Swapp s’efforcera de limiter la stimulation artificielle de l'achat impulsif par une conception éthique de l’interface et de l'expérience utilisateur. Nous viserons un modèle d'interactions responsable, évitant les notifications fréquentes et en réduisant l’encouragement à une consommation excessive, en privilégiant une approche minimaliste et durable.
+
+Enfin, il est essentiel de rappeler que si les plateformes de seconde main ont révolutionné le marché de l'occasion en le rendant accessible, elles doivent aussi trouver un équilibre entre accessibilité et durabilité pour préserver leur impact écologique positif initial.
 
 # Scénarios d'usage et impacts
 Nous faisons l'hypothèse que les utilisateurs visitent les plateformes de vente d'articles de seconde main lors de moments opportunistes, que ce soit pendant leurs pauses, dans les transports en commun ou à la maison. Ces visites peuvent être motivées par la recherche d'articles spécifiques, la découverte de bonnes affaires ou la consultation de nouveautés.
 
 ## Scénario 1 : "Consulter les articles de la page de recherche"
-1. L’utilisateur va pour la première fois sur le site.
-2. Il accepte les cookies.
-3. L’utilisateur accède à la page de recherche où sont affichés les articles les plus récents ou les articles mis en avant.
-4. Il scrolle jusqu’en bas.
+Ce scénario répond à l’un des besoins primaires d’un utilisateur qui découvre la plateforme. La présentation d’articles récents ou populaires lui permet d’explorer le catalogue facilement. Cela attire les nouveaux visiteurs et augmente leur engagement initial sans demander un investissement immédiat (comme une inscription), facilitant la découverte de la plateforme.
 
-## Scénario 2 : "Rechercher des articles spécifiques et rajouter l'un des articles dans le panier"
-1. L’utilisateur clique sur la barre de recherche et entre le mot-clé “veste en cuir”.
-2. Il clique sur "Rechercher" et attend les résultats.
-3. Il clique sur un filtre de prix.
-4. Il entre 0 en prix minimum.
-5. Il entre 50 en prix maximum.
-6. Il parcourt la liste des résultats affichés.
-7. Cliquer sur une annonce
-8. Ajouter au panier (Cliquer “acheter” sur Vinted)
+#### Étapes :
+1.  L’utilisateur visite le site pour la première fois.
+2.  Il accepte les cookies.
+3.  Il accède à la page de recherche, où sont affichés les articles les plus récents ou ceux mis en avant.
+4.  Il scrolle jusqu’en bas pour voir plus d'articles.
 
-## Scénario 3 : "Déposer une annonce" 
+
+## Scénario 2 : "Rechercher des articles spécifiques et ajouter un article au panier"
+Ce scénario montre l’expérience utilisateur pour trouver un produit spécifique, ce qui est essentiel pour les acheteurs ayant un besoin ou une préférence particulière. Ajouter un article au panier sans procéder à l’achat final évite l'accumulation d'achats impulsifs, limitant ainsi l'impact écologique et encourageant une consommation réfléchie.
+
+Remarque : L’absence d’un scénario allant jusqu’à l’achat s’explique par la volonté de limiter l’achat compulsif et de privilégier une expérience écoresponsable, en encourageant l’utilisateur à se poser des questions avant de finaliser sa commande.
+
+#### Étapes :
+1.  L’utilisateur clique sur la barre de recherche et entre le mot-clé “veste en cuir”.
+2.  Il clique sur "Rechercher" et attend les résultats.
+3.  Il applique un filtre de prix.
+4.  Il entre 0 en prix minimum.
+5.  Il entre 50 en prix maximum.
+6.  Il parcourt la liste des résultats filtrés.
+7.  Il clique sur une annonce pour voir les détails.
+8.  Il clique sur "Ajouter au panier".
+
+
+## Scénario 3 : Déposer une annonce
+Ce scénario couvre l'autre côté du cercle d'économie circulaire : la revente. En intégrant le dépôt d'annonces, la plateforme complète son objectif de prolonger la durée de vie des produits. Bien qu’il puisse ne pas être le premier scénario pour un MVP, le dépôt d’annonces est essentiel pour assurer un flux d’articles constants et garantir l’attractivité de la plateforme pour les acheteurs.
+
+#### Étapes :
 1. L’utilisateur clique sur le bouton pour déposer une annonce
 2. Il ajoute une photo.
 3. Il ajoute une description.
 4. Il écrit des détails (taille, …)
 5. Il poste  l’annonce.
+
+## Scénario 4 : Consulter son panier et finaliser un achat (acte d'achat)
+Ce scénario est crucial pour permettre aux utilisateurs de finaliser leur expérience d'achat en toute sécurité et avec transparence. En permettant une révision des articles ajoutés avant de passer commande, la plateforme encourage une consommation raisonnée. Pour un MVP, intégrer l’acte d'achat valide l’ensemble du processus de bout en bout, assurant ainsi la complétude du cycle d'achat/revente.
+
+ #### Étapes :
+1. L’utilisateur accède à son panier pour revoir les articles qu’il a sélectionnés.
+2. Il vérifie les détails des articles, les conditions de vente, et les frais d’expédition.
+3. Il choisit une méthode de paiement.
+4. Il valide le paiement et finalise son achat.
 
 # Maquettage & données
 Afin de limiter au maximum l'afflux de données inutile, nous avons choisi de mettre en place une page d'accueil sans scroll, dans laquelle il est possible de sélectionner une catégorie ou taper un élément spécifique dans le champ de saisie. 
