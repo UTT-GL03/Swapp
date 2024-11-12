@@ -1,0 +1,9 @@
+baseURL: http://localhost
+projectName: swapp
+scenarios:
+    - path: ./benchmark/scenario1.js
+      name: Consulter les titres
+    - path: ./benchmark/scenario2.js
+      name: Consulter un article
+containers:
+  - swapp-static_hosting-1
