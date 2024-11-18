@@ -9,43 +9,43 @@ const Header = () => {
   const query = new URLSearchParams(location.search).get('q') || '';
 
   const handleLogoClick = () => {
-    navigate('/'); // Redirige vers la page d'accueil
+    navigate('/');
   };
 
-  const valeursFiltres = filtresData?.Filtres || [];
-  const categories = filtresData?.Catégories || [];
+  // Get categories and filters from the new JSON structure
+  const categories = filtresData?.categories?.values || [];
+  const filtersData = filtresData?.filters || {};
 
   const [filters, setFilters] = useState([]);
-  const [priceRange, setPriceRange] = useState({ min: '', max: '' }); // Store min and max price
-  const [selectedValues, setSelectedValues] = useState({}); // Store selected filter values
-  const [selectedCategory, setSelectedCategory] = useState(categories[0] || ''); // Set the default selected category to the first one
+  const [priceRange, setPriceRange] = useState({ min: '', max: '' });
+  const [selectedValues, setSelectedValues] = useState({});
+  const [selectedCategory, setSelectedCategory] = useState(categories[0] || '');
 
-  const [openDropdown, setOpenDropdown] = useState(null); // Track the open dropdown
-  const [openCategoriesDropdown, setOpenCategoriesDropdown] = useState(false); // Track the open Categories dropdown
+  const [openDropdown, setOpenDropdown] = useState(null);
+  const [openCategoriesDropdown, setOpenCategoriesDropdown] = useState(false);
 
   const dropdownRef = useRef(null);
   const categoriesDropdownRef = useRef(null);
 
   useEffect(() => {
-    // Generate filter buttons with the count of available values
-    const filterButtons = Object.keys(valeursFiltres).map((filterKey) => ({
-      name: filterKey,
+    // Generate filter buttons using the new structure
+    const filterButtons = Object.entries(filtersData).map(([key, value]) => ({
+      key: value.key,
+      displayName: value.displayName
     }));
 
     // Add the custom "Prix" filter button
-    filterButtons.push({ name: "Prix" });
+    filterButtons.push({ key: "price", displayName: "Prix" });
     setFilters(filterButtons);
   }, []);
 
-    // Fonction helper pour vérifier si un filtre est actif
-    const isFilterActive = (filterName) => {
-      if (filterName === 'Prix') {
-        return priceRange.min !== '' || priceRange.max !== '';
-      }
-      return selectedValues[filterName]?.length > 0;
-    };
+  const isFilterActive = (filterKey) => {
+    if (filterKey === 'price') {
+      return priceRange.min !== '' || priceRange.max !== '';
+    }
+    return selectedValues[filterKey]?.length > 0;
+  };
 
-  // Handle search on Enter key press
   const handleSearchKeyPress = (e) => {
     if (e.key === 'Enter') {
       e.preventDefault();
@@ -56,35 +56,30 @@ const Header = () => {
     }
   };
 
-  // Toggle dropdown visibility
-  const handleDropdownToggle = (filterName) => {
-    setOpenDropdown(openDropdown === filterName ? null : filterName);
+  const handleDropdownToggle = (filterKey) => {
+    setOpenDropdown(openDropdown === filterKey ? null : filterKey);
   };
 
-  // Toggle Categories dropdown visibility
   const handleCategoriesDropdownToggle = () => {
     setOpenCategoriesDropdown(!openCategoriesDropdown);
   };
 
-  // Handle the checking state
-  const handleCheckboxChange = (filterName, value) => {
+  const handleCheckboxChange = (filterKey, value) => {
     setSelectedValues(prevState => {
-      const currentSelection = prevState[filterName] || [];
+      const currentSelection = prevState[filterKey] || [];
       if (currentSelection.includes(value)) {
-        return { ...prevState, [filterName]: currentSelection.filter(val => val !== value) };
+        return { ...prevState, [filterKey]: currentSelection.filter(val => val !== value) };
       } else {
-        return { ...prevState, [filterName]: [...currentSelection, value] };
+        return { ...prevState, [filterKey]: [...currentSelection, value] };
       }
     });
   };
 
-  // Handle price range input change
   const handlePriceChange = (e) => {
     const { name, value } = e.target;
     setPriceRange((prevRange) => ({ ...prevRange, [name]: value }));
   };
 
-  // Close dropdown on outside click
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
@@ -101,13 +96,11 @@ const Header = () => {
     };
   }, []);
 
-  // Handle category selection
   const handleCategorySelection = (category) => {
-    setSelectedCategory(category); // Update the selected category
-    setOpenCategoriesDropdown(false); // Close the dropdown after selection
+    setSelectedCategory(category);
+    setOpenCategoriesDropdown(false);
   };
 
-  // Render Categories dropdown with selected category excluded
   const renderCategoriesDropdown = () => {
     return (
       <div className="dropdown-content" ref={categoriesDropdownRef}>
@@ -122,10 +115,8 @@ const Header = () => {
     );
   };
 
-  // Render standard dropdown for filters
-  const renderDropdown = (filterName, values) => {
-    if (filterName === 'Prix') {
-      // Custom dropdown content for "Prix"
+  const renderDropdown = (filterKey, displayName) => {
+    if (filterKey === 'price') {
       return (
         <div className="dropdown-content" ref={dropdownRef}>
           <div className="dropdown-content-inner">
@@ -160,18 +151,20 @@ const Header = () => {
       );
     }
 
-    // Default filter dropdown content
-    const renderFilterValues = (filterValues) => {
-      if (typeof filterValues === 'object' && !Array.isArray(filterValues)) {
-        return Object.keys(filterValues).map((subcategory, index) => (
-          <div key={index}>
-            <h4>{subcategory}</h4>
-            {filterValues[subcategory].map((value, valueIndex) => (
+    const filterData = filtersData[filterKey];
+    
+    const renderFilterValues = (values, key) => {
+      if (typeof values === 'object' && values !== null && !Array.isArray(values)) {
+        // Handle nested structure (like sizes)
+        return Object.entries(values).map(([subKey, subValue]) => (
+          <div key={subKey}>
+            <h4>{subValue.displayName}</h4>
+            {subValue.values.map((value, valueIndex) => (
               <label key={valueIndex} className="checkbox-label">
                 <input
                   type="checkbox"
-                  checked={selectedValues[filterName]?.includes(value) || false}
-                  onChange={() => handleCheckboxChange(filterName, value)}
+                  checked={selectedValues[key]?.includes(value) || false}
+                  onChange={() => handleCheckboxChange(key, value)}
                 />
                 {value}
               </label>
@@ -179,12 +172,13 @@ const Header = () => {
           </div>
         ));
       } else {
-        return filterValues.map((value, index) => (
+        // Handle flat arrays (like colors, materials, conditions)
+        return values.map((value, index) => (
           <label key={index} className="checkbox-label">
             <input
               type="checkbox"
-              checked={selectedValues[filterName]?.includes(value) || false}
-              onChange={() => handleCheckboxChange(filterName, value)}
+              checked={selectedValues[key]?.includes(value) || false}
+              onChange={() => handleCheckboxChange(key, value)}
             />
             {value}
           </label>
@@ -195,7 +189,7 @@ const Header = () => {
     return (
       <div className="dropdown-content" ref={dropdownRef}>
         <div className="dropdown-content-inner">
-          {renderFilterValues(values)}
+          {renderFilterValues(filterData.values, filterKey)}
         </div>
       </div>
     );
@@ -203,28 +197,27 @@ const Header = () => {
 
   const renderFilterButtons = () => (
     filters.map((filter, index) => {
-      const filterValues = valeursFiltres[filter.name];
-      const isActive = isFilterActive(filter.name);
+      const isActive = isFilterActive(filter.key);
       return (
         <li key={index} className="filter-item">
           <button
             className={isActive ? 'active' : ''}
             onClick={(e) => {
               e.preventDefault();
-              handleDropdownToggle(filter.name);
+              handleDropdownToggle(filter.key);
             }}
           >
-            {filter.name}
+            {filter.displayName}
             {isActive && (
               <span className="filter-count">
-                {filter.name === 'Prix' 
+                {filter.key === 'price' 
                   ? '1'
-                  : selectedValues[filter.name]?.length}
+                  : selectedValues[filter.key]?.length}
               </span>
             )}
             <i className="fa fa-angle-down button-icon-right"></i>
           </button>
-          {openDropdown === filter.name && renderDropdown(filter.name, filterValues)}
+          {openDropdown === filter.key && renderDropdown(filter.key, filter.displayName)}
         </li>
       );
     })
@@ -234,19 +227,18 @@ const Header = () => {
     <header>
       <div id="main-header" className="conteneur">
         <div id="main-header-search">
-                    <img 
+          <img 
             id="logo2" 
             src={logo} 
             alt="Swapp logo" 
             onClick={handleLogoClick} 
-            style={{ cursor: 'pointer' }} // Change le curseur pour indiquer que c'est cliquable
+            style={{ cursor: 'pointer' }}
           />
           <div id="full-search">
             <li className="filter-item">
-              <button
-                onClick={handleCategoriesDropdownToggle}
-              >
-                {selectedCategory || "Catégories"} <i className="fa fa-angle-down button-icon-right"></i>
+              <button onClick={handleCategoriesDropdownToggle}>
+                {selectedCategory || filtresData.categories.displayName} 
+                <i className="fa fa-angle-down button-icon-right"></i>
               </button>
               {openCategoriesDropdown && renderCategoriesDropdown()}
             </li>
