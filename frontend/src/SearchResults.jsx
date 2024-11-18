@@ -8,32 +8,87 @@ import Footer from './Footer';
 const SearchResults = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const query = new URLSearchParams(location.search).get('q') || ''; // Récupère la query de l'URL, ou vide par défaut
+  
+  // Get the search query and category from the URL parameters
+  const query = new URLSearchParams(location.search).get('q') || '';
+  const categoryFromURL = new URLSearchParams(location.search).get('category') || '';
 
-  const [prevQuery, setPrevQuery] = useState('');
+  // Current active filters
+  const [selectedValues, setSelectedValues] = useState({});
+  const [priceRange, setPriceRange] = useState({ min: '', max: '' });
+  const [selectedCategory, setSelectedCategory] = useState(categoryFromURL); // Set category from URL
   const [filteredArticles, setFilteredArticles] = useState([]);
 
   const handleItemClick = (url) => {
     navigate(url);
   };
 
-  useEffect(() => {
-    if (query !== prevQuery) {
-      const articles = fashionItems.articles || []; // Récupère les articles
-      const newFilteredArticles = query
-        ? articles.filter(item =>
-            item.title.toLowerCase().includes(query.toLowerCase()) || // Filtrer par titre
-            item.category.toLowerCase().includes(query.toLowerCase()) // Filtrer par catégorie
-          )
-        : articles; // Si la query est vide, retourne tous les articles
-      setFilteredArticles(newFilteredArticles);
-      setPrevQuery(query);
+  const handleFilterChange = (newFilters) => {
+    const { selectedValues: newSelectedValues, priceRange: newPriceRange, selectedCategory: newSelectedCategory } = newFilters;
+    
+    setSelectedValues(newSelectedValues);
+    setPriceRange(newPriceRange);
+    setSelectedCategory(newSelectedCategory);
+  };
+
+  // Filter articles based on all criteria
+  const filterArticles = () => {
+    let filtered = fashionItems.articles || [];
+
+    // Apply search query filter
+    if (query) {
+      filtered = filtered.filter(item =>
+        item.title.toLowerCase().includes(query.toLowerCase()) ||
+        item.category.toLowerCase().includes(query.toLowerCase())
+      );
     }
-  }, [query, prevQuery]);
+
+    // Apply category filter (using the category from URL)
+    if (selectedCategory) {
+      filtered = filtered.filter(item =>
+        item.category.toLowerCase() === selectedCategory.toLowerCase()
+      );
+    }
+
+    // Apply price range filter
+    if (priceRange.min !== '' || priceRange.max !== '') {
+      filtered = filtered.filter(item => {
+        const price = item.price;
+        const minPrice = priceRange.min === '' ? -Infinity : parseFloat(priceRange.min);
+        const maxPrice = priceRange.max === '' ? Infinity : parseFloat(priceRange.max);
+        return price >= minPrice && price <= maxPrice;
+      });
+    }
+
+    // Apply other filters (sizes, colors, etc.)
+    Object.entries(selectedValues).forEach(([filterKey, selectedFilterValues]) => {
+      if (selectedFilterValues.length > 0) {
+        filtered = filtered.filter(item => {
+          const itemValue = item[filterKey];
+          if (Array.isArray(itemValue)) {
+            return selectedFilterValues.some(value => itemValue.includes(value));
+          } else {
+            return selectedFilterValues.includes(itemValue);
+          }
+        });
+      }
+    });
+
+    setFilteredArticles(filtered);
+  };
+
+  useEffect(() => {
+    filterArticles();
+  }, [query, selectedValues, priceRange, selectedCategory]);
 
   return (
     <div>
-      <Header />
+      <Header 
+        selectedValues={selectedValues}
+        priceRange={priceRange}
+        selectedCategory={selectedCategory}
+        onFilterChange={handleFilterChange}
+      />
       <div className="Items conteneur">
         {filteredArticles.length > 0 ? (
           filteredArticles.map((item) => (
@@ -51,7 +106,7 @@ const SearchResults = () => {
             </div>
           ))
         ) : (
-          <div>Aucun article trouvé pour "{query}".</div> // Message si aucun article ne correspond
+          <div>Aucun élément ne correspond à vos critères.</div>
         )}
       </div>
       <div className='space'></div>

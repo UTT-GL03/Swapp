@@ -3,38 +3,38 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import logo from './assets/swapp-logo.svg';
 import filtresData from './assets/valeurs_filtres.json';
 
-const Header = () => {
+const Header = ({ selectedValues, priceRange, selectedCategory, onFilterChange }) => {
   const navigate = useNavigate();
   const location = useLocation();
   const query = new URLSearchParams(location.search).get('q') || '';
 
-  const handleLogoClick = () => {
-    navigate('/');
-  };
-
-  // Get categories and filters from the new JSON structure
-  const categories = filtresData?.categories?.values || [];
-  const filtersData = filtresData?.filters || {};
+  // Temporary states for open dropdown
+  const [tempSelectedValues, setTempSelectedValues] = useState(selectedValues);
+  const [tempPriceRange, setTempPriceRange] = useState(priceRange);
+  const [tempSelectedCategory, setTempSelectedCategory] = useState(selectedCategory);
 
   const [filters, setFilters] = useState([]);
-  const [priceRange, setPriceRange] = useState({ min: '', max: '' });
-  const [selectedValues, setSelectedValues] = useState({});
-  const [selectedCategory, setSelectedCategory] = useState(categories[0] || '');
-
   const [openDropdown, setOpenDropdown] = useState(null);
   const [openCategoriesDropdown, setOpenCategoriesDropdown] = useState(false);
+  const [hasChanges, setHasChanges] = useState(false);
 
   const dropdownRef = useRef(null);
   const categoriesDropdownRef = useRef(null);
 
+  // Reset temp states when dropdown opens
   useEffect(() => {
-    // Generate filter buttons using the new structure
-    const filterButtons = Object.entries(filtersData).map(([key, value]) => ({
+    if (openDropdown) {
+      setTempSelectedValues(selectedValues);
+      setTempPriceRange(priceRange);
+      setHasChanges(false);
+    }
+  }, [openDropdown]);
+
+  useEffect(() => {
+    const filterButtons = Object.entries(filtresData.filters).map(([key, value]) => ({
       key: value.key,
       displayName: value.displayName
     }));
-
-    // Add the custom "Prix" filter button
     filterButtons.push({ key: "price", displayName: "Prix" });
     setFilters(filterButtons);
   }, []);
@@ -56,33 +56,67 @@ const Header = () => {
     }
   };
 
-  const handleDropdownToggle = (filterKey) => {
-    setOpenDropdown(openDropdown === filterKey ? null : filterKey);
+  const applyFilters = () => {
+    if (hasChanges) {
+      onFilterChange({
+        selectedValues: tempSelectedValues,
+        priceRange: tempPriceRange,
+        selectedCategory: tempSelectedCategory
+      });
+      setHasChanges(false);
+    }
   };
 
-  const handleCategoriesDropdownToggle = () => {
-    setOpenCategoriesDropdown(!openCategoriesDropdown);
+  const handleDropdownToggle = (filterKey) => {
+    if (openDropdown === filterKey) {
+      applyFilters();
+      setOpenDropdown(null);
+    } else {
+      setOpenDropdown(filterKey);
+    }
   };
 
   const handleCheckboxChange = (filterKey, value) => {
-    setSelectedValues(prevState => {
-      const currentSelection = prevState[filterKey] || [];
+    setTempSelectedValues(prev => {
+      const currentSelection = prev[filterKey] || [];
       if (currentSelection.includes(value)) {
-        return { ...prevState, [filterKey]: currentSelection.filter(val => val !== value) };
+        return {
+          ...prev,
+          [filterKey]: currentSelection.filter(val => val !== value)
+        };
       } else {
-        return { ...prevState, [filterKey]: [...currentSelection, value] };
+        return {
+          ...prev,
+          [filterKey]: [...currentSelection, value]
+        };
       }
     });
+    setHasChanges(true);
   };
 
   const handlePriceChange = (e) => {
     const { name, value } = e.target;
-    setPriceRange((prevRange) => ({ ...prevRange, [name]: value }));
+    setTempPriceRange(prev => ({
+      ...prev,
+      [name]: value
+    }));
+    setHasChanges(true);
+  };
+
+  const handleCategorySelection = (category) => {
+    setTempSelectedCategory(category);
+    onFilterChange({
+      selectedValues: tempSelectedValues,
+      priceRange: tempPriceRange,
+      selectedCategory: category
+    });
+    setOpenCategoriesDropdown(false);
   };
 
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        applyFilters();
         setOpenDropdown(null);
       }
       if (categoriesDropdownRef.current && !categoriesDropdownRef.current.contains(event.target)) {
@@ -94,18 +128,17 @@ const Header = () => {
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
-  }, []);
+  }, [tempSelectedValues, tempPriceRange, hasChanges]);
 
-  const handleCategorySelection = (category) => {
-    setSelectedCategory(category);
-    setOpenCategoriesDropdown(false);
+  const handleLogoClick = () => {
+    navigate('/');
   };
 
   const renderCategoriesDropdown = () => {
     return (
       <div className="dropdown-content" ref={categoriesDropdownRef}>
         <div className="dropdown-content-inner categories-dropdown-inner">
-          {categories.filter(category => category !== selectedCategory).map((category, index) => (
+          {filtresData?.categories?.values?.filter(category => category !== tempSelectedCategory).map((category, index) => (
             <div key={index} className="category-item" onClick={() => handleCategorySelection(category)}>
               {category}
             </div>
@@ -128,7 +161,7 @@ const Header = () => {
                   id="price-min"
                   className="input-price"
                   name="min"
-                  value={priceRange.min}
+                  value={tempPriceRange.min}
                   onChange={handlePriceChange}
                   placeholder="Min"
                 />
@@ -140,7 +173,7 @@ const Header = () => {
                   id="price-max"
                   className="input-price"
                   name="max"
-                  value={priceRange.max}
+                  value={tempPriceRange.max}
                   onChange={handlePriceChange}
                   placeholder="Max"
                 />
@@ -151,8 +184,8 @@ const Header = () => {
       );
     }
 
-    const filterData = filtersData[filterKey];
-    
+    const filterData = filtresData?.filters[filterKey];
+
     const renderFilterValues = (values, key) => {
       if (typeof values === 'object' && values !== null && !Array.isArray(values)) {
         // Handle nested structure (like sizes)
@@ -162,9 +195,9 @@ const Header = () => {
             {subValue.values.map((value, valueIndex) => (
               <label key={valueIndex} className="checkbox-label">
                 <input
-                  type="checkbox"
-                  checked={selectedValues[key]?.includes(value) || false}
-                  onChange={() => handleCheckboxChange(key, value)}
+                type="checkbox"
+                checked={tempSelectedValues[filterKey]?.includes(value) || false}
+                onChange={() => handleCheckboxChange(filterKey, value)}
                 />
                 {value}
               </label>
@@ -176,9 +209,9 @@ const Header = () => {
         return values.map((value, index) => (
           <label key={index} className="checkbox-label">
             <input
-              type="checkbox"
-              checked={selectedValues[key]?.includes(value) || false}
-              onChange={() => handleCheckboxChange(key, value)}
+                type="checkbox"
+                checked={tempSelectedValues[filterKey]?.includes(value) || false}
+                onChange={() => handleCheckboxChange(filterKey, value)}
             />
             {value}
           </label>
@@ -212,7 +245,7 @@ const Header = () => {
               <span className="filter-count">
                 {filter.key === 'price' 
                   ? '1'
-                  : selectedValues[filter.key]?.length}
+                  : tempSelectedValues[filter.key]?.length}
               </span>
             )}
             <i className="fa fa-angle-down button-icon-right"></i>
@@ -236,13 +269,13 @@ const Header = () => {
           />
           <div id="full-search">
             <li className="filter-item">
-              <button onClick={handleCategoriesDropdownToggle}>
-                {selectedCategory || filtresData.categories.displayName} 
+              <button onClick={() => setOpenCategoriesDropdown(!openCategoriesDropdown)}>
+                {tempSelectedCategory || filtresData.categories.displayName} 
                 <i className="fa fa-angle-down button-icon-right"></i>
               </button>
               {openCategoriesDropdown && renderCategoriesDropdown()}
             </li>
-            <form id="search-form" name="search-form" action="" method="post" onSubmit={(e) => e.preventDefault()}>
+            <form id="search-form" name="search-form" onSubmit={(e) => e.preventDefault()}>
               <input
                 type="text"
                 className="input-search"

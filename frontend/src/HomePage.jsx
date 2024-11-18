@@ -17,6 +17,10 @@ const Header = () => {
     navigate(`/search?q=${encodeURIComponent(searchTerm)}`);
   };
 
+  const handleCategoryClick = (category) => {
+    navigate(`/search?category=${encodeURIComponent(category)}`);
+  };
+
   const filtres = valeursFiltres.categories.values || []; // Récupère les articles
 
 
@@ -42,7 +46,11 @@ const Header = () => {
         <ul>
             {filtres.map((categorie) => (
               <li key={categorie}>
-                <a href="">{categorie}</a>
+                <a
+                  href="#"
+                  onClick={() => handleCategoryClick(categorie)} // Pass the category to navigate
+                >
+                  {categorie}</a>
               </li>
             ))}
           </ul>
