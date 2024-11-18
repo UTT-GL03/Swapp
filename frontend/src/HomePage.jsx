@@ -17,7 +17,7 @@ const Header = () => {
     navigate(`/search?q=${encodeURIComponent(searchTerm)}`);
   };
 
-  const filtres = valeursFiltres.Catégories || []; // Récupère les articles
+  const filtres = valeursFiltres.categories.values || []; // Récupère les articles
 
 
   return (
