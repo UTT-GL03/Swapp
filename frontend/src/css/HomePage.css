@@ -1,5 +1,8 @@
 .homepage-background {
-  background: radial-gradient(white, white, var(--pale-secondary-color));
+  background:
+    url('../assets/fashion-pattern.svg') no-repeat center center,
+    radial-gradient(white 33%, var(--pale-secondary-color) 100%);
+  background-size: cover;
 }
 
 #logo{
@@ -71,7 +74,7 @@ text-align: center;
 
 @media screen and (max-width: 620px) {
   #logo {
-    width: 300px;
+    width: 400px;
   }
   #btn-container {
       justify-content: center;
