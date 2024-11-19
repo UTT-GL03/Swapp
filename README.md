@@ -127,3 +127,27 @@ Sur ces 5 pages, seules 2 ont fonctionné correctement : Vinted et Geev. Deepop 
 Voici le résultat pour Vinted : [Résultat GreenFrame Vinted](https://app.greenframe.io/analyses/547cd8a6-e40c-4a03-b636-f107d62ddc51)
 
 Voici le résulat pour Geev : [Résultat GreenFrame Geev](https://app.greenframe.io/analyses/9aab1aad-f384-4412-93f9-d540625cb52d)
+
+## Swapp
+
+### 1er résultat
+
+Voici le premier résultat obtenir sur notre application pour 2 scénarios : 
+- Scenario 1: Consulter la page d'accueil
+- Scenario 2: Consulter la page d'articles
+[1er Résultat GreenFrame Swapp](https://app.greenframe.io/analyses/e49632a6-7d22-4fad-8da5-18c6048cd532)
+
+Nous remarquons que le retour n'est pas très fameux : 80mg pour les deux scénarios dont :
+- 48 mg pour le scénario 1
+- 32 mg pour le scénario 2
+Donc on peut largement améliorer le scénario 1. Nous avons identifié que le problème principale était la background image de notre page d'accueil que nous avons supprimé pour améliorer le résultat.
+
+### 2ème résultat
+
+Pour les mêmes scénario, voici le résultat :
+[2eme Résultat GreenFrame Swapp](https://app.greenframe.io/analyses/b8d3ddbf-e5d7-4fcd-b874-3183741a2be6)
+
+Nous remarquons que le retour meilleur : 63mg pour les deux scénarios dont :
+- 31 mg pour le scénario 1
+- 32 mg pour le scénario 2
+Supprimer la background image a largement améliorer notre impact.
