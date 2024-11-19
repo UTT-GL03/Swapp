@@ -1,6 +1,6 @@
 .homepage-background {
   background:
-    url('../assets/fashion-pattern.svg') no-repeat center center,
+    url('../assets/fashion-pattern.png') no-repeat center center,
     radial-gradient(white 33%, var(--pale-secondary-color) 100%);
   background-size: cover;
 }
