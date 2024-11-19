@@ -170,4 +170,6 @@ Pourquoi choisir une base de données plutôt qu’un fichier statique ?
 
 (ajouter images de comparaison)
 
+=> pas de changement conséquent sur le réseau mais CPU qui augmente (normal car création d'un backend)
+
 De ces différentes mesures, nous pouvons retenir que l'effet de l'introduction d'une base de données, quoique négligeable, est, pour l'instant, plutôt défavorable d'un point de vue écologique. Le bilan de ce changement devrait cependant rapidement s'inverser avec l'augmentation de la quantité de données gérées et les requêtes réalisées.
