@@ -1,63 +1,117 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo, useCallback } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import fashionItems from './assets/sample_data.json';
 import './css/SearchResults.css';
 import Header from './Header';
 import Footer from './Footer';
 
-const SearchResults = () => {
-  const navigate = useNavigate();
+// Custom hooks
+const useURLParameters = () => {
   const location = useLocation();
-  
-  // Get the search query and category from the URL parameters
   const query = new URLSearchParams(location.search).get('q') || '';
   const categoryFromURL = new URLSearchParams(location.search).get('category') || '';
+  
+  return { query, categoryFromURL };
+};
 
-  // Current active filters
+const useFilterState = (initialCategory) => {
   const [selectedValues, setSelectedValues] = useState({});
   const [priceRange, setPriceRange] = useState({ min: '', max: '' });
-  const [selectedCategory, setSelectedCategory] = useState(categoryFromURL); // Set category from URL
-  const [filteredArticles, setFilteredArticles] = useState([]);
+  const [selectedCategory, setSelectedCategory] = useState(initialCategory);
 
-  const handleItemClick = (url) => {
-    navigate(url);
-  };
-
-  const handleFilterChange = (newFilters) => {
-    const { selectedValues: newSelectedValues, priceRange: newPriceRange, selectedCategory: newSelectedCategory } = newFilters;
-    
+  const handleFilterChange = useCallback(({ 
+    selectedValues: newSelectedValues, 
+    priceRange: newPriceRange, 
+    selectedCategory: newSelectedCategory 
+  }) => {
     setSelectedValues(newSelectedValues);
     setPriceRange(newPriceRange);
     setSelectedCategory(newSelectedCategory);
-  };
+  }, []);
 
-  // Filter articles based on all criteria
-  const filterArticles = () => {
+  return {
+    selectedValues,
+    priceRange,
+    selectedCategory,
+    handleFilterChange
+  };
+};
+
+// Components
+const ItemCard = React.memo(({ item, onClick }) => (
+  <div
+    className="Item"
+    onClick={() => onClick(item.url)}
+    style={{ cursor: 'pointer' }}
+  >
+    <img src={item.image || 'https://placehold.co/150/'} alt={item.title} />
+    <div className="Item-Content">
+      <div className="Item-Title">{item.title}</div>
+      <div className="Item-Price">${item.price.toFixed(2)}</div>
+    </div>
+  </div>
+));
+
+const ItemsGrid = React.memo(({ items, onItemClick }) => (
+  <div className="Items conteneur">
+    {items.length > 0 ? (
+      items.map((item) => (
+        <ItemCard 
+          key={item.id} 
+          item={item} 
+          onClick={onItemClick}
+        />
+      ))
+    ) : (
+      <div>Aucun élément ne correspond à vos critères.</div>
+    )}
+  </div>
+));
+
+const SearchResults = () => {
+  const navigate = useNavigate();
+  const { query, categoryFromURL } = useURLParameters();
+  
+  const {
+    selectedValues,
+    priceRange,
+    selectedCategory,
+    handleFilterChange
+  } = useFilterState(categoryFromURL);
+
+  const [filteredArticles, setFilteredArticles] = useState([]);
+
+  const handleItemClick = useCallback((url) => {
+    navigate(url);
+  }, [navigate]);
+
+  const filterArticles = useCallback(() => {
     let filtered = fashionItems.articles || [];
 
     // Apply search query filter
     if (query) {
+      const searchTerm = query.toLowerCase();
       filtered = filtered.filter(item =>
-        item.title.toLowerCase().includes(query.toLowerCase()) ||
-        item.category.toLowerCase().includes(query.toLowerCase())
+        item.title.toLowerCase().includes(searchTerm) ||
+        item.category.toLowerCase().includes(searchTerm)
       );
     }
 
-    // Apply category filter (using the category from URL)
+    // Apply category filter
     if (selectedCategory) {
+      const categoryTerm = selectedCategory.toLowerCase();
       filtered = filtered.filter(item =>
-        item.category.toLowerCase() === selectedCategory.toLowerCase()
+        item.category.toLowerCase() === categoryTerm
       );
     }
 
     // Apply price range filter
     if (priceRange.min !== '' || priceRange.max !== '') {
-      filtered = filtered.filter(item => {
-        const price = item.price;
-        const minPrice = priceRange.min === '' ? -Infinity : parseFloat(priceRange.min);
-        const maxPrice = priceRange.max === '' ? Infinity : parseFloat(priceRange.max);
-        return price >= minPrice && price <= maxPrice;
-      });
+      const minPrice = priceRange.min === '' ? -Infinity : parseFloat(priceRange.min);
+      const maxPrice = priceRange.max === '' ? Infinity : parseFloat(priceRange.max);
+      filtered = filtered.filter(item =>
+        item.price >= minPrice && item.price <= maxPrice
+      );
     }
 
     // Apply other filters (sizes, colors, etc.)
@@ -65,51 +119,37 @@ const SearchResults = () => {
       if (selectedFilterValues.length > 0) {
         filtered = filtered.filter(item => {
           const itemValue = item[filterKey];
-          if (Array.isArray(itemValue)) {
-            return selectedFilterValues.some(value => itemValue.includes(value));
-          } else {
-            return selectedFilterValues.includes(itemValue);
-          }
+          return Array.isArray(itemValue)
+            ? selectedFilterValues.some(value => itemValue.includes(value))
+            : selectedFilterValues.includes(itemValue);
         });
       }
     });
 
     setFilteredArticles(filtered);
-  };
+  }, [query, selectedValues, priceRange, selectedCategory]);
 
+  // Filter articles when dependencies change
   useEffect(() => {
     filterArticles();
-  }, [query, selectedValues, priceRange, selectedCategory]);
+  }, [filterArticles]);
+
+  // Memoize header props to prevent unnecessary re-renders
+  const headerProps = useMemo(() => ({
+    selectedValues,
+    priceRange,
+    selectedCategory,
+    onFilterChange: handleFilterChange
+  }), [selectedValues, priceRange, selectedCategory, handleFilterChange]);
 
   return (
     <div>
-      <Header 
-        selectedValues={selectedValues}
-        priceRange={priceRange}
-        selectedCategory={selectedCategory}
-        onFilterChange={handleFilterChange}
+      <Header {...headerProps} />
+      <ItemsGrid 
+        items={filteredArticles} 
+        onItemClick={handleItemClick}
       />
-      <div className="Items conteneur">
-        {filteredArticles.length > 0 ? (
-          filteredArticles.map((item) => (
-            <div
-              key={item.id}
-              className="Item"
-              onClick={() => handleItemClick(item.url)}
-              style={{ cursor: 'pointer' }}
-            >
-              <img src={item.image || 'https://placehold.co/150/'} alt={item.title} />
-              <div className="Item-Content">
-                <div className="Item-Title">{item.title}</div>
-                <div className="Item-Price">${item.price.toFixed(2)}</div>
-              </div>
-            </div>
-          ))
-        ) : (
-          <div>Aucun élément ne correspond à vos critères.</div>
-        )}
-      </div>
-      <div className='space'></div>
+      <div className='space' />
       <Footer />
     </div>
   );

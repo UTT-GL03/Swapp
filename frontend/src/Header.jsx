@@ -3,48 +3,224 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import logo from './assets/swapp-logo.svg';
 import filtresData from './assets/valeurs_filtres.json';
 
+// Custom hooks
+const useFilterState = (initialValues, initialPriceRange, initialCategory) => {
+  const [tempValues, setTempValues] = useState(initialValues);
+  const [tempPriceRange, setTempPriceRange] = useState(initialPriceRange);
+  const [tempCategory, setTempCategory] = useState(initialCategory);
+  const [hasChanges, setHasChanges] = useState(false);
+
+  const updateTempValues = (filterKey, value) => {
+    setTempValues(prev => {
+      const currentSelection = prev[filterKey] || [];
+      const newSelection = currentSelection.includes(value)
+        ? currentSelection.filter(val => val !== value)
+        : [...currentSelection, value];
+      return { ...prev, [filterKey]: newSelection };
+    });
+    setHasChanges(true);
+  };
+
+  const updateTempPriceRange = (name, value) => {
+    setTempPriceRange(prev => ({ ...prev, [name]: value }));
+    setHasChanges(true);
+  };
+
+  const resetTempStates = (values, priceRange) => {
+    setTempValues(values);
+    setTempPriceRange(priceRange);
+    setHasChanges(false);
+  };
+
+  return {
+    tempValues,
+    tempPriceRange,
+    tempCategory,
+    hasChanges,
+    updateTempValues,
+    updateTempPriceRange,
+    setTempCategory,
+    resetTempStates
+  };
+};
+
+const useDropdownState = () => {
+  const [openDropdown, setOpenDropdown] = useState(null);
+  const [openCategoriesDropdown, setOpenCategoriesDropdown] = useState(false);
+  const dropdownRef = useRef(null);
+  const categoriesDropdownRef = useRef(null);
+
+  return {
+    openDropdown,
+    setOpenDropdown,
+    openCategoriesDropdown,
+    setOpenCategoriesDropdown,
+    dropdownRef,
+    categoriesDropdownRef
+  };
+};
+
+// Components
+const SearchBar = ({ query, onSearch }) => (
+  <form id="search-form" name="search-form" onSubmit={(e) => e.preventDefault()}>
+    <input
+      type="text"
+      className="input-search"
+      name="search"
+      placeholder="Search..."
+      defaultValue={query}
+      onKeyDown={onSearch}
+      required
+    />
+  </form>
+);
+
+const PriceFilter = ({ priceRange, onChange }) => (
+  <div className="price-filter">
+    <div className="price-filter-min">
+      <label htmlFor="price-min">De</label>
+      <input
+        type="number"
+        id="price-min"
+        className="input-price"
+        name="min"
+        value={priceRange.min}
+        onChange={onChange}
+        placeholder="Min"
+      />
+    </div>
+    <div className="price-filter-max">
+      <label htmlFor="price-max">À</label>
+      <input
+        type="number"
+        id="price-max"
+        className="input-price"
+        name="max"
+        value={priceRange.max}
+        onChange={onChange}
+        placeholder="Max"
+      />
+    </div>
+  </div>
+);
+
+const FilterCheckbox = ({ filterKey, value, isChecked, onChange }) => (
+  <label className="checkbox-label">
+    <input
+      type="checkbox"
+      checked={isChecked}
+      onChange={() => onChange(filterKey, value)}
+    />
+    {value}
+  </label>
+);
+
+const FilterDropdown = ({ filterKey, filterData, tempValues, onChange }) => {
+  const renderFilterValues = (values, key) => {
+    if (typeof values === 'object' && values !== null && !Array.isArray(values)) {
+      return Object.entries(values).map(([subKey, subValue]) => (
+        <div key={subKey}>
+          <h4>{subValue.displayName}</h4>
+          {subValue.values.map((value, valueIndex) => (
+            <FilterCheckbox
+              key={valueIndex}
+              filterKey={filterKey}
+              value={value}
+              isChecked={tempValues[filterKey]?.includes(value) || false}
+              onChange={onChange}
+            />
+          ))}
+        </div>
+      ));
+    }
+    
+    return values.map((value, index) => (
+      <FilterCheckbox
+        key={index}
+        filterKey={filterKey}
+        value={value}
+        isChecked={tempValues[filterKey]?.includes(value) || false}
+        onChange={onChange}
+      />
+    ));
+  };
+
+  return (
+    <div className="dropdown-content-inner">
+      {renderFilterValues(filterData.values, filterKey)}
+    </div>
+  );
+};
+
+const CategoriesDropdown = ({ categories, selectedCategory, onSelect }) => (
+  <div className="dropdown-content-inner categories-dropdown-inner">
+    {categories?.filter(category => category !== selectedCategory).map((category, index) => (
+      <div key={index} className="category-item" onClick={() => onSelect(category)}>
+        {category}
+      </div>
+    ))}
+  </div>
+);
+
 const Header = ({ selectedValues, priceRange, selectedCategory, onFilterChange }) => {
   const navigate = useNavigate();
   const location = useLocation();
   const query = new URLSearchParams(location.search).get('q') || '';
 
-  // Temporary states for open dropdown
-  const [tempSelectedValues, setTempSelectedValues] = useState(selectedValues);
-  const [tempPriceRange, setTempPriceRange] = useState(priceRange);
-  const [tempSelectedCategory, setTempSelectedCategory] = useState(selectedCategory);
+  const {
+    tempValues,
+    tempPriceRange,
+    tempCategory,
+    hasChanges,
+    updateTempValues,
+    updateTempPriceRange,
+    setTempCategory,
+    resetTempStates
+  } = useFilterState(selectedValues, priceRange, selectedCategory);
 
-  const [filters, setFilters] = useState([]);
-  const [openDropdown, setOpenDropdown] = useState(null);
-  const [openCategoriesDropdown, setOpenCategoriesDropdown] = useState(false);
-  const [hasChanges, setHasChanges] = useState(false);
+  const {
+    openDropdown,
+    setOpenDropdown,
+    openCategoriesDropdown,
+    setOpenCategoriesDropdown,
+    dropdownRef,
+    categoriesDropdownRef
+  } = useDropdownState();
 
-  const dropdownRef = useRef(null);
-  const categoriesDropdownRef = useRef(null);
-
-  // Reset temp states when dropdown opens
-  useEffect(() => {
-    if (openDropdown) {
-      setTempSelectedValues(selectedValues);
-      setTempPriceRange(priceRange);
-      setHasChanges(false);
-    }
-  }, [openDropdown]);
-
-  useEffect(() => {
+  const [filters, setFilters] = useState(() => {
     const filterButtons = Object.entries(filtresData.filters).map(([key, value]) => ({
       key: value.key,
       displayName: value.displayName
     }));
-    filterButtons.push({ key: "price", displayName: "Prix" });
-    setFilters(filterButtons);
-  }, []);
+    return [...filterButtons, { key: "price", displayName: "Prix" }];
+  });
 
-  const isFilterActive = (filterKey) => {
-    if (filterKey === 'price') {
-      return priceRange.min !== '' || priceRange.max !== '';
+  useEffect(() => {
+    if (openDropdown) {
+      resetTempStates(selectedValues, priceRange);
     }
-    return selectedValues[filterKey]?.length > 0;
-  };
+  }, [openDropdown]);
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        if (hasChanges) {
+          onFilterChange({
+            selectedValues: tempValues,
+            priceRange: tempPriceRange,
+            selectedCategory: tempCategory
+          });
+        }
+        setOpenDropdown(null);
+      }
+      if (categoriesDropdownRef.current && !categoriesDropdownRef.current.contains(event.target)) {
+        setOpenCategoriesDropdown(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, [tempValues, tempPriceRange, hasChanges]);
 
   const handleSearchKeyPress = (e) => {
     if (e.key === 'Enter') {
@@ -56,181 +232,51 @@ const Header = ({ selectedValues, priceRange, selectedCategory, onFilterChange }
     }
   };
 
-  const applyFilters = () => {
-    if (hasChanges) {
-      onFilterChange({
-        selectedValues: tempSelectedValues,
-        priceRange: tempPriceRange,
-        selectedCategory: tempSelectedCategory
-      });
-      setHasChanges(false);
-    }
-  };
-
   const handleDropdownToggle = (filterKey) => {
     if (openDropdown === filterKey) {
-      applyFilters();
+      if (hasChanges) {
+        onFilterChange({
+          selectedValues: tempValues,
+          priceRange: tempPriceRange,
+          selectedCategory: tempCategory
+        });
+      }
       setOpenDropdown(null);
     } else {
       setOpenDropdown(filterKey);
     }
   };
 
-  const handleCheckboxChange = (filterKey, value) => {
-    setTempSelectedValues(prev => {
-      const currentSelection = prev[filterKey] || [];
-      if (currentSelection.includes(value)) {
-        return {
-          ...prev,
-          [filterKey]: currentSelection.filter(val => val !== value)
-        };
-      } else {
-        return {
-          ...prev,
-          [filterKey]: [...currentSelection, value]
-        };
-      }
-    });
-    setHasChanges(true);
-  };
-
-  const handlePriceChange = (e) => {
-    const { name, value } = e.target;
-    setTempPriceRange(prev => ({
-      ...prev,
-      [name]: value
-    }));
-    setHasChanges(true);
-  };
-
   const handleCategorySelection = (category) => {
-    setTempSelectedCategory(category);
+    setTempCategory(category);
     onFilterChange({
-      selectedValues: tempSelectedValues,
+      selectedValues: tempValues,
       priceRange: tempPriceRange,
       selectedCategory: category
     });
     setOpenCategoriesDropdown(false);
   };
 
-  useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-        applyFilters();
-        setOpenDropdown(null);
-      }
-      if (categoriesDropdownRef.current && !categoriesDropdownRef.current.contains(event.target)) {
-        setOpenCategoriesDropdown(false);
-      }
-    };
-
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, [tempSelectedValues, tempPriceRange, hasChanges]);
-
-  const handleLogoClick = () => {
-    navigate('/');
-  };
-
-  const renderCategoriesDropdown = () => {
-    return (
-      <div className="dropdown-content" ref={categoriesDropdownRef}>
-        <div className="dropdown-content-inner categories-dropdown-inner">
-          {filtresData?.categories?.values?.filter(category => category !== tempSelectedCategory).map((category, index) => (
-            <div key={index} className="category-item" onClick={() => handleCategorySelection(category)}>
-              {category}
-            </div>
-          ))}
-        </div>
-      </div>
-    );
-  };
-
-  const renderDropdown = (filterKey, displayName) => {
+  const isFilterActive = (filterKey) => {
     if (filterKey === 'price') {
-      return (
-        <div className="dropdown-content" ref={dropdownRef}>
-          <div className="dropdown-content-inner">
-            <div className="price-filter">
-              <div className="price-filter-min">
-                <label htmlFor="price-min">De</label>
-                <input
-                  type="number"
-                  id="price-min"
-                  className="input-price"
-                  name="min"
-                  value={tempPriceRange.min}
-                  onChange={handlePriceChange}
-                  placeholder="Min"
-                />
-              </div>
-              <div className="price-filter-max">
-                <label htmlFor="price-max">À</label>
-                <input
-                  type="number"
-                  id="price-max"
-                  className="input-price"
-                  name="max"
-                  value={tempPriceRange.max}
-                  onChange={handlePriceChange}
-                  placeholder="Max"
-                />
-              </div>
-            </div>
-          </div>
-        </div>
-      );
+      return priceRange.min !== '' || priceRange.max !== '';
     }
+    return selectedValues[filterKey]?.length > 0;
+  };
 
-    const filterData = filtresData?.filters[filterKey];
-
-    const renderFilterValues = (values, key) => {
-      if (typeof values === 'object' && values !== null && !Array.isArray(values)) {
-        // Handle nested structure (like sizes)
-        return Object.entries(values).map(([subKey, subValue]) => (
-          <div key={subKey}>
-            <h4>{subValue.displayName}</h4>
-            {subValue.values.map((value, valueIndex) => (
-              <label key={valueIndex} className="checkbox-label">
-                <input
-                type="checkbox"
-                checked={tempSelectedValues[filterKey]?.includes(value) || false}
-                onChange={() => handleCheckboxChange(filterKey, value)}
-                />
-                {value}
-              </label>
-            ))}
-          </div>
-        ));
-      } else {
-        // Handle flat arrays (like colors, materials, conditions)
-        return values.map((value, index) => (
-          <label key={index} className="checkbox-label">
-            <input
-                type="checkbox"
-                checked={tempSelectedValues[filterKey]?.includes(value) || false}
-                onChange={() => handleCheckboxChange(filterKey, value)}
-            />
-            {value}
-          </label>
-        ));
-      }
-    };
-
-    return (
-      <div className="dropdown-content" ref={dropdownRef}>
-        <div className="dropdown-content-inner">
-          {renderFilterValues(filterData.values, filterKey)}
-        </div>
-      </div>
-    );
+  const getFilterCount = (filterKey) => {
+    if (filterKey === 'price') {
+      return (priceRange.min !== '' || priceRange.max !== '') ? '1' : '';
+    }
+    const count = selectedValues[filterKey]?.length;
+    return count > 0 ? count.toString() : '';
   };
 
   const renderFilterButtons = () => (
     filters.map((filter, index) => {
       const isActive = isFilterActive(filter.key);
+      const filterCount = getFilterCount(filter.key);
+      
       return (
         <li key={index} className="filter-item">
           <button
@@ -241,16 +287,30 @@ const Header = ({ selectedValues, priceRange, selectedCategory, onFilterChange }
             }}
           >
             {filter.displayName}
-            {isActive && (
-              <span className="filter-count">
-                {filter.key === 'price' 
-                  ? '1'
-                  : tempSelectedValues[filter.key]?.length}
-              </span>
+            {isActive && filterCount && (
+              <span className="filter-count">{filterCount}</span>
             )}
             <i className="fa fa-angle-down button-icon-right"></i>
           </button>
-          {openDropdown === filter.key && renderDropdown(filter.key, filter.displayName)}
+          {openDropdown === filter.key && (
+            <div className="dropdown-content" ref={dropdownRef}>
+              {filter.key === 'price' ? (
+                <div className="dropdown-content-inner">
+                  <PriceFilter
+                    priceRange={tempPriceRange}
+                    onChange={(e) => updateTempPriceRange(e.target.name, e.target.value)}
+                  />
+                </div>
+              ) : (
+                <FilterDropdown
+                  filterKey={filter.key}
+                  filterData={filtresData.filters[filter.key]}
+                  tempValues={tempValues}
+                  onChange={updateTempValues}
+                />
+              )}
+            </div>
+          )}
         </li>
       );
     })
@@ -264,28 +324,26 @@ const Header = ({ selectedValues, priceRange, selectedCategory, onFilterChange }
             id="logo2" 
             src={logo} 
             alt="Swapp logo" 
-            onClick={handleLogoClick} 
+            onClick={() => navigate('/')} 
             style={{ cursor: 'pointer' }}
           />
           <div id="full-search">
             <li className="filter-item">
               <button onClick={() => setOpenCategoriesDropdown(!openCategoriesDropdown)}>
-                {tempSelectedCategory || filtresData.categories.displayName} 
+                {tempCategory || filtresData.categories.displayName} 
                 <i className="fa fa-angle-down button-icon-right"></i>
               </button>
-              {openCategoriesDropdown && renderCategoriesDropdown()}
+              {openCategoriesDropdown && (
+                <div className="dropdown-content" ref={categoriesDropdownRef}>
+                  <CategoriesDropdown
+                    categories={filtresData?.categories?.values}
+                    selectedCategory={tempCategory}
+                    onSelect={handleCategorySelection}
+                  />
+                </div>
+              )}
             </li>
-            <form id="search-form" name="search-form" onSubmit={(e) => e.preventDefault()}>
-              <input
-                type="text"
-                className="input-search"
-                name="search"
-                placeholder="Search..."
-                defaultValue={query}
-                onKeyDown={handleSearchKeyPress}
-                required
-              />
-            </form>
+            <SearchBar query={query} onSearch={handleSearchKeyPress} />
           </div>
         </div>
         <div id="main-header-buttons">
