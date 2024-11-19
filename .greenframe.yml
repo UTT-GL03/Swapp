@@ -7,3 +7,4 @@ scenarios:
       name: Consulter la page d'articles
 containers:
   - swapp-static_hosting-1
+  - swapp-backend-1

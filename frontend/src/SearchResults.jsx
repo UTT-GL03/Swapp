@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useMemo, useCallback } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import fashionItems from './assets/sample_data.json';
 import notFoundImage from './assets/not-found-element.png';
 import './css/SearchResults.css';
 import Header from './Header';
@@ -74,7 +73,6 @@ const ItemsGrid = React.memo(({ items, onItemClick }) => (
 ));
 ItemsGrid.displayName = 'ItemsGrid';
 
-
 const SearchResults = () => {
   const navigate = useNavigate();
   const { query, categoryFromURL } = useURLParameters();
@@ -86,14 +84,35 @@ const SearchResults = () => {
     handleFilterChange
   } = useFilterState(categoryFromURL);
 
+  const [fashionItems, setFashionItems] = useState([]);
   const [filteredArticles, setFilteredArticles] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  // Fetch fashion items from API or database
+  useEffect(() => {
+    const fetchFashionItems = async () => {
+      try {
+        // Replace with your actual data fetching method
+        const response = await fetch('http://localhost:5984/swapp_data/_all_docs?include_docs=true');
+        const data = await response.json();
+        const items = data.rows.map(row => row.doc);
+        setFashionItems(items);
+        setIsLoading(false);
+      } catch (error) {
+        console.error('Error fetching fashion items:', error);
+        setIsLoading(false);
+      }
+    };
+
+    fetchFashionItems();
+  }, []);
 
   const handleItemClick = useCallback((url) => {
     navigate(url);
   }, [navigate]);
 
   const filterArticles = useCallback(() => {
-    let filtered = fashionItems.articles || [];
+    let filtered = fashionItems || [];
 
     // Apply search query filter
     if (query) {
@@ -134,7 +153,7 @@ const SearchResults = () => {
     });
 
     setFilteredArticles(filtered);
-  }, [query, selectedValues, priceRange, selectedCategory]);
+  }, [fashionItems, query, selectedValues, priceRange, selectedCategory]);
 
   // Filter articles when dependencies change
   useEffect(() => {
@@ -148,6 +167,10 @@ const SearchResults = () => {
     selectedCategory,
     onFilterChange: handleFilterChange
   }), [selectedValues, priceRange, selectedCategory, handleFilterChange]);
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <div>
