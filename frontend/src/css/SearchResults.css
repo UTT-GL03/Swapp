@@ -56,3 +56,17 @@ body {
   .space{
     height: 250px;
   }
+
+  #not-found-image{
+    margin-top: 20px;
+    height: 300px;
+  }
+
+  #not-found p{
+    position: relative;
+    top: -88px;
+    left: 250px;
+    font-size: 22px;
+    width: 500px;
+    color: rgb(161, 161, 161);
+  }

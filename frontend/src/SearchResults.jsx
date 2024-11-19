@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useMemo, useCallback } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import fashionItems from './assets/sample_data.json';
+import notFoundImage from './assets/not-found-element.png';
 import './css/SearchResults.css';
 import Header from './Header';
 import Footer from './Footer';
@@ -51,6 +52,7 @@ const ItemCard = React.memo(({ item, onClick }) => (
     </div>
   </div>
 ));
+ItemCard.displayName = 'ItemCard';
 
 const ItemsGrid = React.memo(({ items, onItemClick }) => (
   <div className="Items conteneur">
@@ -63,10 +65,15 @@ const ItemsGrid = React.memo(({ items, onItemClick }) => (
         />
       ))
     ) : (
-      <div>Aucun élément ne correspond à vos critères.</div>
+      <div id='not-found'>
+          <img id="not-found-image" src={notFoundImage} alt="Open drawers" />
+          <p>Aucun élément ne correspond à vos critères.</p>
+      </div>
     )}
   </div>
 ));
+ItemsGrid.displayName = 'ItemsGrid';
+
 
 const SearchResults = () => {
   const navigate = useNavigate();
