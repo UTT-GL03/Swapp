@@ -339,6 +339,12 @@ input[type=number] {
   -moz-appearance: textfield;
 }
 
+/* Le premier h4 du dropdown n'a pas un margin-top supérieur aux autres dropdowns */
+.dropdown-content-inner > div:first-child > h4:first-of-type {
+  margin-top: 4px; 
+}
+
+
 
 /* --------------------------- Footer -------------------------- */
 
