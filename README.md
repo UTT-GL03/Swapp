@@ -26,6 +26,26 @@ Pour contrer l’effet rebond, Swapp s’efforcera de limiter la stimulation art
 
 Enfin, il est essentiel de rappeler que si les plateformes de seconde main ont révolutionné le marché de l'occasion en le rendant accessible, elles doivent aussi trouver un équilibre entre accessibilité et durabilité pour préserver leur impact écologique positif initial.
 
+
+
+# Benchmarks de nos principaux concurrents
+
+Nous avons fait le test sur 5 pages :
+- https://www.vinted.fr/
+- https://www.depop.com/fr/
+- https://www.leboncoin.fr/
+- https://www.etsy.com/fr
+- https://www.geev.com/fr/recherche/objets?location=48.862725%2C2.287592&type=donation&distance=15000
+
+Sur ces 5 pages, seules 2 ont fonctionné correctement : Vinted et Geev. Deepop a "Scenario failed" et Leboncoin et Etsy sont bloqués sur des pages de Captcha.
+
+Voici le résultat pour Vinted : [Résultat GreenFrame Vinted](https://app.greenframe.io/analyses/547cd8a6-e40c-4a03-b636-f107d62ddc51)
+
+Voici le résulat pour Geev : [Résultat GreenFrame Geev](https://app.greenframe.io/analyses/9aab1aad-f384-4412-93f9-d540625cb52d)
+
+
+
+
 # Scénarios d'usage
 Nous faisons l'hypothèse que les utilisateurs visitent les plateformes de vente d'articles de seconde main lors de moments opportunistes, que ce soit pendant leurs pauses, dans les transports en commun ou à la maison. Ces visites peuvent être motivées par la recherche d'articles spécifiques, la découverte de bonnes affaires ou la consultation de nouveautés.
 
@@ -74,6 +94,9 @@ Ce scénario est crucial pour permettre aux utilisateurs de finaliser leur expé
 3. Il choisit une méthode de paiement.
 4. Il valide le paiement et finalise son achat.
 
+
+
+
 # Maquettage & données
 Afin de limiter au maximum l'afflux de données inutile, nous avons choisi de mettre en place une page d'accueil sans scroll, dans laquelle il est possible de sélectionner une catégorie ou taper un élément spécifique dans le champ de saisie. 
 
@@ -93,6 +116,7 @@ Fig3 : maquette de la page descriptive d'un élément
 L'échantillon de données a été créé par dummy-json selon les attributs de catégorie, état, taille, couleur, prix et localisation évoqués préalablement.
 
 
+
 # Prototypes
 
 ## Prototype 1
@@ -106,32 +130,7 @@ Fig5 : Prototype 1 - Screenshot de la page de recherche
 
 Le nombre d'éléments à récupérer par recherche n'est pas encore établi, mais le sera au prototype suivant. Il ne sera alors possible que d'afficher 20 éléments à la fois.
 
-## Prototype 2 
-
-
-
-
-# GreenFrame
-
-## Swapp Benchmark
-
-Nous avons fait le test sur 5 pages :
-- https://www.vinted.fr/
-- https://www.depop.com/fr/
-- https://www.leboncoin.fr/
-- https://www.etsy.com/fr
-- https://www.geev.com/fr/recherche/objets?location=48.862725%2C2.287592&type=donation&distance=15000
-
-Sur ces 5 pages, seules 2 ont fonctionné correctement : Vinted et Geev. Deepop a "Scenario failed" et Leboncoin et Etsy sont bloqués sur des pages de Captcha.
-
-Voici le résultat pour Vinted : [Résultat GreenFrame Vinted](https://app.greenframe.io/analyses/547cd8a6-e40c-4a03-b636-f107d62ddc51)
-
-Voici le résulat pour Geev : [Résultat GreenFrame Geev](https://app.greenframe.io/analyses/9aab1aad-f384-4412-93f9-d540625cb52d)
-
-## Swapp
-
-### 1er résultat
-
+#### Analyse GreenFrame
 Voici le premier résultat obtenir sur notre application pour 2 scénarios : 
 - Scenario 1: Consulter la page d'accueil
 - Scenario 2: Consulter la page d'articles
@@ -143,8 +142,9 @@ Nous remarquons que le retour n'est pas très fameux : 80mg pour les deux scéna
   
 Donc on peut largement améliorer le scénario 1. Nous avons identifié que le problème principale était la background image de notre page d'accueil que nous avons supprimé pour améliorer le résultat.
 
-### 2ème résultat
+## Prototype 2 
 
+#### Analyse GreenFrame
 Pour les mêmes scénario, voici le résultat :
 [2eme Résultat GreenFrame Swapp](https://app.greenframe.io/analyses/b8d3ddbf-e5d7-4fcd-b874-3183741a2be6)
 
@@ -154,12 +154,7 @@ Nous remarquons que le retour meilleur : 63mg pour les deux scénarios dont :
 
 Supprimer la background image a largement améliorer notre impact.
 
-### 3ème résultat
-
-Ajout d'une background image pour l'effet esthétique et compréhension du service. Cependant, cette background image a un impact bien moindre comparé à celle initiale.
-
-
-# Prototype 3 : Données dynamiques & Chargement dynamique
+## Prototype 3 : Données dynamiques & Chargement dynamique
 
 Dans cette troisième version du prototype, les données sont désormais centralisées dans une base de données CouchDB, accessible via une API Web. L’adoption d’une telle solution offre plusieurs avantages : elle permet d’ajouter, de modifier et de gérer les articles de manière plus fluide, tout en offrant une plus grande flexibilité pour le filtrage et l’accès aux données.
 
@@ -168,15 +163,18 @@ Pourquoi choisir une base de données plutôt qu’un fichier statique ?
 → Meilleure gestion de l’espace de stockage et des performances à grande échelle
 → Modification et mise à jour des données facilitées, sans avoir à manipuler manuellement un fichier volumineux
 
+#### Analyse GreenFrame
 (ajouter images de comparaison)
 
 => pas de changement conséquent sur le réseau mais CPU qui augmente (normal car création d'un backend)
 
 De ces différentes mesures, nous pouvons retenir que l'effet de l'introduction d'une base de données, quoique négligeable, est, pour l'instant, plutôt défavorable d'un point de vue écologique. Le bilan de ce changement devrait cependant rapidement s'inverser avec l'augmentation de la quantité de données gérées et les requêtes réalisées.
 
-# Prototype 4
+Ajout d'une background image pour l'effet esthétique et compréhension du service. Cependant, cette background image a un impact bien moindre comparé à celle initiale.
 
-## Passage à l'échelle
+## Prototype 4
+
+#### Analyse GreenFrame | Passage à l'échelle 
 
 Dans le cadre de notre service, la croissance des données est principalement liée à deux aspects : le volume des annonces et les médias associés (photos). L'évolution de ces données est directement liée à la croissance du nombre d'utilisateurs et au rythme de publication des annonces.
 
