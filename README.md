@@ -195,3 +195,11 @@ L'augmentation est non linéaire puisque le nombre de nouveaux utilisateurs peut
 3. **Médias associés (photos)**
 - Chaque annonce inclut plusieurs photos (généralement 3 à 5).
 - Ces fichiers multimédias représentent la majeure partie de l'empreinte en stockage.
+
+## Evolution de l'impact
+
+La figure suivante illustre l'évolution de l'impact environnemental lors du passage à l'échelle, avec une augmentation significative du nombre d'articles publiés, passant de 15 à 3000 (correspondant à une période étendue de publication). On constate une hausse de 140 % de l'impact lié à l'utilisation du processeur (CPU) au niveau du backend, traduisant une charge accrue pour le traitement et le rendu des contenus. En parallèle, l'impact du réseau au niveau du backend connaît une augmentation encore plus marquée, avec une croissance de 231 %, soulignant les besoins accrus en bande passante pour gérer le trafic et la diffusion des articles à grande échelle. Ces évolutions mettent en lumière les défis environnementaux liés à l'augmentation de la volumétrie dans un contexte numérique backend-centric.
+
+(mettre screenshot)
+
+L'évolution ne concerne bien sûr que la page de recherche des vestes en cuir. Dans tous les cas, nous obligeons l'utilisateur à faire une recherche afin de ne jamais afficher tous les articles. 
