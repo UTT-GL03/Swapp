@@ -28,7 +28,7 @@ jobs:
       - name: Generate sample
         run: |
           cd frontend
-          npx --yes dummy-json sample_data.hbs > public/sample_data.json
+          npx --yes dummy-json public/sample_data.hbs > public/sample_data.json
       - name: Start frontend
         run: |
           export COUCHDB_USER="admin"
