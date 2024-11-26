@@ -1,0 +1,26 @@
+{
+  "docs": [
+    {{#repeat 3000}}
+    {
+      "id": "{{guid}}",
+      "title": "{{random 'Sac élégant en cuir gris' 'Veste longue en laine beige' 'Robe de soirée rouge en satin' 'Pull doux en cachemire bleu' 'Pantalon droit en velours côtelé marron' 'T-shirt classique en coton blanc' 'Manteau chaud noir en laine' 'Chemise légère en denim bleu marine' 'Jupe plissée fluide rose pastel' 'Baskets modernes en cuir blanc' 'Robe évasée en dentelle ivoire' 'Pull en laine épaisse gris anthracite' 'Blouson court en cuir noir' 'Jean skinny délavé bleu clair' 'T-shirt ample à rayures noires et blanches' 'Manteau en fausse fourrure camel' 'Chemisier élégant en soie lavande' 'Short en lin beige parfait pour l\'été' 'Chaussures à talons en daim bordeaux' 'Sac à dos en simili-cuir noir pour tous les jours'}}",
+      "description": "{{random 'Un sac pratique et élégant, parfait pour le quotidien.' 'Une veste raffinée qui allie style et confort.' 'Une robe chic idéale pour des occasions spéciales.' 'Un pull chaud et agréable pour l\'hiver.' 'Un pantalon élégant et moderne pour les journées décontractées.' 'Un t-shirt intemporel qui se marie avec tout.' 'Un manteau polyvalent conçu pour les journées froides.' 'Une chemise en denim, idéale pour un look casual chic.' 'Une jupe fluide et féminine, parfaite pour les beaux jours.' 'Des baskets tendance qui complètent toutes vos tenues.'}}",
+      "category": "{{random 'Pulls & gilets' 'Manteaux & vestes' 'Tee-shirts & chemises' 'Robes' 'Jupes' 'Pantalons' 'Chaussures' 'Sacs'}}",
+      "price": {{float 5 200 '0.00'}},
+      "condition": "{{random 'Neuf' 'Très bon état' 'Bon état' 'Etat satisfaisant'}}",
+      "size": "{{random 'XXS' 'XS' 'S' 'M' 'L' 'XL' 'XXL' 'XXXL'}}",
+      "brand": "{{company}}",
+      "color": "{{random 'Blanc' 'Noir' 'Gris' 'Bleu' 'Rouge' 'Rose' 'Jaune' 'Vert' 'Orange' 'Violet' 'Marron' 'Beige' 'Bordeaux'}}",
+      "material": "{{random 'Cuir' 'Laine' 'Coton' 'Cachemire' 'Denim' 'Viscose' 'Lin'}}",
+      "seller": {
+        "username": "{{firstName}}{{lastName}}{{int 1 999}}",
+        "rating": {{float 1 5 '0.0'}},
+        "location": "{{city}}"
+      },
+      "published": "{{date '2024-01-01' '2024-12-31' 'YYYY-MM-DD hh:mm'}}",
+      "views": {{int 0 1000}},
+      "likes": {{int 0 100}}
+    }
+    {{/repeat}}
+  ]
+}

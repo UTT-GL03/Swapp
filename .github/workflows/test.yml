@@ -25,6 +25,10 @@ jobs:
         run: |
           cd frontend
           npm run build
+      - name: Generate sample
+        run: |
+          cd frontend
+          npx --yes dummy-json sample_data.hbs > public/sample_data.json
       - name: Start frontend
         run: |
           export COUCHDB_USER="admin"
