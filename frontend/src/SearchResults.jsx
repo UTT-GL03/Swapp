@@ -113,6 +113,7 @@ const SearchResults = () => {
 
   const filterArticles = useCallback(() => {
     let filtered = fashionItems || [];
+    console.log(filtered);
 
     // Apply search query filter
     if (query) {
