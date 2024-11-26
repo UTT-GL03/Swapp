@@ -1,0 +1,7 @@
+{
+    "index": {
+      "fields": ["title", "category", "price"]
+    },
+    "name": "search_and_filter_index",
+    "type": "json"
+  }
