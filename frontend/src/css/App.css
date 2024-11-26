@@ -155,7 +155,7 @@ header{
   color: var(--regular-secondary-color);
   border-color: var(--pale-secondary-color);
   border-radius: 20px 0 0 20px;
-  min-width: 255px;
+  min-width: 205px;
   text-align: left;
 }
 
