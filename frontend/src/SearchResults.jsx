@@ -73,101 +73,101 @@ const ItemsGrid = React.memo(({ items, onItemClick }) => (
 ));
 ItemsGrid.displayName = 'ItemsGrid';
 
-// ... autres imports ...
-
 const SearchResults = () => {
   const navigate = useNavigate();
   const { query, categoryFromURL } = useURLParameters();
-
+  
   const {
     selectedValues,
     priceRange,
     selectedCategory,
-    handleFilterChange,
+    handleFilterChange
   } = useFilterState(categoryFromURL);
 
   const [fashionItems, setFashionItems] = useState([]);
+  const [filteredArticles, setFilteredArticles] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
-  // Préparer les filtres pour la requête serveur
-  const buildServerQuery = useCallback(() => {
-    const selector = {};
-
-    // Filtrer par titre ou catégorie
-    if (query) {
-      selector["$or"] = [
-        { title: { $regex: query, $options: "i" } },
-        { category: { $regex: query, $options: "i" } },
-      ];
-    }
-
-    // Filtrer par catégorie sélectionnée
-    if (selectedCategory) {
-      selector.category = { $eq: selectedCategory };
-    }
-
-    // Filtrer par plage de prix
-    if (priceRange.min || priceRange.max) {
-      selector.price = {};
-      if (priceRange.min) {
-        selector.price.$gte = parseFloat(priceRange.min);
-      }
-      if (priceRange.max) {
-        selector.price.$lte = parseFloat(priceRange.max);
-      }
-    }
-
-    // Filtrer par autres valeurs sélectionnées
-    Object.entries(selectedValues).forEach(([key, values]) => {
-      if (values.length > 0) {
-        selector[key] = { $in: values };
-      }
-    });
-
-    return {
-      selector,
-      sort: [{ issued: "desc" }], // Exemple de tri
-      fields: ["_id", "title", "price", "category", "image", "issued"],
-      limit: 25, // Limitation du nombre de résultats
-    };
-  }, [query, selectedCategory, priceRange, selectedValues]);
-
-  // Récupérer les données depuis le serveur
+  // Fetch fashion items from API or database
   useEffect(() => {
     const fetchFashionItems = async () => {
-      setIsLoading(true);
-      const query = buildServerQuery();
-
       try {
-        const response = await fetch("http://localhost:5984/swapp_data/_find", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(query),
-        });
-
-        if (!response.ok) {
-          throw new Error(`Erreur lors de la requête: ${response.statusText}`);
-        }
-
+        // Replace with your actual data fetching method
+        const response = await fetch('http://localhost:5984/swapp_data/_all_docs?include_docs=true');
         const data = await response.json();
-        const items = data.docs || []; // CouchDB retourne les résultats dans `docs`
+        const items = data.rows.map(row => row.doc);
         setFashionItems(items);
+        setIsLoading(false);
       } catch (error) {
-        console.error("Erreur lors de la récupération des articles :", error);
-      } finally {
+        console.error('Error fetching fashion items:', error);
         setIsLoading(false);
       }
     };
 
     fetchFashionItems();
-  }, [buildServerQuery]);
+  }, []);
 
-  const handleItemClick = useCallback(
-    (url) => {
-      navigate(url);
-    },
-    [navigate]
-  );
+  const handleItemClick = useCallback((url) => {
+    navigate(url);
+  }, [navigate]);
+
+  const filterArticles = useCallback(() => {
+    let filtered = fashionItems || [];
+    console.log(filtered);
+
+    // Apply search query filter
+    if (query) {
+      const searchTerm = query.toLowerCase();
+      filtered = filtered.filter(item =>
+        item.title.toLowerCase().includes(searchTerm) ||
+        item.category.toLowerCase().includes(searchTerm)
+      );
+    }
+
+    // Apply category filter
+    if (selectedCategory) {
+      const categoryTerm = selectedCategory.toLowerCase();
+      filtered = filtered.filter(item =>
+        item.category.toLowerCase() === categoryTerm
+      );
+    }
+
+    // Apply price range filter
+    if (priceRange.min !== '' || priceRange.max !== '') {
+      const minPrice = priceRange.min === '' ? -Infinity : parseFloat(priceRange.min);
+      const maxPrice = priceRange.max === '' ? Infinity : parseFloat(priceRange.max);
+      filtered = filtered.filter(item =>
+        item.price >= minPrice && item.price <= maxPrice
+      );
+    }
+
+    // Apply other filters (sizes, colors, etc.)
+    Object.entries(selectedValues).forEach(([filterKey, selectedFilterValues]) => {
+      if (selectedFilterValues.length > 0) {
+        filtered = filtered.filter(item => {
+          const itemValue = item[filterKey];
+          return Array.isArray(itemValue)
+            ? selectedFilterValues.some(value => itemValue.includes(value))
+            : selectedFilterValues.includes(itemValue);
+        });
+      }
+    });
+
+    setFilteredArticles(filtered);
+  }, [fashionItems, query, selectedValues, priceRange, selectedCategory]);
+
+  // Filter articles when dependencies change
+  useEffect(() => {
+    filterArticles();
+  }, [filterArticles]);
+
+  // Memoize header props to prevent unnecessary re-renders
+  const headerProps = useMemo(() => ({
+    selectedValues,
+    priceRange,
+    selectedCategory,
+    onFilterChange: handleFilterChange
+  }), [selectedValues, priceRange, selectedCategory, handleFilterChange]);
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -175,14 +175,12 @@ const SearchResults = () => {
 
   return (
     <div>
-      <Header
-        selectedValues={selectedValues}
-        priceRange={priceRange}
-        selectedCategory={selectedCategory}
-        onFilterChange={handleFilterChange}
+      <Header {...headerProps} />
+      <ItemsGrid 
+        items={filteredArticles} 
+        onItemClick={handleItemClick}
       />
-      <ItemsGrid items={fashionItems} onItemClick={handleItemClick} />
-      <div className="space" />
+      <div className='space' />
       <Footer />
     </div>
   );
