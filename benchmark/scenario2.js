@@ -1,5 +1,5 @@
 const visit = async (page) => {
-    await page.goto('http://localhost/search?q=veste%20en%20cuir', {
+    await page.goto('http://localhost/search?q=veste', {
         waitUntil: 'networkidle',
     });
     await page.waitForTimeout(10000);
