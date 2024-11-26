@@ -186,6 +186,7 @@ Facteurs d'augmentation des données :
 Chaque nouvel utilisateur inscrit est susceptible de :
 - Ajouter des annonces (texte, photos, descriptions).
 - Effectuer des interactions (messages, transactions, évaluations, etc.).
+  
 L'augmentation est non linéaire puisque le nombre de nouveaux utilisateurs peut croître rapidement grâce au bouche-à-oreille et aux campagnes de marketing.
 2. **Volume d'annonces**
 - Chaque utilisateur peut publier plusieurs annonces.
