@@ -173,3 +173,18 @@ Pourquoi choisir une base de données plutôt qu’un fichier statique ?
 => pas de changement conséquent sur le réseau mais CPU qui augmente (normal car création d'un backend)
 
 De ces différentes mesures, nous pouvons retenir que l'effet de l'introduction d'une base de données, quoique négligeable, est, pour l'instant, plutôt défavorable d'un point de vue écologique. Le bilan de ce changement devrait cependant rapidement s'inverser avec l'augmentation de la quantité de données gérées et les requêtes réalisées.
+
+# Prototype 4
+
+## Passage à l'échelle
+
+Dans le cadre de notre service, la croissance des données est principalement liée à deux aspects : le volume des annonces et les médias associés (photos). L'évolution de ces données est directement liée à la croissance du nombre d'utilisateurs et au rythme de publication des annonces.
+
+Facteurs d'augmentation des données :
+1. **Volume d'annonces**
+- Chaque utilisateur peut publier plusieurs annonces.
+- Les annonces restent dans la base de données (même après la vente ou l'expiration) pour des raisons de traçabilité et d'historique.
+- La croissance est approximativement linéaire en fonction du nombre d'utilisateurs et de leur activité.
+2. **Médias associés (photos)**
+- Chaque annonce inclut plusieurs photos (généralement 3 à 5).
+- Ces fichiers multimédias représentent la majeure partie de l'empreinte en stockage.
