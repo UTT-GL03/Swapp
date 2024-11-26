@@ -140,6 +140,7 @@ Voici le premier résultat obtenir sur notre application pour 2 scénarios :
 Nous remarquons que le retour n'est pas très fameux : 80mg pour les deux scénarios dont :
 - 48 mg pour le scénario 1
 - 32 mg pour le scénario 2
+  
 Donc on peut largement améliorer le scénario 1. Nous avons identifié que le problème principale était la background image de notre page d'accueil que nous avons supprimé pour améliorer le résultat.
 
 ### 2ème résultat
@@ -150,4 +151,46 @@ Pour les mêmes scénario, voici le résultat :
 Nous remarquons que le retour meilleur : 63mg pour les deux scénarios dont :
 - 31 mg pour le scénario 1
 - 32 mg pour le scénario 2
+
 Supprimer la background image a largement améliorer notre impact.
+
+### 3ème résultat
+
+Ajout d'une background image pour l'effet esthétique et compréhension du service. Cependant, cette background image a un impact bien moindre comparé à celle initiale.
+
+
+# Prototype 3 : Données dynamiques & Chargement dynamique
+
+Dans cette troisième version du prototype, les données sont désormais centralisées dans une base de données CouchDB, accessible via une API Web. L’adoption d’une telle solution offre plusieurs avantages : elle permet d’ajouter, de modifier et de gérer les articles de manière plus fluide, tout en offrant une plus grande flexibilité pour le filtrage et l’accès aux données.
+
+Pourquoi choisir une base de données plutôt qu’un fichier statique ?
+→ Exécution de requêtes dynamiques et complexes pour un accès plus précis aux données
+→ Meilleure gestion de l’espace de stockage et des performances à grande échelle
+→ Modification et mise à jour des données facilitées, sans avoir à manipuler manuellement un fichier volumineux
+
+(ajouter images de comparaison)
+
+=> pas de changement conséquent sur le réseau mais CPU qui augmente (normal car création d'un backend)
+
+De ces différentes mesures, nous pouvons retenir que l'effet de l'introduction d'une base de données, quoique négligeable, est, pour l'instant, plutôt défavorable d'un point de vue écologique. Le bilan de ce changement devrait cependant rapidement s'inverser avec l'augmentation de la quantité de données gérées et les requêtes réalisées.
+
+# Prototype 4
+
+## Passage à l'échelle
+
+Dans le cadre de notre service, la croissance des données est principalement liée à deux aspects : le volume des annonces et les médias associés (photos). L'évolution de ces données est directement liée à la croissance du nombre d'utilisateurs et au rythme de publication des annonces.
+
+Facteurs d'augmentation des données :
+1. **Nombre d'utilisateurs**
+
+Chaque nouvel utilisateur inscrit est susceptible de :
+- Ajouter des annonces (texte, photos, descriptions).
+- Effectuer des interactions (messages, transactions, évaluations, etc.).
+L'augmentation est non linéaire puisque le nombre de nouveaux utilisateurs peut croître rapidement grâce au bouche-à-oreille et aux campagnes de marketing.
+2. **Volume d'annonces**
+- Chaque utilisateur peut publier plusieurs annonces.
+- Les annonces restent dans la base de données (même après la vente ou l'expiration) pour des raisons de traçabilité et d'historique.
+- La croissance est approximativement linéaire en fonction du nombre d'utilisateurs et de leur activité.
+3. **Médias associés (photos)**
+- Chaque annonce inclut plusieurs photos (généralement 3 à 5).
+- Ces fichiers multimédias représentent la majeure partie de l'empreinte en stockage.
