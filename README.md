@@ -182,6 +182,7 @@ Dans le cadre de notre service, la croissance des données est principalement li
 
 Facteurs d'augmentation des données :
 1. **Nombre d'utilisateurs**
+
 Chaque nouvel utilisateur inscrit est susceptible de :
 - Ajouter des annonces (texte, photos, descriptions).
 - Effectuer des interactions (messages, transactions, évaluations, etc.).
