@@ -1,0 +1,26 @@
+{
+  "docs": [
+    {{#repeat 10000}}
+    {
+      "id": "{{guid}}",
+      "title": "{{random 'Élégance contemporaine' 'Style intemporel' 'Charme décontracté' 'Confort raffiné' 'Mode urbaine' 'Tendances actuelles' 'Look minimaliste' 'Pièce audacieuse' 'Coup de cœur saisonnier' 'Tenue polyvalente' 'Légèreté printanière' 'Chaleur hivernale' 'Sophistication discrète' 'Essentiel quotidien' 'Détail subtil'}}",
+      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas interdum nisi nec metus iaculis semper. Cras ultricies vulputate metus, vitae tempus augue ultrices vitae. Sed a ante quis risus malesuada iaculis quis ut nisi. Morbi aliquet sed lacus commodo ullamcorper. Curabitur volutpat dui id elit laoreet ornare.",
+      "category": "{{random 'Pulls' 'Gilets' 'Manteaux' 'Vestes' 'Tee-shirts' 'Chemises' 'Robes' 'Jupes' 'Pantalons' 'Chaussures' 'Sacs'}}",
+      "price": {{float 5 200 '0.00'}},
+      "condition": "{{random 'Neuf' 'Très bon état' 'Bon état' 'Etat satisfaisant'}}",
+      "size": "{{random 'XXS' 'XS' 'S' 'M' 'L' 'XL' 'XXL' 'XXXL'}}",
+      "brand": "{{company}}",
+      "color": "{{random 'Blanc' 'Noir' 'Gris' 'Bleu' 'Rouge' 'Rose' 'Jaune' 'Vert' 'Orange' 'Violet' 'Marron' 'Beige' 'Bordeaux'}}",
+      "material": "{{random 'Cuir' 'Laine' 'Coton' 'Cachemire' 'Denim' 'Viscose' 'Lin'}}",
+      "seller": {
+        "username": "{{firstName}}{{lastName}}{{int 1 999}}",
+        "rating": {{float 1 5 '0.0'}},
+        "location": "{{city}}"
+      },
+      "published": "{{date '2024-01-01' '2024-12-31' 'YYYY-MM-DD hh:mm'}}",
+      "views": {{int 0 1000}},
+      "likes": {{int 0 100}}
+    }
+    {{/repeat}}
+  ]
+}
