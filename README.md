@@ -180,12 +180,6 @@ Pourquoi choisir une base de données plutôt qu’un fichier statique ?
 
 Pour ce troisième prototype, nous permettons la recherche fonctionnelle depuis la barre de recherche, mais tout le filtrage reste codé côté client. Nous récupérons donc toujours l'intégralité des articles depuis la base de données.
 
-Un problème est relevé : puisque nous avons créé aléatoirement des titres d'articles et les valeurs des catégories, le filtrage, bien que fonctionnel, paraît douteux. En effet, un article pouvait jusqu'alors avoir un titre "Veste en cuir", une catégorie "Robe" et un description "Gilet tout doux". En sélectionnant la catégorie "Robe", obtenir un élément au titre de "Veste en cuir" laisse croire à une erreur de tri.
-
-Par conséquent, nous avons modifié notre sample_data.hbs pour que les titres ne comprennent ni des valeurs possibles de catégorie, de couleur et de matière. Les descriptions sont toutes modifiée pour correspondre à un Lorem de 100 mots.
-
-![Jeu de données](screenshots/sample_data-hbs.png)
-Fig6 : notre système de création de données
 
 #### Analyse GreenFrame
 (ajouter images de comparaison)
@@ -195,28 +189,34 @@ Fig6 : notre système de création de données
 De ces différentes mesures, nous pouvons retenir que l'effet de l'introduction d'une base de données, quoique négligeable, est, pour l'instant, plutôt défavorable d'un point de vue écologique. Le bilan de ce changement devrait cependant rapidement s'inverser avec l'augmentation de la quantité de données gérées et les requêtes réalisées.
 
 ## Prototype 4
+Un problème est relevé : puisque nous avons créé aléatoirement des titres d'articles et les valeurs des catégories, le filtrage, bien que fonctionnel, paraît douteux. En effet, un article pouvait jusqu'alors avoir un titre "Veste en cuir", une catégorie "Robe" et un description "Gilet tout doux". En sélectionnant la catégorie "Robe", obtenir un élément au titre de "Veste en cuir" laisse croire à une erreur de tri.
 
-#### Passage à l'échelle 
+Par conséquent, nous avons modifié notre sample_data.hbs pour que les titres ne comprennent ni des valeurs possibles de catégorie, de couleur et de matière. Les descriptions sont toutes modifiée pour correspondre à un Lorem de 100 mots.
+
+![Jeu de données](screenshots/sample_data-hbs.png)
+Fig6 : sample_data.hbs
+
+### Passage à l'échelle 
 
 Dans le cadre de notre service, la croissance des données est principalement liée à deux aspects : le volume des annonces et les médias associés (photos). L'évolution de ces données est directement liée à la croissance du nombre d'utilisateurs et au rythme de publication des annonces.
 
 Facteurs d'augmentation des données :
 
-1. **Nombre d'utilisateurs**
+**Nombre d'utilisateurs**
 Chaque nouvel utilisateur inscrit est susceptible de :
-- Ajouter des annonces (texte, photos, descriptions).
-- Effectuer des interactions (messages, transactions, évaluations, etc.).
+-  Ajouter des annonces (texte, photos, descriptions).
+-  Effectuer des interactions (messages, transactions, évaluations, etc.).
 
 L'augmentation est non linéaire puisque le nombre de nouveaux utilisateurs peut croître rapidement grâce au bouche-à-oreille et aux campagnes de marketing.
 
-2. **Volume d'annonces**
-- Chaque utilisateur peut publier plusieurs annonces.
-- Les annonces restent dans la base de données (même après la vente ou l'expiration) pour des raisons de traçabilité et d'historique.
-- La croissance est approximativement linéaire en fonction du nombre d'utilisateurs et de leur activité.
+**Volume d'annonces**
+-  Chaque utilisateur peut publier plusieurs annonces.
+-  Les annonces restent dans la base de données (même après la vente ou l'expiration) pour des raisons de traçabilité et d'historique.
+-  La croissance est approximativement linéaire en fonction du nombre d'utilisateurs et de leur activité.
   
-3. **Médias associés (photos)**
-- Chaque annonce inclut plusieurs photos (généralement 3 à 5).
-- Ces fichiers multimédias représentent la majeure partie de l'empreinte en stockage.
+**Médias associés (photos)**
+-  Chaque annonce inclut plusieurs photos (généralement 3 à 5).
+-  Ces fichiers multimédias représentent la majeure partie de l'empreinte en stockage.
   
 ### Avant ajustements
 
