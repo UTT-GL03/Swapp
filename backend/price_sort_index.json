@@ -1,7 +1,0 @@
-{
-    "index": {
-      "fields": ["price"]
-    },
-    "name": "price_sort_index",
-    "type": "json"
-  }

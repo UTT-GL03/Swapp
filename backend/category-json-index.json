@@ -1,0 +1,10 @@
+{
+    "index": {
+      "fields": [
+        "category"
+      ]
+    },
+    "name": "category-json-index", 
+    "type": "json"
+  }
+  

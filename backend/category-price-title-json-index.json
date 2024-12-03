@@ -1,0 +1,12 @@
+{
+    "index": {
+      "fields": [
+        "category",
+        "price",
+        "title"
+      ]
+    },
+    "name": "category-price-title-json-index",
+    "type": "json"
+  }
+  

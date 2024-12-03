@@ -1,0 +1,10 @@
+{
+    "index": {
+      "fields": [
+        "price"
+      ]
+    },
+    "name": "price-json-index",
+    "type": "json"
+  }
+  
