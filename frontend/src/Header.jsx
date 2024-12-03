@@ -190,8 +190,10 @@ const Header = ({ selectedValues, priceRange, selectedCategory, onFilterChange }
   const updateURLWithFilters = (params) => {
     const searchParams = new URLSearchParams(location.search);
     
-    // Update query parameter if it changes
-    if (params.query && params.query !== query) {
+    // Remove 'q' parameter entirely if query is null or empty
+    if (params.query === null || params.query === '') {
+      searchParams.delete('q');
+    } else if (params.query) {
       searchParams.set('q', params.query);
     }
 
@@ -260,10 +262,20 @@ const Header = ({ selectedValues, priceRange, selectedCategory, onFilterChange }
   const handleSearchKeyPress = (e) => {
     if (e.key === 'Enter') {
       e.preventDefault();
-      const newQuery = e.target.value;
-      if (newQuery !== query) {
-        navigate(`?q=${encodeURIComponent(newQuery)}`);
-      }
+      const newQuery = e.target.value.trim();
+      
+      updateURLWithFilters({
+        query: newQuery || null,
+        selectedValues: tempValues,
+        priceRange: tempPriceRange,
+        selectedCategory: tempCategory
+      });
+  
+      onFilterChange({
+        selectedValues: tempValues,
+        priceRange: tempPriceRange,
+        selectedCategory: tempCategory
+      });
     }
   };
 
