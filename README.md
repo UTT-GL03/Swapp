@@ -147,13 +147,13 @@ Pour ce deuxième prototype, nous mettons à jour dynamiquement la grille de ré
 Nous décidons de changer l'image de fond de la page d'accueil, la remplaçant par un png plus léger.
 
 ![Prototype 2 - Screenshot de l'image de fond](screenshots/prototype2_home.png)
-Fig5 : Prototype 2 - Screenshot de la page de recherche, dropdown ouvert
+Fig6 : Prototype 2 - Screenshot de la page de recherche, dropdown ouvert
 
 
 Nous créons la logique de dropdown des filtres à partir des données valeurs_filtres.json dans le fichier Header.jsx. Nous permettons la mise à jour d'un object selectedValues à chaque fermeture de dropdown, puis les renvoyons au parent SearchValues. Ainsi, nous permettons une première fonctionnalité de filtrage côté client.
 
 ![Prototype 2 - Screenshot des dropdowns](screenshots/prototype2_search.png)
-Fig6 : Prototype 2 - Screenshot de la page de recherche, dropdown ouvert
+Fig7 : Prototype 2 - Screenshot de la page de recherche, dropdown ouvert
 
 
 #### Analyse GreenFrame
@@ -183,7 +183,7 @@ Pour ce troisième prototype, nous permettons la recherche fonctionnelle depuis 
 
 #### Analyse GreenFrame
 ![GreenFrame : Impact de l'ajout du backend](screenshots/GreenFrame_ajout_backend.png)
-Fig5 : GreenFrame : Impact de l'ajout du backend
+Fig8 : GreenFrame : Impact de l'ajout du backend
 
 => pas de changement conséquent sur le réseau mais CPU qui augmente (normal car création d'un backend)
 
@@ -195,7 +195,7 @@ Un problème est relevé : puisque nous avons créé aléatoirement des titres d
 Par conséquent, nous avons modifié notre sample_data.hbs pour que les titres ne comprennent ni des valeurs possibles de catégorie, de couleur et de matière. Les descriptions sont toutes modifiée pour correspondre à un Lorem de 100 mots.
 
 ![Jeu de données](screenshots/sample_data-hbs.png)
-Fig6 : sample_data.hbs
+Fig9 : sample_data.hbs
 
 ### Passage à l'échelle 
 
@@ -274,9 +274,9 @@ L'intégration d'une limite stricte à **25 articles maximum par affichage** a �
 
 Trois modes d'accès aux articles sont actuellement disponibles :
 
-**Recherche par titre** : L'utilisateur effectue une recherche, et les résultats sont filtrés pour correspondre uniquement aux titres pertinents, limités à 25 articles.  
-**Navigation par catégorie** : L'utilisateur sélectionne une catégorie spécifique et accède à une liste triée et restreinte à 25 articles maximum.  
-**Recherche dans une catégorie** : En combinant les deux méthodes, l'utilisateur peut affiner davantage les résultats, qui restent plafonnés à 25 articles.  
+- **Recherche par titre** : L'utilisateur effectue une recherche, et les résultats sont filtrés pour correspondre uniquement aux titres pertinents, limités à 25 articles.  
+- **Navigation par catégorie** : L'utilisateur sélectionne une catégorie spécifique et accède à une liste triée et restreinte à 25 articles maximum.  
+- **Recherche dans une catégorie** : En combinant les deux méthodes, l'utilisateur peut affiner davantage les résultats, qui restent plafonnés à 25 articles.  
 
 En cas de dépassement de la limite de 25 articles, seuls les résultats les plus pertinents, classés par ordre de prix (du moins cher au plus cher), sont affichés. Ce choix permet de réduire significativement la charge de traitement et la quantité de données transférées.
 
