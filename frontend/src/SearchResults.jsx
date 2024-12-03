@@ -88,14 +88,39 @@ const SearchResults = () => {
   const [filteredArticles, setFilteredArticles] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
-  // Fetch fashion items from API or database
   useEffect(() => {
     const fetchFashionItems = async () => {
       try {
-        // Replace with your actual data fetching method
-        const response = await fetch('http://localhost:5984/swapp_data/_all_docs?include_docs=true');
+        // Requête Mango pour récupérer les articles
+        const mangoPaginatedQuery = {
+          "selector": {
+            "$or": [
+              { "title": { "$regex": "(?i)" + query } },
+              { "category": { "$regex": "(?i)" + query } }
+            ]
+          },
+          "fields": [
+            "_id", 
+            "title", 
+            "category", 
+            "price", 
+            "image", 
+            "url"
+          ],
+          "limit": 10,
+          "sort": [{ "price": "asc" }]
+        };
+  
+        const response = await fetch('http://localhost:5984/swapp_data/_find', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(mangoPaginatedQuery)
+        });
+  
         const data = await response.json();
-        const items = data.rows.map(row => row.doc);
+        const items = data.docs;
         setFashionItems(items);
         setIsLoading(false);
       } catch (error) {
@@ -103,9 +128,9 @@ const SearchResults = () => {
         setIsLoading(false);
       }
     };
-
+  
     fetchFashionItems();
-  }, []);
+  }, [query]); // Dépendance sur query pour refetch quand la recherche change
 
   const handleItemClick = useCallback((url) => {
     navigate(url);
