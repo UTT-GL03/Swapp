@@ -120,7 +120,7 @@ L'échantillon de données a été créé par dummy-json selon les attributs de 
 # Prototypes
 
 ## Prototype 1
-Pour ce premier prototype, nous mettons en place les scripts nécessaires au déroulé du scénario 1. Nous créons et mettons à jour dynamiquement en React une grille de résultats en fonction d'un mot clef, à partir de données statiques stockées dans sample_data.json. Seule la barre de recherche est pour l'instant fonctionnelle.
+Pour ce premier prototype, nous créons les components nécessaires à notre grille de résultats, à partir de 3 éléments hardcodés dans notre fichier. Aucune recherche ou filtrage n'est fonctionnel.
 
 ![Prototype 1 - Screenshot de la page d'accueil](screenshots/prototype1_home.png)
 Fig4 : Prototype 1 - Screenshot de la page d'accueil
@@ -128,7 +128,6 @@ Fig4 : Prototype 1 - Screenshot de la page d'accueil
 ![Prototype 1 - Screenshot de la page de recherche](screenshots/prototype1_search.png)
 Fig5 : Prototype 1 - Screenshot de la page de recherche
 
-Le nombre d'éléments à récupérer par recherche n'est pas encore établi, mais le sera au prototype suivant. Il ne sera alors possible que d'afficher 20 éléments à la fois.
 
 #### Analyse GreenFrame
 Voici le premier résultat obtenir sur notre application pour 2 scénarios : 
@@ -143,6 +142,19 @@ Nous remarquons que le retour n'est pas très fameux : 80mg pour les deux scéna
 Donc on peut largement améliorer le scénario 1. Nous avons identifié que le problème principale était la background image de notre page d'accueil que nous avons supprimé pour améliorer le résultat.
 
 ## Prototype 2 
+Pour ce deuxième prototype, nous mettons à jour dynamiquement la grille de résultats en fonction d'un mot clef, à partir de données statiques stockées dans sample_data.json. Seule la barre de recherche est pour l'instant fonctionnelle.
+
+Nous décidons de changer l'image de fond de la page d'accueil, la remplaçant par un png plus léger.
+
+![Prototype 2 - Screenshot de l'image de fond](screenshots/prototype2_home.png)
+Fig5 : Prototype 2 - Screenshot de la page de recherche, dropdown ouvert
+
+
+Nous créons la logique de dropdown des filtres à partir des données valeurs_filtres.json dans le fichier Header.jsx. Nous permettons la mise à jour d'un object selectedValues à chaque fermeture de dropdown, puis les renvoyons au parent SearchValues. Ainsi, nous permettons une première fonctionnalité de filtrage côté client.
+
+![Prototype 2 - Screenshot des dropdowns](screenshots/prototype2_search.png)
+Fig6 : Prototype 2 - Screenshot de la page de recherche, dropdown ouvert
+
 
 #### Analyse GreenFrame
 Pour les mêmes scénario, voici le résultat :
@@ -152,7 +164,7 @@ Nous remarquons que le retour meilleur : 63mg pour les deux scénarios dont :
 - 31 mg pour le scénario 1
 - 32 mg pour le scénario 2
 
-Supprimer la background image a largement améliorer notre impact.
+Modifier l'image de fonc a largement amélioré notre impact.
 
 ## Prototype 3 : Données dynamiques & Chargement dynamique
 
@@ -163,6 +175,8 @@ Pourquoi choisir une base de données plutôt qu’un fichier statique ?
 → Meilleure gestion de l’espace de stockage et des performances à grande échelle
 → Modification et mise à jour des données facilitées, sans avoir à manipuler manuellement un fichier volumineux
 
+Pour ce troisième prototype, nous permettons la recherche fonctionnelle depuis la barre de recherche, mais tout le filtrage reste codé côté client. Nous récupérons donc toujours l'intégralité des articles depuis la base de données.
+
 #### Analyse GreenFrame
 (ajouter images de comparaison)
 
@@ -170,11 +184,9 @@ Pourquoi choisir une base de données plutôt qu’un fichier statique ?
 
 De ces différentes mesures, nous pouvons retenir que l'effet de l'introduction d'une base de données, quoique négligeable, est, pour l'instant, plutôt défavorable d'un point de vue écologique. Le bilan de ce changement devrait cependant rapidement s'inverser avec l'augmentation de la quantité de données gérées et les requêtes réalisées.
 
-Ajout d'une background image pour l'effet esthétique et compréhension du service. Cependant, cette background image a un impact bien moindre comparé à celle initiale.
-
 ## Prototype 4
 
-#### Analyse GreenFrame | Passage à l'échelle 
+#### Passage à l'échelle 
 
 Dans le cadre de notre service, la croissance des données est principalement liée à deux aspects : le volume des annonces et les médias associés (photos). L'évolution de ces données est directement liée à la croissance du nombre d'utilisateurs et au rythme de publication des annonces.
 
@@ -196,8 +208,16 @@ L'augmentation est non linéaire puisque le nombre de nouveaux utilisateurs peut
 - Chaque annonce inclut plusieurs photos (généralement 3 à 5).
 - Ces fichiers multimédias représentent la majeure partie de l'empreinte en stockage.
   
+### Avant ajustements
+Un problème est relevé : puisque nous avons créé aléatoirement des titres d'articles et les valeurs des catégories, le filtrage, bien que fonctionnel, paraît douteux. En effet, un article pouvait jusqu'alors avoir un titre "Veste en cuir", une catégorie "Robe" et un description "Gilet tout doux". En sélectionnant la catégorie "Robe", obtenir un élément au titre de "Veste en cuir" laisse croire à une erreur de tri.
 
-#### Évolution de l'Impact Environnemental Avant Correction
+Par conséquent, nous avons modifié notre sample_data.hbs pour que les titres ne comprennent ni des valeurs possibles de catégorie, de couleur et de matière. Les descriptions sont toutes modifiée pour correspondre à un Lorem de 100 mots.
+
+![Jeu de données](screenshots/sample_data-hbs.png)
+Fig6 : notre système de création de données
+
+
+#### Analyse GreenFrame
 
 ##### Passage de 15 à 3000 articles
 
@@ -233,7 +253,7 @@ Avec une nouvelle augmentation du nombre d'articles, passant de **3000 à 10 000
 
 Pour analyser davantage les impacts, le scénario de test 2 a été modifié en recherchant **"veste"** au lieu de **"veste en cuir"**, élargissant ainsi la base de données.
 
-- **Impact CPU** : +189 %, comparé à la base initiale (15 articles).
+- **Impact CPU** : +189 %, comparé à la base (3000 articles).
 - **Impact réseau** : +327 %, reflétant une augmentation significative des échanges de données.
 
 - **Consommation** : **91 mg** par exécution.
@@ -243,6 +263,9 @@ Pour analyser davantage les impacts, le scénario de test 2 a été modifié en 
 
 
 
-####  Évolution de l'impact environnemental après correction
+### Avant ajustements
+Comme expliqué plus haut, nous récupérions encore une quantité massive d'articles, triés côté client et tous rendus, ce qui augmente fortement l'impact lié à l'utilisation du processeur. Nous passons donc à un filtrage côté serveur, avec tous les types de filtrage précédemment définis côté client.
 
+
+#### Analyse GreenFrame
 
