@@ -58,7 +58,7 @@ const ItemsGrid = React.memo(({ items, onItemClick }) => (
     {items.length > 0 ? (
       items.map((item) => (
         <ItemCard 
-          key={item.id} 
+          key={item._id} 
           item={item} 
           onClick={onItemClick}
         />
@@ -85,20 +85,24 @@ const SearchResults = () => {
   } = useFilterState(categoryFromURL);
 
   const [fashionItems, setFashionItems] = useState([]);
-  const [filteredArticles, setFilteredArticles] = useState([]);
+  const [filteredArticles, setFilteredArticles] = useState(fashionItems);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const fetchFashionItems = async () => {
       try {
-        // Requête Mango pour récupérer les articles
+        // Construire le sélecteur Mango avec une correspondance stricte pour la catégorie
+        const selector = {
+          "title": { "$regex": "(?i)" + query } // Recherche uniquement dans le titre
+        };
+  
+        // Ajouter la catégorie comme filtre strict si elle est définie
+        if (categoryFromURL) {
+          selector["category"] = categoryFromURL;
+        }
+  
         const mangoPaginatedQuery = {
-          "selector": {
-            "$or": [
-              { "title": { "$regex": "(?i)" + query } },
-              { "category": { "$regex": "(?i)" + query } }
-            ]
-          },
+          selector,
           "fields": [
             "_id", 
             "title", 
@@ -111,6 +115,8 @@ const SearchResults = () => {
           "sort": [{ "price": "asc" }]
         };
   
+        console.log('Sending Mango query:', mangoPaginatedQuery);
+  
         const response = await fetch('http://localhost:5984/swapp_data/_find', {
           method: 'POST',
           headers: {
@@ -120,8 +126,12 @@ const SearchResults = () => {
         });
   
         const data = await response.json();
+  
+        console.log('Fetched items:', data.docs);
+  
         const items = data.docs;
         setFashionItems(items);
+        setFilteredArticles(items);
         setIsLoading(false);
       } catch (error) {
         console.error('Error fetching fashion items:', error);
@@ -130,7 +140,8 @@ const SearchResults = () => {
     };
   
     fetchFashionItems();
-  }, [query]); // Dépendance sur query pour refetch quand la recherche change
+  }, [query, categoryFromURL]); // Toujours dépendre de query et categoryFromURL
+  
 
   const handleItemClick = useCallback((url) => {
     navigate(url);
