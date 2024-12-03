@@ -187,6 +187,48 @@ const Header = ({ selectedValues, priceRange, selectedCategory, onFilterChange }
     categoriesDropdownRef
   } = useDropdownState();
 
+  const updateURLWithFilters = (params) => {
+    const searchParams = new URLSearchParams(location.search);
+    
+    // Update query parameter if it changes
+    if (params.query && params.query !== query) {
+      searchParams.set('q', params.query);
+    }
+
+    // Update category parameter
+    if (params.selectedCategory) {
+      searchParams.set('category', params.selectedCategory);
+    }
+
+    // Update price range parameters
+    if (params.priceRange) {
+      if (params.priceRange.min !== '') {
+        searchParams.set('min', params.priceRange.min);
+      } else {
+        searchParams.delete('min');
+      }
+      if (params.priceRange.max !== '') {
+        searchParams.set('max', params.priceRange.max);
+      } else {
+        searchParams.delete('max');
+      }
+    }
+
+    // Update other filter parameters
+    if (params.selectedValues) {
+      Object.entries(params.selectedValues).forEach(([key, values]) => {
+        if (values.length > 0) {
+          searchParams.set(key, values.join(','));
+        } else {
+          searchParams.delete(key);
+        }
+      });
+    }
+
+    // Navigate with updated URL
+    navigate(`?${searchParams.toString()}`);
+  };
+
   const [filters, setFilters] = useState(() => {
     const filterButtons = Object.entries(filtresData.filters).map(([key, value]) => ({
       key: value.key,
@@ -204,14 +246,7 @@ const Header = ({ selectedValues, priceRange, selectedCategory, onFilterChange }
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-        if (hasChanges) {
-          onFilterChange({
-            selectedValues: tempValues,
-            priceRange: tempPriceRange,
-            selectedCategory: tempCategory
-          });
-        }
-        setOpenDropdown(null);
+        handleDropdownClose();
       }
       if (categoriesDropdownRef.current && !categoriesDropdownRef.current.contains(event.target)) {
         setOpenCategoriesDropdown(false);
@@ -232,6 +267,23 @@ const Header = ({ selectedValues, priceRange, selectedCategory, onFilterChange }
     }
   };
 
+  const handleDropdownClose = () => {
+    if (hasChanges) {
+      updateURLWithFilters({
+        query,
+        selectedValues: tempValues,
+        priceRange: tempPriceRange,
+        selectedCategory: tempCategory
+      });
+      onFilterChange({
+        selectedValues: tempValues,
+        priceRange: tempPriceRange,
+        selectedCategory: tempCategory
+      });
+    }
+    setOpenDropdown(null);
+  };
+
   const handleDropdownToggle = (filterKey) => {
     if (openDropdown === filterKey) {
       if (hasChanges) {
@@ -249,6 +301,12 @@ const Header = ({ selectedValues, priceRange, selectedCategory, onFilterChange }
 
   const handleCategorySelection = (category) => {
     setTempCategory(category);
+    updateURLWithFilters({
+      query,
+      selectedValues: tempValues,
+      priceRange: tempPriceRange,
+      selectedCategory: category
+    });
     onFilterChange({
       selectedValues: tempValues,
       priceRange: tempPriceRange,

@@ -136,56 +136,6 @@ const SearchResults = () => {
     navigate(url);
   }, [navigate]);
 
-  const filterArticles = useCallback(() => {
-    let filtered = fashionItems || [];
-    console.log(filtered);
-
-    // Apply search query filter
-    if (query) {
-      const searchTerm = query.toLowerCase();
-      filtered = filtered.filter(item =>
-        item.title.toLowerCase().includes(searchTerm) ||
-        item.category.toLowerCase().includes(searchTerm)
-      );
-    }
-
-    // Apply category filter
-    if (selectedCategory) {
-      const categoryTerm = selectedCategory.toLowerCase();
-      filtered = filtered.filter(item =>
-        item.category.toLowerCase() === categoryTerm
-      );
-    }
-
-    // Apply price range filter
-    if (priceRange.min !== '' || priceRange.max !== '') {
-      const minPrice = priceRange.min === '' ? -Infinity : parseFloat(priceRange.min);
-      const maxPrice = priceRange.max === '' ? Infinity : parseFloat(priceRange.max);
-      filtered = filtered.filter(item =>
-        item.price >= minPrice && item.price <= maxPrice
-      );
-    }
-
-    // Apply other filters (sizes, colors, etc.)
-    Object.entries(selectedValues).forEach(([filterKey, selectedFilterValues]) => {
-      if (selectedFilterValues.length > 0) {
-        filtered = filtered.filter(item => {
-          const itemValue = item[filterKey];
-          return Array.isArray(itemValue)
-            ? selectedFilterValues.some(value => itemValue.includes(value))
-            : selectedFilterValues.includes(itemValue);
-        });
-      }
-    });
-
-    setFilteredArticles(filtered);
-  }, [fashionItems, query, selectedValues, priceRange, selectedCategory]);
-
-  // Filter articles when dependencies change
-  useEffect(() => {
-    filterArticles();
-  }, [filterArticles]);
-
   // Memoize header props to prevent unnecessary re-renders
   const headerProps = useMemo(() => ({
     selectedValues,
