@@ -182,7 +182,8 @@ Pour ce troisième prototype, nous permettons la recherche fonctionnelle depuis 
 
 
 #### Analyse GreenFrame
-(ajouter images de comparaison)
+![GreenFrame : Impact de l'ajout du backend](screenshots/GreenFrame_ajout_backend.png)
+Fig5 : GreenFrame : Impact de l'ajout du backend
 
 => pas de changement conséquent sur le réseau mais CPU qui augmente (normal car création d'un backend)
 
