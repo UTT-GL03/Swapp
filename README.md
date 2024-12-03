@@ -177,6 +177,13 @@ Pourquoi choisir une base de données plutôt qu’un fichier statique ?
 
 Pour ce troisième prototype, nous permettons la recherche fonctionnelle depuis la barre de recherche, mais tout le filtrage reste codé côté client. Nous récupérons donc toujours l'intégralité des articles depuis la base de données.
 
+Un problème est relevé : puisque nous avons créé aléatoirement des titres d'articles et les valeurs des catégories, le filtrage, bien que fonctionnel, paraît douteux. En effet, un article pouvait jusqu'alors avoir un titre "Veste en cuir", une catégorie "Robe" et un description "Gilet tout doux". En sélectionnant la catégorie "Robe", obtenir un élément au titre de "Veste en cuir" laisse croire à une erreur de tri.
+
+Par conséquent, nous avons modifié notre sample_data.hbs pour que les titres ne comprennent ni des valeurs possibles de catégorie, de couleur et de matière. Les descriptions sont toutes modifiée pour correspondre à un Lorem de 100 mots.
+
+![Jeu de données](screenshots/sample_data-hbs.png)
+Fig6 : notre système de création de données
+
 #### Analyse GreenFrame
 (ajouter images de comparaison)
 
@@ -209,13 +216,6 @@ L'augmentation est non linéaire puisque le nombre de nouveaux utilisateurs peut
 - Ces fichiers multimédias représentent la majeure partie de l'empreinte en stockage.
   
 ### Avant ajustements
-Un problème est relevé : puisque nous avons créé aléatoirement des titres d'articles et les valeurs des catégories, le filtrage, bien que fonctionnel, paraît douteux. En effet, un article pouvait jusqu'alors avoir un titre "Veste en cuir", une catégorie "Robe" et un description "Gilet tout doux". En sélectionnant la catégorie "Robe", obtenir un élément au titre de "Veste en cuir" laisse croire à une erreur de tri.
-
-Par conséquent, nous avons modifié notre sample_data.hbs pour que les titres ne comprennent ni des valeurs possibles de catégorie, de couleur et de matière. Les descriptions sont toutes modifiée pour correspondre à un Lorem de 100 mots.
-
-![Jeu de données](screenshots/sample_data-hbs.png)
-Fig6 : notre système de création de données
-
 
 #### Analyse GreenFrame
 
@@ -263,7 +263,7 @@ Pour analyser davantage les impacts, le scénario de test 2 a été modifié en 
 
 
 
-### Avant ajustements
+### Après ajustements
 Comme expliqué plus haut, nous récupérions encore une quantité massive d'articles, triés côté client et tous rendus, ce qui augmente fortement l'impact lié à l'utilisation du processeur. Nous passons donc à un filtrage côté serveur, avec tous les types de filtrage précédemment définis côté client.
 
 
