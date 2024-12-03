@@ -195,23 +195,53 @@ L'augmentation est non linéaire puisque le nombre de nouveaux utilisateurs peut
 3. **Médias associés (photos)**
 - Chaque annonce inclut plusieurs photos (généralement 3 à 5).
 - Ces fichiers multimédias représentent la majeure partie de l'empreinte en stockage.
+  
 
-#### Évolution de l'impact environnemental avant correction
+#### Évolution de l'Impact Environnemental Avant Correction
 
-La figure suivante illustre l'évolution de l'impact environnemental lors du passage à l'échelle, avec une augmentation significative du nombre d'articles publiés, passant de 15 à 3000 (correspondant à une période étendue de publication). On constate une hausse de 138 % de l'impact lié à l'utilisation du processeur (CPU) au niveau du backend, traduisant une charge accrue pour le traitement et le rendu des contenus. En parallèle, l'impact du réseau au niveau du backend connaît une augmentation encore plus marquée, avec une croissance de 202 %, soulignant les besoins accrus en bande passante pour gérer le trafic et la diffusion des articles à grande échelle. Ces évolutions mettent en lumière les défis environnementaux liés à l'augmentation de la volumétrie dans un contexte numérique backend-centric.
-Initialement (avec 15 articles), la page a une consommation de 46 mg par execution.
-Maintenant, avec 3000 articles, la page a une consommation de 75mg par execution.
+##### Passage de 15 à 3000 articles
 
-(ajouter figure)
-[URL comparaison](https://app.greenframe.io/analyses/69912ae1-82c6-450f-845b-5c8271359974)
+La figure ci-dessous illustre l'évolution de l'impact environnemental lors du passage à l'échelle, marqué par une augmentation significative du nombre d'articles publiés, passant de **15 à 3000**.
+
+- **Impact CPU** : +183 %, indiquant une charge accrue pour le traitement et le rendu des contenus.
+- **Impact réseau** : +666 %, reflétant une forte augmentation des besoins en bande passante pour gérer le trafic et diffuser les articles.
+
+Ces évolutions mettent en évidence les défis environnementaux liés à une volumétrie croissante dans un système principalement backend-centric.
+
+- **Consommation initiale** (15 articles) : **33 mg** par exécution.
+- **Consommation après augmentation** (3000 articles) : **45 mg** par exécution.
+
+[👉 Consulter la comparaison sur GreenFrame](https://app.greenframe.io/analyses/ea051cca-9845-4d4c-af3d-bfeb0614a009?compareWith=8a88512a-f15e-45d7-9cc4-eb526ddee293)
+
+---
+
+##### Passage de 3000 à 10 000 articles
+
+Avec une nouvelle augmentation du nombre d'articles, passant de **3000 à 10 000**, les impacts environnementaux continuent de croître de manière significative :
+
+- **Impact CPU** : +138 %, traduisant une intensification des besoins en traitement backend.
+- **Impact réseau** : +202 %, révélant des exigences accrues en bande passante.
+
+- **Consommation avec 3000 articles** : **46 mg** par exécution.
+- **Consommation avec 10 000 articles** : **75 mg** par exécution.
+
+[👉 Consulter la comparaison sur GreenFrame](https://app.greenframe.io/analyses/69912ae1-82c6-450f-845b-5c8271359974)
+
+---
+
+##### Modification du Scénario de Test : Recherche élargie
+
+Pour analyser davantage les impacts, le scénario de test 2 a été modifié en recherchant **"veste"** au lieu de **"veste en cuir"**, élargissant ainsi la base de données.
+
+- **Impact CPU** : +189 %, comparé à la base initiale (15 articles).
+- **Impact réseau** : +327 %, reflétant une augmentation significative des échanges de données.
+
+- **Consommation** : **91 mg** par exécution.
+
+[👉 Consulter la comparaison sur GreenFrame](https://app.greenframe.io/analyses/8ecae6e7-d978-4f09-9170-58bea466c79e?compareWith=10090b4c-090e-4659-99e3-5b0f65b6f0f6)
 
 
-Après nous avons modifié le scénario de test 2 pour renvoyer sur la recherche "veste" et non "veste en cuir" pour voir une plus grande différence.
 
-En effet, la hausse de l'impact lié au CPU est de 189% et l'impact réseau a augmenté de 327% par rapport à notre base de données initiale de 15 articles.
-La page a une consommation de 91 mg par execution.
-
-[URL Comparaison 2](https://app.greenframe.io/analyses/8ecae6e7-d978-4f09-9170-58bea466c79e?compareWith=10090b4c-090e-4659-99e3-5b0f65b6f0f6)
 
 ####  Évolution de l'impact environnemental après correction
 
