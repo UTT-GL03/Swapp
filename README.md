@@ -171,8 +171,11 @@ Modifier l'image de fonc a largement amélioré notre impact.
 Dans cette troisième version du prototype, les données sont désormais centralisées dans une base de données CouchDB, accessible via une API Web. L’adoption d’une telle solution offre plusieurs avantages : elle permet d’ajouter, de modifier et de gérer les articles de manière plus fluide, tout en offrant une plus grande flexibilité pour le filtrage et l’accès aux données.
 
 Pourquoi choisir une base de données plutôt qu’un fichier statique ?
+
 → Exécution de requêtes dynamiques et complexes pour un accès plus précis aux données
+
 → Meilleure gestion de l’espace de stockage et des performances à grande échelle
+
 → Modification et mise à jour des données facilitées, sans avoir à manipuler manuellement un fichier volumineux
 
 Pour ce troisième prototype, nous permettons la recherche fonctionnelle depuis la barre de recherche, mais tout le filtrage reste codé côté client. Nous récupérons donc toujours l'intégralité des articles depuis la base de données.
@@ -233,7 +236,6 @@ Ces évolutions mettent en évidence les défis environnementaux liés à une vo
 
 [👉 Consulter la comparaison sur GreenFrame](https://app.greenframe.io/analyses/ea051cca-9845-4d4c-af3d-bfeb0614a009?compareWith=8a88512a-f15e-45d7-9cc4-eb526ddee293)
 
----
 
 ##### Passage de 3000 à 10 000 articles
 
@@ -247,7 +249,6 @@ Avec une nouvelle augmentation du nombre d'articles, passant de **3000 à 10 000
 
 [👉 Consulter la comparaison sur GreenFrame](https://app.greenframe.io/analyses/69912ae1-82c6-450f-845b-5c8271359974)
 
----
 
 ##### Modification du Scénario de Test : Recherche élargie
 
