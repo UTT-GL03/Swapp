@@ -111,7 +111,7 @@ const SearchResults = () => {
             "image", 
             "url"
           ],
-          "limit": 10,
+          "limit": 25,
           "sort": [{ "price": "asc" }]
         };
   

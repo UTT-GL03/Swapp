@@ -50,7 +50,7 @@ services:
     image: curlimages/curl
     entrypoint: ["/bin/sh","-c"]
     volumes:
-      - ./backend/search_and_filter_index.json:/search_and_filter_index.json
+      - ./backend/category-price-title-json-index.json:/category-price-title-json-index.json
     command:
       - |
         curl -X POST http://backend:5984/swapp_data/_index -H "Content-Type: application/json" -d @/search_and_filter_index.json -u '${COUCHDB_USER}:${COUCHDB_PASSWORD}'
