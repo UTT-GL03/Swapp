@@ -83,14 +83,14 @@ const ItemPage = () => {
       <div className="item-page-content conteneur">
         <div className="images">
             <div className="main-image">
-              <img src={itemData.image || 'https://placehold.co/380/'} alt={itemData.title} />
+              <img src={itemData.image || 'https://placehold.co/400x420/'} alt={itemData.title} />
             </div>
             <div className="side-images">
               <div className="side-image top">
-                <img src="https://placehold.co/180/" alt="Placeholder top" />
+                <img src="https://placehold.co/180x200/" alt="Placeholder top" />
               </div>
               <div className="side-image bottom">
-                <img src="https://placehold.co/180/" alt="Placeholder bottom" />
+                <img src="https://placehold.co/180x200/" alt="Placeholder bottom" />
               </div>
             </div>
         </div>
@@ -127,15 +127,20 @@ const ItemPage = () => {
           <div className='user-btn'>
             <button className="buy-button btn-secondary">Acheter</button>
             <button className="make-an-offer-button btn-secondary">Faire une offre</button>
-          </div><hr/>
+          </div>
           <div className="seller-details">
-            <div className="seller-pseudo">{itemData?.seller?.username || 'Nom du vendeur non disponible'}</div>
-            <div className="seller-star-ratings">{itemData?.seller?.rating ? `${itemData.seller.rating.toFixed(1)} étoiles` : 'Note du vendeur non disponible'}</div>
-            <div className="nb-raters">{itemData?.seller?.location || 'Emplacement du vendeur non disponible'}</div>
+            <div>
+              <img className="seller-icon" src={itemData?.seller?.username?.image || 'https://placehold.co/60/FFF/c3d1cc'} alt={itemData?.seller?.username?.title} />
+            </div>
+            <div>
+              <div className="seller-pseudo">{itemData?.seller?.username || 'Nom du vendeur non disponible'}</div>
+              <div className="seller-star-ratings">{itemData?.seller?.rating ? `${itemData.seller.rating.toFixed(1)} étoiles` : 'Note du vendeur non disponible'}</div>
+              <div className="nb-raters">{itemData?.seller?.location || 'Emplacement du vendeur non disponible'}</div>
+            </div>
           </div> 
         </div>
       </div>
-      <Footer />
+      {/* <Footer /> */}
     </div>
   );
 };
