@@ -95,14 +95,13 @@ const ItemPage = () => {
             Taille: {itemData?.size || 'Non disponible'}, Marque: {itemData?.brand || 'Non disponible'}, 
             Couleur: {itemData?.color || 'Non disponible'}, Matériau: {itemData?.material || 'Non disponible'}
           </div>
-        </div>
-        <div className="seller-details">
-          <div className="seller-icon">Icône du vendeur</div>
-          <div className="seller-pseudo">{itemData?.seller?.username || 'Nom du vendeur non disponible'}</div>
-          <div className="seller-star-ratings">{itemData?.seller?.rating ? `${itemData.seller.rating.toFixed(1)} étoiles` : 'Note du vendeur non disponible'}</div>
-          <div className="nb-raters">{itemData?.seller?.location || 'Emplacement du vendeur non disponible'}</div>
-          <div className="buy-button">Bouton d'achat</div>
-          <div className="make-an-offer-button">Bouton "Faire une offre"</div>
+          <div className="seller-details">
+            <div className="seller-pseudo">{itemData?.seller?.username || 'Nom du vendeur non disponible'}</div>
+            <div className="seller-star-ratings">{itemData?.seller?.rating ? `${itemData.seller.rating.toFixed(1)} étoiles` : 'Note du vendeur non disponible'}</div>
+            <div className="nb-raters">{itemData?.seller?.location || 'Emplacement du vendeur non disponible'}</div>
+            <div className="buy-button">Acheter</div>
+            <div className="make-an-offer-button">Faire une offre</div>
+          </div>
         </div>
       </div>
       <Footer />
