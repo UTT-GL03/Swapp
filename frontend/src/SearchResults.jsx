@@ -41,7 +41,7 @@ const useFilterState = (initialCategory) => {
 const ItemCard = React.memo(({ item, onClick }) => (
   <div
     className="Item"
-    onClick={() => onClick(item.url)}
+    onClick={() => onClick(item._id)}
     style={{ cursor: 'pointer' }}
   >
     <img src={item.image || 'https://placehold.co/150/'} alt={item.title} />
@@ -52,6 +52,7 @@ const ItemCard = React.memo(({ item, onClick }) => (
   </div>
 ));
 ItemCard.displayName = 'ItemCard';
+
 
 const ItemsGrid = React.memo(({ items, onItemClick }) => (
   <div className="Items conteneur">
@@ -143,9 +144,10 @@ const SearchResults = () => {
   }, [query, categoryFromURL]); // Toujours dépendre de query et categoryFromURL
   
 
-  const handleItemClick = useCallback((url) => {
-    navigate(url);
+  const handleItemClick = useCallback((id) => {
+    navigate(`/item/${id}`);
   }, [navigate]);
+ 
 
   // Memoize header props to prevent unnecessary re-renders
   const headerProps = useMemo(() => ({
