@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+import './css/ItemPage.css';
 import Header from './Header';
 import Footer from './Footer';
 
@@ -22,20 +23,16 @@ const ItemPage = () => {
           fields: [
             "_id",
             "title",
-            "category",
-            "price",
             "description",
+            "price",
             "condition",
             "size",
             "brand",
             "color",
             "material",
             "seller",
-            "published",
-            "views",
-            "likes"
           ], // Champs nécessaires
-          limit: 1, // On s’attend à un seul document
+          limit: 1, // On s'attend à un seul document
         };
 
         console.log('Sending Mango query:', mangoQuery);
@@ -56,9 +53,9 @@ const ItemPage = () => {
 
         if (data.docs.length > 0) {
           console.log('Fetched item:', data.docs[0]);
-          setItemData(data.docs[0]); // Stocke les données de l’élément
+          setItemData(data.docs[0]); // Stocke les données de l'élément
         } else {
-          throw new Error('Aucun élément trouvé pour l’ID donné.');
+          throw new Error("Aucun élément trouvé pour l'ID donné.");
         }
       } catch (err) {
         console.error('Error fetching item:', err);
@@ -83,18 +80,30 @@ const ItemPage = () => {
         onFilterChange={() => {}} 
         showFilters={false} 
       />
-      <div className="conteneur">
-        <h1>Détails de l'élément</h1>
-        {itemData ? (
-          <div>
-            <p><strong>ID :</strong> {itemData._id}</p>
-            <p><strong>Titre :</strong> {itemData.title || 'Non disponible'}</p>
-            <p><strong>Catégorie :</strong> {itemData.category || 'Non disponible'}</p>
-            <p><strong>Prix :</strong> {itemData.price ? `${itemData.price} €` : 'Non disponible'}</p>
+      <div className="item-page-content conteneur">
+        <div className="images">
+          {/* Afficher les images du produit ici */}
+          <div className="image-container">
+          <img src={itemData.image || 'https://placehold.co/150/'} alt={itemData.title} />
           </div>
-        ) : (
-          <p>Aucune donnée disponible pour cet élément.</p>
-        )}
+        </div>
+        <div className="description-group">
+          <div className="title">{itemData?.title || 'Titre non disponible'}</div>
+          <div className="price">{itemData?.price ? `${itemData.price} €` : 'Prix non disponible'}</div>
+          <div className="description">{itemData?.description || 'Description non disponible'}</div>
+          <div className="details">
+            Taille: {itemData?.size || 'Non disponible'}, Marque: {itemData?.brand || 'Non disponible'}, 
+            Couleur: {itemData?.color || 'Non disponible'}, Matériau: {itemData?.material || 'Non disponible'}
+          </div>
+        </div>
+        <div className="seller-details">
+          <div className="seller-icon">Icône du vendeur</div>
+          <div className="seller-pseudo">{itemData?.seller?.username || 'Nom du vendeur non disponible'}</div>
+          <div className="seller-star-ratings">{itemData?.seller?.rating ? `${itemData.seller.rating.toFixed(1)} étoiles` : 'Note du vendeur non disponible'}</div>
+          <div className="nb-raters">{itemData?.seller?.location || 'Emplacement du vendeur non disponible'}</div>
+          <div className="buy-button">Bouton d'achat</div>
+          <div className="make-an-offer-button">Bouton "Faire une offre"</div>
+        </div>
       </div>
       <Footer />
     </div>
