@@ -82,26 +82,57 @@ const ItemPage = () => {
       />
       <div className="item-page-content conteneur">
         <div className="images">
-          {/* Afficher les images du produit ici */}
-          <div className="image-container">
-          <img src={itemData.image || 'https://placehold.co/150/'} alt={itemData.title} />
-          </div>
+            <div className="main-image">
+              <img src={itemData.image || 'https://placehold.co/380/'} alt={itemData.title} />
+            </div>
+            <div className="side-images">
+              <div className="side-image top">
+                <img src="https://placehold.co/180/" alt="Placeholder top" />
+              </div>
+              <div className="side-image bottom">
+                <img src="https://placehold.co/180/" alt="Placeholder bottom" />
+              </div>
+            </div>
         </div>
         <div className="description-group">
           <div className="title">{itemData?.title || 'Titre non disponible'}</div>
           <div className="price">{itemData?.price ? `${itemData.price} €` : 'Prix non disponible'}</div>
           <div className="description">{itemData?.description || 'Description non disponible'}</div>
           <div className="details">
-            Taille: {itemData?.size || 'Non disponible'}, Marque: {itemData?.brand || 'Non disponible'}, 
-            Couleur: {itemData?.color || 'Non disponible'}, Matériau: {itemData?.material || 'Non disponible'}
+            <table className="details-table">
+              <tbody>
+              <tr>
+                  <td className="detail-key">Condition</td>
+                  <td className="detail-value">{itemData?.condition || 'Non disponible'}</td>
+                </tr>
+                <tr>
+                  <td className="detail-key">Taille</td>
+                  <td className="detail-value">{itemData?.size || 'Non disponible'}</td>
+                </tr>
+                <tr>
+                  <td className="detail-key">Marque</td>
+                  <td className="detail-value">{itemData?.brand || 'Non disponible'}</td>
+                </tr>
+                <tr>
+                  <td className="detail-key">Couleur</td>
+                  <td className="detail-value">{itemData?.color || 'Non disponible'}</td>
+                </tr>
+                <tr>
+                  <td className="detail-key">Matériau</td>
+                  <td className="detail-value">{itemData?.material || 'Non disponible'}</td>
+                </tr>
+              </tbody>
+            </table>
           </div>
+          <div className='user-btn'>
+            <button className="buy-button btn-secondary">Acheter</button>
+            <button className="make-an-offer-button btn-secondary">Faire une offre</button>
+          </div><hr/>
           <div className="seller-details">
             <div className="seller-pseudo">{itemData?.seller?.username || 'Nom du vendeur non disponible'}</div>
             <div className="seller-star-ratings">{itemData?.seller?.rating ? `${itemData.seller.rating.toFixed(1)} étoiles` : 'Note du vendeur non disponible'}</div>
             <div className="nb-raters">{itemData?.seller?.location || 'Emplacement du vendeur non disponible'}</div>
-            <div className="buy-button">Acheter</div>
-            <div className="make-an-offer-button">Faire une offre</div>
-          </div>
+          </div> 
         </div>
       </div>
       <Footer />

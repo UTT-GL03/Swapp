@@ -32,20 +32,20 @@ button{
   cursor: pointer;
   outline: none;
   
-display: block;
-margin: 0 auto;
+  display: block;
+  margin: 0 auto;
 
-padding: 8px 30px;
+  padding: 8px 30px;
 
-border-radius: 24px;
-border: 1px solid var(--regular-primary-color);
+  border-radius: 24px;
+  border: 1px solid var(--regular-primary-color);
 
-font-weight: 400;
-letter-spacing: .1em;
+  font-weight: 400;
+  letter-spacing: .1em;
 
-background-color: var(--regular-primary-color);
-color: white;
-transition-duration: 0.2s;
+  background-color: var(--regular-primary-color);
+  color: white;
+  transition-duration: 0.2s;
 }
 
 button:hover {
@@ -55,6 +55,17 @@ button:hover {
   border: 1px solid;
   border-radius: 25px;
   text-decoration: none;
+}
+
+.btn-secondary{
+  margin: unset;
+  background-color: var(--regular-secondary-color);
+  border-color: var(--regular-secondary-color);
+}
+
+.btn-secondary:hover{
+  color: var(--regular-secondary-color);
+  border-color: var(--regular-secondary-color);
 }
 
 .button-icon-left{
