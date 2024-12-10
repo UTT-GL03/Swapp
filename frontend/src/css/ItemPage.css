@@ -104,22 +104,22 @@
     flex-direction: row;
     gap: 30px;
     align-items: center;
+    align-content: center;
 
     position: relative;
   }
 
-  
   .seller-details::after {
-    content: '>';
-    font-family: 'Font Awesome 6 Free'; 
-    font-weight: 200; 
-    font-size: 20px;
-    color: var(--light-secondary-color); 
+    content: '\f105';
+    font-family: 'FontAwesome'; 
+    font-size: 16px;
+    color: var(--regular-secondary-color); 
     position: absolute;
     right: 30px; 
-    top: 50%; 
+    top: 50%;
     transform: translateY(-50%); 
   }
+  
   
   .seller-icon {
     border-radius: 50%;
@@ -139,14 +139,14 @@
     margin-right: 3px; /* Espacement entre les étoiles */
   }
   /* Couleur des étoiles pleines */
-  .seller-star-ratings .fas.fa-star {
+  .seller-star-ratings .fa.fa-star {
     color: var(--regular-primary-color); /* Couleur dorée */
   }
   /* Couleur des demi-étoiles */
-  .seller-star-ratings .fas.fa-star-half-alt {
+  .seller-star-ratings .fa.fa-star-half-o {
     color: var(--regular-primary-color); /* Couleur dorée pour demi-étoile */
   }
   /* Couleur des étoiles vides */
-  .seller-star-ratings .far.fa-star {
-    color: var(--pale-secondary-color); /* Couleur grise pour les étoiles vides */
+  .seller-star-ratings .fa.fa-star-o {
+    color: var(--regular-secondary-color); /* Couleur grise pour les étoiles vides */
   }
