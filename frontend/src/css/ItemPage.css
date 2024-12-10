@@ -38,20 +38,40 @@
     /* font-weight: bold; */
   }
   
+  .description-split{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin: 22px 0;
+  }
+
+  .divider {
+    width: 1px;
+    background-color: var(--pale-secondary-color);
+    align-self: stretch; /* Makes the divider fill the height of its container */
+  }
+
   .description {
     line-height: 1.5;
     color: grey;
+    max-width: 220px;
+
+    display: -webkit-box;         /* Required for multi-line ellipsis */
+    -webkit-line-clamp: 5;        /* Number of lines to show */
+    -webkit-box-orient: vertical; /* Required for multi-line ellipsis */
+    overflow: hidden;             /* Hide overflowing content */
+    max-height: 120px;             /* Set maximum height */
   }
   
   .details-table {
     border-collapse: collapse;
-    margin: 20px 0;
   }
   
   .details-table td {
-    min-width: 111px;
+    min-width: 100px;
     vertical-align: top;
-    line-height: 1.8;
+    padding-bottom: 5px;
   }
   
   .detail-key {
@@ -84,6 +104,21 @@
     flex-direction: row;
     gap: 30px;
     align-items: center;
+
+    position: relative;
+  }
+
+  
+  .seller-details::after {
+    content: '>';
+    font-family: 'Font Awesome 6 Free'; 
+    font-weight: 200; 
+    font-size: 20px;
+    color: var(--light-secondary-color); 
+    position: absolute;
+    right: 30px; 
+    top: 50%; 
+    transform: translateY(-50%); 
   }
   
   .seller-icon {

@@ -126,32 +126,35 @@ const ItemPage = () => {
         <div className="description-group">
           <div className="title">{itemData?.title || 'Titre non disponible'}</div>
           <div className="price">{itemData?.price ? `${itemData.price} €` : 'Prix non disponible'}</div>
-          <div className="description">{itemData?.description || 'Description non disponible'}</div>
-          <div className="details">
-            <table className="details-table">
-              <tbody>
-              <tr>
-                  <td className="detail-key">Condition</td>
-                  <td className="detail-value">{itemData?.condition || 'Non disponible'}</td>
-                </tr>
+          <div className="description-split">
+            <div className="details">
+              <table className="details-table">
+                <tbody>
                 <tr>
-                  <td className="detail-key">Taille</td>
-                  <td className="detail-value">{itemData?.size || 'Non disponible'}</td>
-                </tr>
-                <tr>
-                  <td className="detail-key">Marque</td>
-                  <td className="detail-value">{itemData?.brand || 'Non disponible'}</td>
-                </tr>
-                <tr>
-                  <td className="detail-key">Couleur</td>
-                  <td className="detail-value">{itemData?.color || 'Non disponible'}</td>
-                </tr>
-                <tr>
-                  <td className="detail-key">Matériau</td>
-                  <td className="detail-value">{itemData?.material || 'Non disponible'}</td>
-                </tr>
-              </tbody>
-            </table>
+                    <td className="detail-key">Condition</td>
+                    <td className="detail-value">{itemData?.condition || 'Non disponible'}</td>
+                  </tr>
+                  <tr>
+                    <td className="detail-key">Taille</td>
+                    <td className="detail-value">{itemData?.size || 'Non disponible'}</td>
+                  </tr>
+                  <tr>
+                    <td className="detail-key">Marque</td>
+                    <td className="detail-value">{itemData?.brand || 'Non disponible'}</td>
+                  </tr>
+                  <tr>
+                    <td className="detail-key">Couleur</td>
+                    <td className="detail-value">{itemData?.color || 'Non disponible'}</td>
+                  </tr>
+                  <tr>
+                    <td className="detail-key">Matériau</td>
+                    <td className="detail-value">{itemData?.material || 'Non disponible'}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div className="divider"></div>
+            <div className="description">{itemData?.description || 'Description non disponible'}</div>
           </div>
           <div className='user-btn'>
             <button className="buy-button btn-secondary">Acheter</button>
