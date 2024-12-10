@@ -228,7 +228,9 @@ const Header = ({ selectedValues, priceRange, selectedCategory, onFilterChange, 
     }
 
     // Navigate with updated URL
-    navigate(`?${searchParams.toString()}`);
+    // navigate(`?${searchParams.toString()}`);
+    const fullURL = `http://localhost:5173/search?${searchParams.toString()}`;
+    window.location.href = fullURL;
   };
 
   const [filters, setFilters] = useState(() => {

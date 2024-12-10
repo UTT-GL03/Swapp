@@ -69,7 +69,7 @@ const ItemPage = () => {
     fetchItemData();
   }, [id]);
 
-  if (loading) return <p>Chargement...</p>;
+  // if (loading) return <p>Chargement...</p>;
   if (error) return <p>Erreur : {error}</p>;
 
   const renderStarRatings = (rating) => {

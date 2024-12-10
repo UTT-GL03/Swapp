@@ -158,9 +158,7 @@ const SearchResults = () => {
     showFilters: true
   }), [selectedValues, priceRange, selectedCategory, handleFilterChange]);
 
-  if (isLoading) {
-    return <div>Loading...</div>;
-  }
+  // if (isLoading) {return <div>Loading...</div>;  }
 
   return (
     <div>
