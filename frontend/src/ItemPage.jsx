@@ -19,7 +19,22 @@ const ItemPage = () => {
 
         const mangoQuery = {
           selector,
-          fields: ['_id', 'title', 'category', 'price'], // Champs nécessaires
+          fields: [
+            "_id",
+            "title",
+            "category",
+            "price",
+            "description",
+            "condition",
+            "size",
+            "brand",
+            "color",
+            "material",
+            "seller",
+            "published",
+            "views",
+            "likes"
+          ], // Champs nécessaires
           limit: 1, // On s’attend à un seul document
         };
 
