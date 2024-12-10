@@ -4,6 +4,27 @@
     gap: 2rem;
     padding: 2rem;
   }
+  
+  .seller-star-ratings i {
+    font-size: 20px; /* Taille des étoiles */
+    margin-right: 3px; /* Espacement entre les étoiles */
+  }
+  
+  /* Couleur des étoiles pleines */
+  .seller-star-ratings .fas.fa-star {
+    color: #f39c12; /* Couleur dorée */
+  }
+  
+  /* Couleur des demi-étoiles */
+  .seller-star-ratings .fas.fa-star-half-alt {
+    color: #f39c12; /* Couleur dorée pour demi-étoile */
+  }
+  
+  /* Couleur des étoiles vides */
+  .seller-star-ratings .far.fa-star {
+    color: #ddd; /* Couleur grise pour les étoiles vides */
+  }
+  
 
   hr {
     height: 1px; 
