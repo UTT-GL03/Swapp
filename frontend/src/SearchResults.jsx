@@ -154,7 +154,8 @@ const SearchResults = () => {
     selectedValues,
     priceRange,
     selectedCategory,
-    onFilterChange: handleFilterChange
+    onFilterChange: handleFilterChange,
+    showFilters: true
   }), [selectedValues, priceRange, selectedCategory, handleFilterChange]);
 
   if (isLoading) {

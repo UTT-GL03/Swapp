@@ -162,7 +162,7 @@ const CategoriesDropdown = ({ categories, selectedCategory, onSelect }) => (
   </div>
 );
 
-const Header = ({ selectedValues, priceRange, selectedCategory, onFilterChange }) => {
+const Header = ({ selectedValues, priceRange, selectedCategory, onFilterChange, showFilters }) => {
   const navigate = useNavigate();
   const location = useLocation();
   const query = new URLSearchParams(location.search).get('q') || '';
@@ -426,11 +426,13 @@ const Header = ({ selectedValues, priceRange, selectedCategory, onFilterChange }
         </div>
       </div>
       <div>
+      {showFilters && (
         <nav>
           <ul id="main-header-filters" className="conteneur">
             {renderFilterButtons()}
           </ul>
         </nav>
+      )}
       </div>
     </header>
   );
