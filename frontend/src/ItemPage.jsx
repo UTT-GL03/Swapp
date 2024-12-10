@@ -4,6 +4,7 @@ import './css/ItemPage.css';
 import Header from './Header';
 import Footer from './Footer';
 
+
 const ItemPage = () => {
   const { id } = useParams(); // Récupère l'ID de l'élément depuis l'URL
   const [itemData, setItemData] = useState(null);
@@ -71,6 +72,34 @@ const ItemPage = () => {
   if (loading) return <p>Chargement...</p>;
   if (error) return <p>Erreur : {error}</p>;
 
+  const renderStarRatings = (rating) => {
+    const stars = [];
+    const fullStars = Math.floor(rating); // Nombre d'étoiles pleines
+    const hasHalfStar = rating % 1 >= 0.5; // Si une demi-étoile est nécessaire
+  
+    // Ajouter les étoiles pleines
+    for (let i = 0; i < fullStars; i++) {
+      stars.push(<i key={`full-${i}`} className="fas fa-star"></i>);
+    }
+  
+    // Ajouter une demi-étoile si nécessaire
+    if (hasHalfStar) {
+      stars.push(<i key="half" className="fas fa-star-half-alt"></i>);
+    }
+  
+    // Compléter avec des étoiles vides pour faire 5 au total
+    const emptyStars = 5 - stars.length;
+    for (let i = 0; i < emptyStars; i++) {
+      stars.push(<i key={`empty-${i}`} className="far fa-star"></i>);
+    }
+  
+    return stars;
+  };
+  
+  
+  
+  
+
   return (
     <div>
       <Header 
@@ -134,8 +163,12 @@ const ItemPage = () => {
             </div>
             <div>
               <div className="seller-pseudo">{itemData?.seller?.username || 'Nom du vendeur non disponible'}</div>
-              <div className="seller-star-ratings">{itemData?.seller?.rating ? `${itemData.seller.rating.toFixed(1)} étoiles` : 'Note du vendeur non disponible'}</div>
-              <div className="nb-raters">{itemData?.seller?.location || 'Emplacement du vendeur non disponible'}</div>
+              <div className="seller-star-ratings">
+              {itemData?.seller?.rating
+                ? renderStarRatings(itemData.seller.rating)
+                : 'Note du vendeur non disponible'}
+            </div>              
+            <div className="nb-raters">{itemData?.seller?.location || 'Emplacement du vendeur non disponible'}</div>
             </div>
           </div> 
         </div>
