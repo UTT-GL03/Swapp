@@ -286,3 +286,24 @@ Les bénéfices de cette approche sont clairement mesurables. Avant l'implément
 Cette optimisation démontre l'importance d'adopter une conception numérique responsable et sobre, non seulement pour minimiser l'impact environnemental mais également pour améliorer les performances globales du système. Notre démarche illustre comment des choix techniques simples, tels que la limitation des résultats ou l'application de filtres obligatoires, peuvent avoir un impact significatif sur la durabilité des plateformes numériques tout en offrant une expérience utilisateur optimisée et fluide.
 
 
+## Prototype 5
+
+Dans ce prototype, nous avons ajouté un nouveau scénario à notre implémentation. Dans le cadre d'une plateforme de vente et d'achat de vêtements d'occasion entre particuliers, il est essentiel de permettre aux utilisateurs d'accéder aux détails d'un article après avoir cliqué sur celui-ci suite à une recherche.
+
+Nous avons donc conçu et développé la page de détails d'un article, conformément à la maquette initiale.
+
+Voici un screenshot d'une page de détails d'un article :
+
+![Page de détails d'un article](screenshots/prototype5_ItemPage.png)
+
+### Analyse avec GreenFrame
+
+Impact sur la consommation globale : L'ajout de cette nouvelle page entraîne une augmentation notable de la "Global Estimated Consumption". Cependant, cette fonctionnalité est indispensable pour le bon fonctionnement de l'application.
+Résultat : La page génère une consommation estimée de 33 mg. Comparée à d'autres scénarios et pages de l'application, cette consommation reste tout à fait raisonnable.
+
+### Illustration
+
+Ci-dessous, une capture des détails de consommation pour le scénario 3 : "Consulter les détails d'un article" :
+
+![GreenFrame : Impact du scénario 3](screenshots/scenario3.png)
+
