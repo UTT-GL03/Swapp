@@ -8,15 +8,37 @@ import Footer from './Footer';
 // Custom hooks
 const useURLParameters = () => {
   const location = useLocation();
-  const query = new URLSearchParams(location.search).get('q') || '';
-  const categoryFromURL = new URLSearchParams(location.search).get('category') || '';
+  const searchParams = new URLSearchParams(location.search);
   
-  return { query, categoryFromURL };
+  const query = searchParams.get('q') || '';
+  const categoryFromURL = searchParams.get('category') || '';
+  
+  // Parse selected values from URL
+  const selectedValuesFromURL = {};
+  const filterKeys = ['size', 'condition', 'color', 'material']; // Add all your filter keys here
+  
+  filterKeys.forEach(key => {
+    const values = searchParams.get(key);
+    if (values) {
+      selectedValuesFromURL[key] = values.split(',');
+    }
+  });
+
+  // Parse price range from URL
+  const priceMin = searchParams.get('min') || '';
+  const priceMax = searchParams.get('max') || '';
+  
+  return { 
+    query, 
+    categoryFromURL, 
+    selectedValuesFromURL,
+    priceRange: { min: priceMin, max: priceMax }
+  };
 };
 
-const useFilterState = (initialCategory) => {
-  const [selectedValues, setSelectedValues] = useState({});
-  const [priceRange, setPriceRange] = useState({ min: '', max: '' });
+const useFilterState = (initialCategory, initialSelectedValues, initialPriceRange) => {
+  const [selectedValues, setSelectedValues] = useState(initialSelectedValues);
+  const [priceRange, setPriceRange] = useState(initialPriceRange);
   const [selectedCategory, setSelectedCategory] = useState(initialCategory);
 
   const handleFilterChange = useCallback(({ 
@@ -76,14 +98,19 @@ ItemsGrid.displayName = 'ItemsGrid';
 
 const SearchResults = () => {
   const navigate = useNavigate();
-  const { query, categoryFromURL } = useURLParameters();
+  const { 
+    query, 
+    categoryFromURL, 
+    selectedValuesFromURL,
+    priceRange: initialPriceRange 
+  } = useURLParameters();
   
   const {
     selectedValues,
     priceRange,
     selectedCategory,
     handleFilterChange
-  } = useFilterState(categoryFromURL);
+  } = useFilterState(categoryFromURL, selectedValuesFromURL, initialPriceRange);
 
   const [fashionItems, setFashionItems] = useState([]);
   const [filteredArticles, setFilteredArticles] = useState(fashionItems);
@@ -92,14 +119,30 @@ const SearchResults = () => {
   useEffect(() => {
     const fetchFashionItems = async () => {
       try {
-        // Construire le sélecteur Mango avec une correspondance stricte pour la catégorie
         const selector = {
-          "title": { "$regex": "(?i)" + query } // Recherche uniquement dans le titre
+          "title": { "$regex": "(?i)" + query }
         };
   
-        // Ajouter la catégorie comme filtre strict si elle est définie
         if (categoryFromURL) {
           selector["category"] = categoryFromURL;
+        }
+  
+        // Apply additional filter values
+        Object.keys(selectedValues).forEach(key => {
+          if (selectedValues[key] && selectedValues[key].length > 0) {
+            selector[key] = { "$in": selectedValues[key] };
+          }
+        });
+  
+        // Apply price range filter
+        if (priceRange.min !== '' || priceRange.max !== '') {
+          selector["price"] = {};
+          if (priceRange.min !== '') {
+            selector["price"]["$gte"] = parseFloat(priceRange.min);
+          }
+          if (priceRange.max !== '') {
+            selector["price"]["$lte"] = parseFloat(priceRange.max);
+          }
         }
   
         const mangoPaginatedQuery = {
@@ -141,14 +184,12 @@ const SearchResults = () => {
     };
   
     fetchFashionItems();
-  }, [query, categoryFromURL]); // Toujours dépendre de query et categoryFromURL
-  
+  }, [query, categoryFromURL, JSON.stringify(selectedValues), JSON.stringify(priceRange)]);
 
   const handleItemClick = useCallback((id) => {
     navigate(`/item/${id}`);
   }, [navigate]);
  
-
   // Memoize header props to prevent unnecessary re-renders
   const headerProps = useMemo(() => ({
     selectedValues,
@@ -157,8 +198,6 @@ const SearchResults = () => {
     onFilterChange: handleFilterChange,
     showFilters: true
   }), [selectedValues, priceRange, selectedCategory, handleFilterChange]);
-
-  // if (isLoading) {return <div>Loading...</div>;  }
 
   return (
     <div>
