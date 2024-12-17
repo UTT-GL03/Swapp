@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import logo from './assets/swapp-logo.svg';
 import valeursFiltres from './assets/valeurs_filtres.json';
 import Footer from './Footer';
-import { useCart } from './CartContext.jsx'; // Importation de useCart
+import { useCart } from './utils/CartContext.jsx'; // Importation de useCart
 
 // Header component
 const Header = () => {

@@ -215,10 +215,13 @@ header{
   padding: 3px 6px;
   border-radius: 50%;
 }
-
 .cart-bubble{
   background-color: white;
   color: var(--regular-primary-color);
+}
+.cart-bubble:hover{
+  background-color: var(--regular-primary-color);
+  color: white;
 }
 #main-header-filters li button.active .filter-count {
   background-color: white;

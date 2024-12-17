@@ -1,14 +1,10 @@
 import React, { useState, useEffect, useMemo, useCallback } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { decodeHtmlEntities } from './utils/Utils.jsx'; 
 import notFoundImage from './assets/not-found-element.png';
 import './css/SearchResults.css';
 import Header from './Header';
 import Footer from './Footer';
-
-function decodeHtmlEntities(str) {
-  const doc = new DOMParser().parseFromString(str, 'text/html');
-  return doc.documentElement.textContent || doc.body.textContent;
-}
 
 // Custom hooks
 const useURLParameters = () => {

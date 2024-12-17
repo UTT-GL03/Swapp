@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { useCart } from './CartContext';
+import { useCart } from './utils/CartContext';
 import logo from './assets/swapp-logo.svg';
 import filtresData from './assets/valeurs_filtres.json';
 
@@ -231,9 +231,9 @@ const Header = ({ selectedValues, priceRange, selectedCategory, onFilterChange, 
     }
 
     // Navigate with updated URL
-    navigate(`?${searchParams.toString()}`);
-    // const fullURL = `http://localhost:5173/search?${searchParams.toString()}`;
-    // window.location.href = fullURL;
+    // navigate(`?${searchParams.toString()}`);
+    const fullURL = `http://localhost:5173/search?${searchParams.toString()}`;
+    window.location.href = fullURL;
   };
 
   const [filters, setFilters] = useState(() => {

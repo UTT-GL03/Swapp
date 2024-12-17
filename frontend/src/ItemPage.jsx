@@ -1,14 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import './css/ItemPage.css';
-import { useCart } from './CartContext';
+import { useCart } from './utils/CartContext';
+import { decodeHtmlEntities, resizeAndCompressImage } from './utils/Utils.jsx'; 
 import Header from './Header';
 import Footer from './Footer';
-
-function decodeHtmlEntities(str) {
-  const doc = new DOMParser().parseFromString(str, 'text/html');
-  return doc.documentElement.textContent || doc.body.textContent;
-}
 
 
 const ItemPage = () => {
