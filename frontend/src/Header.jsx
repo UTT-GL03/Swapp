@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { useCart } from './CartContext';
 import logo from './assets/swapp-logo.svg';
 import filtresData from './assets/valeurs_filtres.json';
 
@@ -165,6 +166,8 @@ const CategoriesDropdown = ({ categories, selectedCategory, onSelect }) => (
 const Header = ({ selectedValues, priceRange, selectedCategory, onFilterChange, showFilters }) => {
   const navigate = useNavigate();
   const location = useLocation();
+  const { cartItems } = useCart();
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 650);
   const query = new URLSearchParams(location.search).get('q') || '';
 
   const {
@@ -228,9 +231,9 @@ const Header = ({ selectedValues, priceRange, selectedCategory, onFilterChange, 
     }
 
     // Navigate with updated URL
-    // navigate(`?${searchParams.toString()}`);
-    const fullURL = `http://localhost:5173/search?${searchParams.toString()}`;
-    window.location.href = fullURL;
+    navigate(`?${searchParams.toString()}`);
+    // const fullURL = `http://localhost:5173/search?${searchParams.toString()}`;
+    // window.location.href = fullURL;
   };
 
   const [filters, setFilters] = useState(() => {
@@ -240,6 +243,18 @@ const Header = ({ selectedValues, priceRange, selectedCategory, onFilterChange, 
     }));
     return [...filterButtons, { key: "price", displayName: "Prix" }];
   });
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 650);
+    };
+
+    // Attach the event listener for window resize
+    window.addEventListener('resize', handleResize);
+
+    // Cleanup the event listener on unmount
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   useEffect(() => {
     if (openDropdown) {
@@ -419,11 +434,18 @@ const Header = ({ selectedValues, priceRange, selectedCategory, onFilterChange, 
           </div>
         </div>
         <div id="main-header-buttons">
-          <div>
-            <button><i className="fa fa-shopping-cart button-icon-left"></i>Mon panier</button>
+          <div className="cart">
+            <button className="cart-button">
+              <i className="fa fa-shopping-cart button-icon-left btn-icon-only"></i>
+              {!isMobile && "Mon panier"}
+              {cartItems.length > 0 && <span className="cart-bubble">{cartItems.length}</span>}
+            </button>
           </div>
           <div>
-            <button><i className="fa fa-user button-icon-left"></i>Mon compte</button>
+            <button>
+              <i className="fa fa-user button-icon-left btn-icon-only"></i>
+              {!isMobile && "Mon compte"}
+            </button>
           </div>
         </div>
       </div>

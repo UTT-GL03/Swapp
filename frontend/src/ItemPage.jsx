@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import './css/ItemPage.css';
+import { useCart } from './CartContext';
 import Header from './Header';
 import Footer from './Footer';
 
@@ -10,6 +11,17 @@ const ItemPage = () => {
   const [itemData, setItemData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const { cartItems, addItemToCart, removeItemFromCart } = useCart();
+
+  const isInCart = cartItems.includes(id);
+
+  const handleCartToggle = () => {
+    if (isInCart) {
+      removeItemFromCart(id);
+    } else {
+      addItemToCart(id);
+    }
+  };
 
   useEffect(() => {
     const fetchItemData = async () => {
@@ -76,17 +88,14 @@ const ItemPage = () => {
     const stars = [];
     const fullStars = Math.floor(rating); // Number of full stars
     const hasHalfStar = rating % 1 >= 0.5; // Check for half star
-    
     // Add full stars
     for (let i = 0; i < fullStars; i++) {
       stars.push(<i key={`full-${i}`} className="fa fa-star"></i>); // Font Awesome 4.7 full star
     }
-  
     // Add half star if needed
     if (hasHalfStar) {
       stars.push(<i key="half" className="fa fa-star-half-o"></i>); // Font Awesome 4.7 half star
     }
-  
     // Fill in with empty stars to make 5 total
     const emptyStars = 5 - stars.length;
     for (let i = 0; i < emptyStars; i++) {
@@ -95,9 +104,6 @@ const ItemPage = () => {
   
     return stars;
   };
-  
-  
-  
   
   
 
@@ -158,7 +164,9 @@ const ItemPage = () => {
             <div className="description">{itemData?.description || 'Description non disponible'}</div>
           </div>
           <div className='user-btn'>
-            <button className="buy-button btn-secondary">Acheter</button>
+            <button className="buy-button btn-secondary" onClick={handleCartToggle}>
+            {isInCart ? 'Enlever du panier' : 'Acheter'}
+            </button>
             <button className="make-an-offer-button btn-secondary">Faire une offre</button>
           </div>
           <div className="seller-details">
@@ -177,7 +185,7 @@ const ItemPage = () => {
           </div> 
         </div>
       </div>
-      {/* <Footer /> */}
+      <Footer />
     </div>
   );
 };

@@ -5,15 +5,16 @@ import { useNavigate } from 'react-router-dom';
 import logo from './assets/swapp-logo.svg';
 import valeursFiltres from './assets/valeurs_filtres.json';
 import Footer from './Footer';
+import { useCart } from './CartContext.jsx'; // Importation de useCart
 
 // Header component
 const Header = () => {
   const navigate = useNavigate();
+  const { cartItems } = useCart(); // Utilisation du contexte du panier
 
   const handleSearchSubmit = (e) => {
     e.preventDefault();
     const searchTerm = e.target.elements.search.value;
-    // Utilisation du bon paramètre pour la recherche
     navigate(`/search?q=${encodeURIComponent(searchTerm)}`);
   };
 
@@ -23,14 +24,14 @@ const Header = () => {
 
   const filtres = valeursFiltres.categories.values || []; // Récupère les articles
 
-
   return (
     <>
       <div id="btn-container" className="conteneur">
         <div>
           <button>
             <i className="fa fa-shopping-cart button-icon-left"></i>
-            Mon panier
+            Mon panier 
+            {cartItems.length > 0 && <span className="cart-bubble">{cartItems.length}</span>}
           </button>
         </div>
         <div>
@@ -43,21 +44,22 @@ const Header = () => {
       <div id="main-container" className="conteneur">
         <img id="logo" src={logo} alt="Swapp logo" />
         <nav className="categories-list">
-        <ul>
+          <ul>
             {filtres.map((categorie) => (
               <li key={categorie}>
                 <a
                   href="#"
-                  onClick={() => handleCategoryClick(categorie)} // Pass the category to navigate
+                  onClick={() => handleCategoryClick(categorie)}
                 >
-                  {categorie}</a>
+                  {categorie}
+                </a>
               </li>
             ))}
           </ul>
         </nav>
-        <form 
-          id="sign-in-form" 
-          name="sign-in-form" 
+        <form
+          id="sign-in-form"
+          name="sign-in-form"
           onSubmit={handleSearchSubmit}
         >
           <input
@@ -76,7 +78,7 @@ const Header = () => {
 function HomePage() {
   useEffect(() => {
     document.body.classList.add('homepage-background');
-  
+
     return () => {
       document.body.classList.remove('homepage-background');
     };
