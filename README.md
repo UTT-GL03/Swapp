@@ -292,7 +292,7 @@ Dans ce prototype, nous avons ajouté un nouveau scénario à notre implémentat
 
 Nous avons donc conçu et développé la page de détails d'un article, conformément à la maquette initiale.
 
-Voici un screenshot d'une page de détail d'un artcle :
+Voici un screenshot d'une page de détails d'un article :
 
 ![Page de détails d'un article](screenshots/prototype5_ItemPage.png)
 
