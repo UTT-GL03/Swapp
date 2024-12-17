@@ -292,6 +292,10 @@ Dans ce prototype, nous avons ajouté un nouveau scénario à notre implémentat
 
 Nous avons donc conçu et développé la page de détails d'un article, conformément à la maquette initiale.
 
+Voici un screenshot d'une page de détail d'un artcle :
+
+![Page de détails d'un article](screenshots/prototype5_ItemPage.png)
+
 ### Analyse avec GreenFrame
 
 Impact sur la consommation globale : L'ajout de cette nouvelle page entraîne une augmentation notable de la "Global Estimated Consumption". Cependant, cette fonctionnalité est indispensable pour le bon fonctionnement de l'application.
@@ -300,5 +304,6 @@ Résultat : La page génère une consommation estimée de 33 mg. Comparée à d'
 ### Illustration
 
 Ci-dessous, une capture des détails de consommation pour le scénario 3 : "Consulter les détails d'un article" :
+
 ![GreenFrame : Impact du scénario 3](screenshots/scenario3.png)
 
