@@ -5,6 +5,8 @@ scenarios:
       name: Consulter la page d'accueil
     - path: ./benchmark/scenario2.js
       name: Consulter la page d'articles
+    - path: ./benchmark/scenario3.js
+      name: Consulter les détails d'un article
 containers:
   - swapp-static_hosting-1
   - swapp-backend-1
