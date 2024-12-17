@@ -5,6 +5,11 @@ import './css/SearchResults.css';
 import Header from './Header';
 import Footer from './Footer';
 
+function decodeHtmlEntities(str) {
+  const doc = new DOMParser().parseFromString(str, 'text/html');
+  return doc.documentElement.textContent || doc.body.textContent;
+}
+
 // Custom hooks
 const useURLParameters = () => {
   const location = useLocation();
@@ -37,6 +42,7 @@ const useFilterState = (initialCategory) => {
   };
 };
 
+
 // Components
 const ItemCard = React.memo(({ item, onClick }) => (
   <div
@@ -46,7 +52,7 @@ const ItemCard = React.memo(({ item, onClick }) => (
   >
     <img src={item.image || 'https://placehold.co/150/'} alt={item.title} />
     <div className="Item-Content">
-      <div className="Item-Title">{item.title}</div>
+      <div className="Item-Title">{decodeHtmlEntities(item.title)}</div>
       <div className="Item-Price">${item.price.toFixed(2)}</div>
     </div>
   </div>
@@ -116,7 +122,7 @@ const SearchResults = () => {
           "sort": [{ "price": "asc" }]
         };
   
-        console.log('Sending Mango query:', mangoPaginatedQuery);
+        // console.log('Sending Mango query:', mangoPaginatedQuery);
   
         const response = await fetch('http://localhost:5984/swapp_data/_find', {
           method: 'POST',
@@ -128,7 +134,7 @@ const SearchResults = () => {
   
         const data = await response.json();
   
-        console.log('Fetched items:', data.docs);
+        // console.log('Fetched items:', data.docs);
   
         const items = data.docs;
         setFashionItems(items);

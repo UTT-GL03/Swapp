@@ -5,6 +5,11 @@ import { useCart } from './CartContext';
 import Header from './Header';
 import Footer from './Footer';
 
+function decodeHtmlEntities(str) {
+  const doc = new DOMParser().parseFromString(str, 'text/html');
+  return doc.documentElement.textContent || doc.body.textContent;
+}
+
 
 const ItemPage = () => {
   const { id } = useParams(); // Récupère l'ID de l'élément depuis l'URL
@@ -48,7 +53,7 @@ const ItemPage = () => {
           limit: 1, // On s'attend à un seul document
         };
 
-        console.log('Sending Mango query:', mangoQuery);
+        // console.log('Sending Mango query:', mangoQuery);
 
         const response = await fetch('http://localhost:5984/swapp_data/_find', {
           method: 'POST',
@@ -65,7 +70,7 @@ const ItemPage = () => {
         const data = await response.json();
 
         if (data.docs.length > 0) {
-          console.log('Fetched item:', data.docs[0]);
+          // console.log('Fetched item:', data.docs[0]);
           setItemData(data.docs[0]); // Stocke les données de l'élément
         } else {
           throw new Error("Aucun élément trouvé pour l'ID donné.");
@@ -131,7 +136,7 @@ const ItemPage = () => {
             </div>
         </div>
         <div className="description-group">
-          <div className="title">{itemData?.title || 'Titre non disponible'}</div>
+          <div className="title">{decodeHtmlEntities(itemData?.title) || 'Titre non disponible'}</div>
           <div className="price">{itemData?.price ? `${itemData.price} €` : 'Prix non disponible'}</div>
           <div className="description-split">
             <div className="details">
