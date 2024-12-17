@@ -31,8 +31,10 @@
 button{
   cursor: pointer;
   outline: none;
-  
-  display: block;
+
+  display: inline-flex;  /* Pour aligner l'icône et le texte sur la même ligne */
+  align-items: center;
+
   margin: 0 auto;
 
   padding: 8px 30px;
@@ -186,6 +188,7 @@ header{
   display: flex;
   gap: 20px;
   flex-direction: wrap; 
+  flex-wrap: wrap;
   align-items: center;
 }
 
