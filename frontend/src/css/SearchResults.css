@@ -50,12 +50,7 @@ body {
   .Item-Price {
     color: var(--regular-secondary-color);
   }
-
-
-  .space{
-    height: 250px;
-  }
-
+  
   #not-found-image{
     margin-top: 20px;
     height: 300px;

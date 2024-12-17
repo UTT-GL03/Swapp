@@ -190,6 +190,7 @@ const ItemPage = () => {
           </div> 
         </div>
       </div>
+      <div className='space' />
       <Footer />
     </div>
   );

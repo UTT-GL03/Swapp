@@ -482,3 +482,7 @@ footer{
 #footer-socials ul li a:visited {
   color: var(--regular-secondary-color);
 }
+
+.space{
+  height: 250px;
+}
