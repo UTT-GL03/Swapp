@@ -184,17 +184,17 @@ Pour ce troisième prototype, nous permettons la recherche fonctionnelle depuis 
 ![GreenFrame : Impact de l'ajout du backend](screenshots/GreenFrame_ajout_backend.png)
 Fig8 : GreenFrame : Impact de l'ajout du backend
 
-=> pas de changement conséquent sur le réseau mais CPU qui augmente (normal car création d'un backend)
+=> Pas de changement significatif au niveau des performances réseau, mais une augmentation de l'utilisation du CPU a été constatée. Cela s'explique par la création et le déploiement d'un backend, un composant naturellement plus demandant en ressources de calcul.
 
 De ces différentes mesures, nous pouvons retenir que l'effet de l'introduction d'une base de données, quoique négligeable, est, pour l'instant, plutôt défavorable d'un point de vue écologique. Le bilan de ce changement devrait cependant rapidement s'inverser avec l'augmentation de la quantité de données gérées et les requêtes réalisées.
 
 ## Prototype 4
 Un problème est relevé : puisque nous avons créé aléatoirement des titres d'articles et les valeurs des catégories, le filtrage, bien que fonctionnel, paraît douteux. En effet, un article pouvait jusqu'alors avoir un titre "Veste en cuir", une catégorie "Robe" et un description "Gilet tout doux". En sélectionnant la catégorie "Robe", obtenir un élément au titre de "Veste en cuir" laisse croire à une erreur de tri.
 
-Par conséquent, nous avons modifié notre sample_data.hbs pour que les titres ne comprennent ni des valeurs possibles de catégorie, de couleur et de matière. Les descriptions sont toutes modifiée pour correspondre à un Lorem de 100 mots.
+Par conséquent, nous avons modifié notre sample_data.hbs pour que les titres ne comprennent ni des valeurs possibles de catégorie, de couleur et de matière. Les descriptions sont toutes modifiées pour correspondre à un "lorem ipsum" de 100 mots.
 
 ![Jeu de données](screenshots/sample_data-hbs.png)
-Fig9 : sample_data.hbs
+Fig9 : Fichier `sample_data.hbs` utilisé pour la génération de données
 
 ### Passage à l'échelle 
 
@@ -267,7 +267,7 @@ Pour analyser davantage les impacts, le scénario de test 2 a été modifié en 
 ### Après ajustements
 
 #### Perspectives
-Comme expliqué plus haut, nous récupérions encore une quantité massive d'articles, triés côté client et tous rendus, ce qui augmente fortement l'impact lié à l'utilisation du processeur. Nous passons donc à un filtrage côté serveur, avec tous les types de filtrage précédemment définis côté client.
+Comme expliqué plus haut, nous récupérions encore une quantité massive d'articles, triés côté client et entièrement affichés, ce qui augmente fortement l'impact lié à l'utilisation du processeur. Nous passons donc à un filtrage côté serveur, en conservant tous les types de filtrage précédemment définis côté client.
 
 L'intégration d'une limite stricte à **25 articles maximum par affichage** a été une décision centrale dans la conception de notre plateforme, en réponse aux enjeux d'optimisation des performances et de réduction de l'impact environnemental. Associée à l'obligation d'utiliser des filtres lors des recherches, cette approche garantit une expérience utilisateur ciblée et écoresponsable.
 
@@ -297,14 +297,14 @@ Voici un screenshot d'une page de détails d'un article :
 
 ### Analyse avec GreenFrame
 
-Impact sur la consommation globale : L'ajout de cette nouvelle page entraîne une augmentation notable de la "Global Estimated Consumption". Cependant, cette fonctionnalité est indispensable pour le bon fonctionnement de l'application.
-Résultat : La page génère une consommation estimée de 33 mg. Comparée à d'autres scénarios et pages de l'application, cette consommation reste tout à fait raisonnable.
+L'ajout de cette nouvelle page entraîne une augmentation de la "Global Estimated Consumption" (= Consommation Énergétique Estimée Globale) de l'application. Cela est dû à l'impact énergétique de la page, notamment en raison des ressources qu'elle nécessite pour être chargée et affichée. Cependant, cette fonctionnalité est indispensable pour le bon fonctionnement de l'application et permet d'offrir des services essentiels aux utilisateurs. En pratique, cette page génère une consommation estimée de 33 mg d'énergie. Comparée à d'autres pages de l'application ou à des scénarios similaires, cette consommation reste raisonnable et ne compromet pas l'efficacité globale de l'application.
 
 ### Illustration
 
 Ci-dessous, une capture des détails de consommation pour le scénario 3 : "Consulter les détails d'un article" :
 
 ![GreenFrame : Impact du scénario 3](screenshots/scenario3.png)
+
 
 
 # Conclusion
