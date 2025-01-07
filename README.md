@@ -294,6 +294,7 @@ Nous avons donc conçu et développé la page de détails d'un article, conform�
 Voici un screenshot d'une page de détails d'un article :
 
 ![Page de détails d'un article](screenshots/prototype5_ItemPage.png)
+Fig10 : Prototype 5 - Page de détails d'un article
 
 ### Analyse avec GreenFrame
 
