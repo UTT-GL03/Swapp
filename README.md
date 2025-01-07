@@ -305,6 +305,19 @@ L'ajout de cette nouvelle page entraîne une augmentation de la "Global Estimate
 Ci-dessous, une capture des détails de consommation pour le scénario 3 : "Consulter les détails d'un article" :
 
 ![GreenFrame : Impact du scénario 3](screenshots/scenario3.png)
+Fig 11 : Impact avec GreenFrame du scénario 3 : "Consulter les détails d'un article"
+
+Cette image montre les métriques de performance et d'impact environnemental pour un scénario de consultation d'article en ligne.
+
+Points clés :
+- Consommation totale : 106 mg/min ou 33 mg par exécution (comme mentionné précédemment)
+- L'écran consomme 93% des ressources (69 mWh)
+- Le GreenFrame browser génère la majorité des émissions CO2 (32 mg eq.)
+- Deux composants backend (swapp-static-hosting et swapp-backend) ont un impact minimal
+  
+La précision de 2.04% indique une marge d'erreur relativement faible dans ces mesures.
+
+Ces données permettent d'identifier l'affichage comme le principal point d'optimisation pour réduire l'empreinte environnementale de cette fonctionnalité.
 
 
 
