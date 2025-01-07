@@ -306,3 +306,46 @@ Ci-dessous, une capture des détails de consommation pour le scénario 3 : "Cons
 
 ![GreenFrame : Impact du scénario 3](screenshots/scenario3.png)
 
+
+# Conclusion
+
+Ce projet a été l'occasion d'explorer les multiples dimensions de l'éco-conception dans les produits numériques. Nous avons constaté que des choix techniques judicieux permettent de réduire l'empreinte écologique d'une application ou d'un site. Ce travail nous a montré l'importance d'adopter une approche intégrée où chaque décision, de la conception à la maintenance, contribue à un numérique plus responsable et durable.
+
+## Ce qui nous a surpris
+
+- **Le faible impact des calculs du CPU**  
+Contrairement à ce que nous pensions, les calculs intensifs ne représentent pas la principale source de consommation énergétique.  
+Ce sont plutôt les **requêtes réseau** et le **volume de données échangées** qui ont un impact significatif sur l'empreinte écologique d'une application.
+
+- **L’impact significatif des publicités et du tracking**  
+Les **publicités** et le **tracking** jouent un rôle prépondérant dans la consommation énergétique.  
+Ces éléments, souvent perçus comme secondaires, figurent en réalité parmi les principaux contributeurs à une empreinte carbone élevée.  
+Cette prise de conscience souligne l'urgence de **limiter ces pratiques** ou d'opter pour des alternatives plus respectueuses de l'environnement.
+
+- **Le potentiel des optimisations simples**  
+Une meilleure gestion des **requêtes serveur** ou une simple **compression des images** peut réduire de manière significative la consommation de bande passante.  
+Ces ajustements permettent également de diminuer les **émissions de CO2 associées**.  
+Cela démontre qu'une optimisation réfléchie peut avoir un impact considérable, même avec des changements modestes.
+
+- **La différence d’impact par rapport aux concurrents**  
+Le projet a mis en évidence une différence d'impact importante entre notre solution et celles des concurrents.  
+Grâce à notre approche d’**éco-conception**, notre produit s'est avéré nettement plus performant en termes d’empreinte écologique.  
+
+
+
+## Les bonnes pratiques à retenir
+
+Pour réduire l'empreinte écologique de nos produits numériques, voici les principales pratiques identifiées :
+
+- **Mesurer l’impact** dès la conception et tout au long du cycle de vie, en utilisant des outils adaptés.
+- **Limiter et compresser les images**, ou mieux, privilégier des formats légers comme le **SVG** au lieu du **PNG**.
+- **Réduire la création de nouvelles pages** et opter pour des architectures optimisées avec une **pagination claire**.
+- **Bannir le scroll infini**, qui encourage une consommation non contrôlée de ressources et nuit à l'expérience utilisateur.
+- **Supprimer les requêtes superflues** et **filtrer les données** pour ne transmettre que ce qui est réellement nécessaire.
+- **Limiter les publicités** ou opter pour des **business plans plus éco-responsables** qui ne reposent pas uniquement sur le tracking et la consommation massive de ressources.
+- **Minimiser le temps passé sur les applications**, en concevant des expériences centrées sur l'efficacité et non sur la rétention abusive.
+- **Utiliser une base de données** bien conçue et optimisée pour réduire les temps de réponse et limiter les requêtes inutiles.
+
+En conclusion, ce projet a mis en lumière le rôle clé des développeurs et concepteurs dans la réduction de l'empreinte écologique du numérique. Les technologies actuelles offrent déjà des solutions concrètes pour un numérique plus durable. Il ne nous reste qu'à les appliquer, en veillant à toujours privilégier la simplicité, l'optimisation et l'éthique dans nos choix.
+
+
