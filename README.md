@@ -37,7 +37,7 @@ Nous avons fait le test sur 5 pages :
 - https://www.etsy.com/fr
 - https://www.geev.com/fr/recherche/objets?location=48.862725%2C2.287592&type=donation&distance=15000
 
-Sur ces 5 pages, seules 2 ont fonctionné correctement : Vinted et Geev. Deepop a "Scenario failed" et Leboncoin et Etsy sont bloqués sur des pages de Captcha.
+Sur ces 5 pages, seules 2 ont fonctionné correctement : Vinted et Geev. Deepop a "Scénario failed" et Leboncoin et Etsy sont bloqués sur des pages de Captcha.
 
 Voici le résultat pour Vinted : [Résultat GreenFrame Vinted](https://app.greenframe.io/analyses/547cd8a6-e40c-4a03-b636-f107d62ddc51)
 
@@ -103,7 +103,7 @@ Afin de limiter au maximum l'afflux de données inutile, nous avons choisi de me
 ![Maquette page d'accueil](mockups/MockupHomepage.png)
 Fig1 : maquette de la page d'accueil
 
-Cette même idée est poursuivie dans la page de recherche. Les items sont donc à minima triés par catégorie, afin de limiter les données à récupérer. Il est possible de pousser la recherche en lançant une recherche par mot clef ou en précisant un état, une taille, une couleur, un prix, sa localisation.
+Cette même idée est poursuivie dans la page de recherche. Les items sont donc à minima triés par catégorie, afin de limiter les données à récupérer. Il est possible de pousser la recherche en lançant une recherche par une chaîne de caractères ou en précisant un état, une taille, une couleur, un prix, sa localisation.
 
 ![Maquette page de recherche](mockups/MockupSearch.png)
 Fig2 : maquette de la page de recherche
@@ -120,40 +120,40 @@ L'échantillon de données a été créé par dummy-json selon les attributs de 
 # Prototypes
 
 ## Prototype 1
-Pour ce premier prototype, nous créons les components nécessaires à notre grille de résultats, à partir de 3 éléments hardcodés dans notre fichier. Aucune recherche ou filtrage n'est fonctionnel.
+Pour ce premier prototype, nous créons les composants nécessaires à notre grille de résultats, à partir de 3 éléments codés en dur dans notre fichier. Aucune recherche ou filtrage n'est fonctionnel.
 
-![Prototype 1 - Screenshot de la page d'accueil](screenshots/prototype1_home.png)
-Fig4 : Prototype 1 - Screenshot de la page d'accueil
+![Prototype 1 - Capture d'écran de la page d'accueil](screenshots/prototype1_home.png)
+Fig4 : Prototype 1 - Capture d'écran de la page d'accueil
 
-![Prototype 1 - Screenshot de la page de recherche](screenshots/prototype1_search.png)
-Fig5 : Prototype 1 - Screenshot de la page de recherche
+![Prototype 1 - Capture d'écran de la page de recherche](screenshots/prototype1_search.png)
+Fig5 : Prototype 1 - Capture d'écran de la page de recherche
 
 
 #### Analyse GreenFrame
 Voici le premier résultat obtenir sur notre application pour 2 scénarios : 
-- Scenario 1: Consulter la page d'accueil
-- Scenario 2: Consulter la page d'articles
+- Scénario 1: Consulter la page d'accueil
+- Scénario 2: Consulter la page d'articles
 [1er Résultat GreenFrame Swapp](https://app.greenframe.io/analyses/e49632a6-7d22-4fad-8da5-18c6048cd532)
 
-Nous remarquons que le retour n'est pas très fameux : 80mg pour les deux scénarios dont :
+Nous remarquons que l'impact environnemental s'est alourdi : 80mg pour les deux scénarios dont :
 - 48 mg pour le scénario 1
 - 32 mg pour le scénario 2
   
-Donc on peut largement améliorer le scénario 1. Nous avons identifié que le problème principale était la background image de notre page d'accueil que nous avons supprimé pour améliorer le résultat.
+Donc on peut largement améliorer le scénario 1. Nous avons identifié que le problème principale était l'image de fond de notre page d'accueil que nous avons supprimée pour améliorer le résultat.
 
 ## Prototype 2 
-Pour ce deuxième prototype, nous mettons à jour dynamiquement la grille de résultats en fonction d'un mot clef, à partir de données statiques stockées dans sample_data.json. Seule la barre de recherche est pour l'instant fonctionnelle.
+Pour ce deuxième prototype, nous mettons à jour dynamiquement la grille de résultats en fonction d'une chaîne de caractères de recherche, à partir de données statiques. Seule la barre de recherche est pour l'instant fonctionnelle.
 
 Nous décidons de changer l'image de fond de la page d'accueil, la remplaçant par un png plus léger.
 
-![Prototype 2 - Screenshot de l'image de fond](screenshots/prototype2_home.png)
-Fig6 : Prototype 2 - Screenshot de la page de recherche, dropdown ouvert
+![Prototype 2 - Capture d'écran de l'image de fond](screenshots/prototype2_home.png)
+Fig6 : Prototype 2 - Capture d'écran de la page de recherche, liste déroulante ouvert
 
 
-Nous créons la logique de dropdown des filtres à partir des données valeurs_filtres.json dans le fichier Header.jsx. Nous permettons la mise à jour d'un object selectedValues à chaque fermeture de dropdown, puis les renvoyons au parent SearchValues. Ainsi, nous permettons une première fonctionnalité de filtrage côté client.
+Nous créons la logique de liste déroulante des filtres à partir de données statiques. Nous permettons la mise à jour des filtres à la fermeture des listes déroulantes. Ainsi, nous permettons une première fonctionnalité de filtrage côté client.
 
-![Prototype 2 - Screenshot des dropdowns](screenshots/prototype2_search.png)
-Fig7 : Prototype 2 - Screenshot de la page de recherche, dropdown ouvert
+![Prototype 2 - Capture d'écran des listes déroulantes](screenshots/prototype2_search.png)
+Fig7 : Prototype 2 - Capture d'écran de la page de recherche, liste déroulante ouverte
 
 
 #### Analyse GreenFrame
@@ -164,7 +164,7 @@ Nous remarquons que le retour meilleur : 63mg pour les deux scénarios dont :
 - 31 mg pour le scénario 1
 - 32 mg pour le scénario 2
 
-Modifier l'image de fonc a largement amélioré notre impact.
+Cette réduction est principalement attribuée à la modification de l'image de fond, qui a permis de réduire significativement les échanges réseau. En effet, l'impact du filtrage côté client est négligeable, car aucune requête supplémentaire n'est émise. Ce raisonnement repose sur l'hypothèse que l'impact énergétique est principalement lié à la taille des éléments chargés via le réseau.
 
 ## Prototype 3 : Données dynamiques & Chargement dynamique
 
@@ -178,8 +178,7 @@ Pourquoi choisir une base de données plutôt qu’un fichier statique ?
 
 → Modification et mise à jour des données facilitées, sans avoir à manipuler manuellement un fichier volumineux
 
-Pour ce troisième prototype, nous permettons la recherche fonctionnelle depuis la barre de recherche, mais tout le filtrage reste codé côté client. Nous récupérons donc toujours l'intégralité des articles depuis la base de données.
-
+Pour ce troisième prototype, nous permettons la recherche fonctionnelle depuis la barre de recherche, mais tout le filtrage reste codé côté client. Ainsi, l’intégralité des articles est toujours récupérée depuis la base de données. La véritable nouveauté ici réside dans leur gestion dynamique et leur accessibilité améliorée par le biais d’une base de données.
 
 #### Analyse GreenFrame
 ![GreenFrame : Impact de l'ajout du backend](screenshots/GreenFrame_ajout_backend.png)
