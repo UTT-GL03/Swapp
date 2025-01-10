@@ -89,6 +89,9 @@ Ce scénario permet aux utilisateurs de réviser leurs articles avant de finalis
 
 *Remarque : Pour un MVP, il peut être judicieux d’éviter l’intégration complète du paiement en ligne et de se concentrer sur une interface de mise en relation.*
 
+# Analyse des impacts de nos concurrents avec GreenIt-Analysis
+Pour cette étude, nous avons mesuré l’impact environnemental des scénarios 1 et 2 à l’aide de GreenItAnalysis, car ils sont réalisables sans compte utilisateur, contrairement aux scénarios 3 et 4. Le scénario 4, en particulier, nécessite de finaliser un achat, ce qui demande une connexion et des interactions impossibles à reproduire dans le cadre de notre analyse actuelle.
+
 
 
 # Maquettage & données
