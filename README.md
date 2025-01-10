@@ -114,17 +114,17 @@ Cependant, de manière générale, les deux plateformes affichent des performanc
 Afin de limiter au maximum l'afflux de données inutile, nous avons choisi de mettre en place une page d'accueil sans scroll, dans laquelle il est possible de sélectionner une catégorie ou taper un élément spécifique dans le champ de saisie. 
 
 ![Maquette page d'accueil](mockups/MockupHomepage.png)
-Fig2 : maquette de la page d'accueil
+Fig4 : maquette de la page d'accueil
 
 Cette même idée est poursuivie dans la page de recherche. Les items sont donc à minima triés par catégorie, afin de limiter les données à récupérer. Il est possible de pousser la recherche en lançant une recherche par une chaîne de caractères ou en précisant un état, une taille, une couleur, un prix, sa localisation.
 
 ![Maquette page de recherche](mockups/MockupSearch.png)
-Fig3 : maquette de la page de recherche
+Fig5 : maquette de la page de recherche
 
 Le nombre d'images admis par item est de 4, à la taille maximale de 1Mo.
 
 ![Maquette page de détails d'un item](mockups/MockupItem.png)
-Fig4 : maquette de la page descriptive d'un élément
+Fig6 : maquette de la page descriptive d'un élément
 
 L'échantillon de données a été créé par dummy-json selon les attributs de catégorie, état, taille, couleur, prix et localisation évoqués préalablement.
 
@@ -136,10 +136,10 @@ L'échantillon de données a été créé par dummy-json selon les attributs de 
 Pour ce premier prototype, nous créons les composants nécessaires à notre grille de résultats, à partir de 3 éléments codés en dur dans notre fichier. Aucune recherche ou filtrage n'est fonctionnel.
 
 ![Prototype 1 - Capture d'écran de la page d'accueil](screenshots/prototype1_home.png)
-Fig5 : Prototype 1 - Capture d'écran de la page d'accueil
+Fig7 : Prototype 1 - Capture d'écran de la page d'accueil
 
 ![Prototype 1 - Capture d'écran de la page de recherche](screenshots/prototype1_search.png)
-Fig6 : Prototype 1 - Capture d'écran de la page de recherche
+Fig8 : Prototype 1 - Capture d'écran de la page de recherche
 
 
 #### Analyse GreenFrame
@@ -188,13 +188,13 @@ Pour ce deuxième prototype, nous mettons à jour dynamiquement la grille de ré
 Nous décidons de changer l'image de fond de la page d'accueil, la remplaçant par un png plus léger.
 
 ![Prototype 2 - Capture d'écran de l'image de fond](screenshots/prototype2_home.png)
-Fig7 : Prototype 2 - Capture d'écran de la page de recherche, liste déroulante ouvert
+Fig9 : Prototype 2 - Capture d'écran de la page de recherche, liste déroulante ouvert
 
 
 Nous créons la logique de liste déroulante des filtres à partir de données statiques. Nous permettons la mise à jour des filtres à la fermeture des listes déroulantes. Ainsi, nous permettons une première fonctionnalité de filtrage côté client.
 
 ![Prototype 2 - Capture d'écran des listes déroulantes](screenshots/prototype2_search.png)
-Fig8 : Prototype 2 - Capture d'écran de la page de recherche, liste déroulante ouverte
+Fig10 : Prototype 2 - Capture d'écran de la page de recherche, liste déroulante ouverte
 
 
 #### Analyse GreenFrame
@@ -223,7 +223,7 @@ Pour ce troisième prototype, nous permettons la recherche fonctionnelle depuis 
 
 #### Analyse GreenFrame
 ![GreenFrame : Impact de l'ajout du backend](screenshots/GreenFrame_ajout_backend.png)
-Fig9 : GreenFrame : Impact de l'ajout du backend
+Fig11 : GreenFrame : Impact de l'ajout du backend
 
 => Pas de changement significatif au niveau des performances réseau, mais une augmentation de l'utilisation du CPU a été constatée. Cela s'explique par la création et le déploiement d'un backend, un composant naturellement plus demandant en ressources de calcul.
 
@@ -235,7 +235,7 @@ Un problème est relevé : puisque nous avons créé aléatoirement des titres d
 Par conséquent, nous avons modifié notre sample_data.hbs pour que les titres ne comprennent ni des valeurs possibles de catégorie, de couleur et de matière. Les descriptions sont toutes modifiées pour correspondre à un "lorem ipsum" de 100 mots.
 
 ![Jeu de données](screenshots/sample_data-hbs.png)
-Fig10 : Fichier `sample_data.hbs` utilisé pour la génération de données
+Fig12 : Fichier `sample_data.hbs` utilisé pour la génération de données
 
 ### Passage à l'échelle 
 
@@ -333,7 +333,7 @@ Dans ce prototype, nous avons ajouté un nouveau scénario à notre implémentat
 Nous avons donc conçu et développé la page de détails d'un article, conformément à la maquette initiale.
 
 ![Page de détails d'un article](screenshots/prototype5_ItemPage.png)
-Fig11 : Prototype 5 - Page de détails d'un article
+Fig13 : Prototype 5 - Page de détails d'un article
 
 ### Analyse avec GreenFrame
 
@@ -344,7 +344,7 @@ L'ajout de cette nouvelle page entraîne une augmentation de la "Global Estimate
 Ci-dessous, une capture des détails de consommation pour le scénario 3 : "Consulter les détails d'un article" :
 
 ![GreenFrame : Impact du scénario 3](screenshots/scenario3.png)
-Fig 11 : Impact avec GreenFrame du scénario 3 : "Consulter les détails d'un article"
+Fig 14 : Impact avec GreenFrame du scénario 3 : "Consulter les détails d'un article"
 
 Cette image montre les métriques de performance et d'impact environnemental pour un scénario de consultation d'article en ligne.
 
