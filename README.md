@@ -31,11 +31,11 @@ Enfin, il est essentiel de rappeler que si les plateformes de seconde main ont r
 # Benchmarks de nos principaux concurrents
 
 Nous avons fait le test sur 5 pages :
-- https://www.vinted.fr/
-- https://www.depop.com/fr/
-- https://www.leboncoin.fr/
-- https://www.etsy.com/fr
-- https://www.geev.com/fr/recherche/objets?location=48.862725%2C2.287592&type=donation&distance=15000
+- [Vinted](https://www.vinted.fr/),
+- [Depop](https://www.depop.com/fr/),
+- [Leboncoin](https://www.leboncoin.fr/),
+- [Etsy](https://www.etsy.com/fr)
+- [Geev](https://www.geev.com/fr/recherche/objets?location=48.862725%2C2.287592&type=donation&distance=15000).
 
 Sur ces 5 pages, seules 2 ont fonctionné correctement : Vinted et Geev. Deepop a "Scénario failed" et Leboncoin et Etsy sont bloqués sur des pages de Captcha.
 
@@ -53,47 +53,41 @@ Nous faisons l'hypothèse que les utilisateurs visitent les plateformes de vente
 Ce scénario répond à l’un des besoins primaires d’un utilisateur qui découvre la plateforme. La présentation d’articles récents ou populaires lui permet d’explorer le catalogue facilement. Cela attire les nouveaux visiteurs et augmente leur engagement initial sans demander un investissement immédiat (comme une inscription), facilitant la découverte de la plateforme.
 
 #### Étapes :
-1.  L’utilisateur visite le site pour la première fois.
-2.  Il accepte les cookies.
-3.  Il accède à la page de recherche, où sont affichés les articles les plus récents ou ceux mis en avant.
-4.  Il scrolle jusqu’en bas pour voir plus d'articles.
+1. L’utilisateur visite le site pour la première fois.
+2. Il explore une page présentant les articles récents ou mis en avant.
+3. Il navigue dans le catalogue d’articles, en déroulant ou en parcourant des sections thématiques.
 
 
 ## Scénario 2 : Rechercher des articles spécifiques et ajouter un article au panier
-Ce scénario montre l’expérience utilisateur pour trouver un produit spécifique, ce qui est essentiel pour les acheteurs ayant un besoin ou une préférence particulière. Ajouter un article au panier sans procéder à l’achat final évite l'accumulation d'achats impulsifs, limitant ainsi l'impact écologique et encourageant une consommation réfléchie.
-
-Remarque : L’absence d’un scénario allant jusqu’à l’achat s’explique par la volonté de limiter l’achat compulsif et de privilégier une expérience écoresponsable, en encourageant l’utilisateur à se poser des questions avant de finaliser sa commande.
+Ce scénario illustre l’expérience utilisateur pour trouver un produit particulier. L’ajout d’un article au panier sans achat immédiat favorise une consommation réfléchie et limite l’impact écologique.
 
 #### Étapes :
-1.  L’utilisateur clique sur la barre de recherche et entre le mot-clé “veste en cuir”.
-2.  Il clique sur "Rechercher" et attend les résultats.
-3.  Il applique un filtre de prix.
-4.  Il entre 0 en prix minimum.
-5.  Il entre 50 en prix maximum.
-6.  Il parcourt la liste des résultats filtrés.
-7.  Il clique sur une annonce pour voir les détails.
-8.  Il clique sur "Ajouter au panier".
+1. L’utilisateur utilise une barre de recherche pour trouver un produit spécifique (é.g., “veste en cuir”).
+2. Il applique des filtres pertinents (prix minimum : 0, prix maximum : 50).
+3. Il examine les résultats filtrés et sélectionne une annonce pour voir ses détails.
+4. Il ajoute l’article au panier pour considération ultérieure.
 
 
 ## Scénario 3 : Déposer une annonce
 Ce scénario couvre l'autre côté du cercle d'économie circulaire : la revente. En intégrant le dépôt d'annonces, la plateforme complète son objectif de prolonger la durée de vie des produits. Bien qu’il puisse ne pas être le premier scénario pour un MVP, le dépôt d’annonces est essentiel pour assurer un flux d’articles constants et garantir l’attractivité de la plateforme pour les acheteurs.
 
 #### Étapes :
-1. L’utilisateur clique sur le bouton pour déposer une annonce
-2. Il ajoute une photo.
+1. L’utilisateur accède à la section « Déposer une annonce ».
+2. Il fournit une photo représentative.
 3. Il ajoute une description.
-4. Il écrit des détails (taille, …)
+4. Il complète les informations essentielles (catégorie, prix, localisation).
 5. Il poste  l’annonce.
 
 ## Scénario 4 : Consulter son panier et finaliser un achat (acte d'achat)
-Ce scénario est crucial pour permettre aux utilisateurs de finaliser leur expérience d'achat en toute sécurité et avec transparence. En permettant une révision des articles ajoutés avant de passer commande, la plateforme encourage une consommation raisonnée. Pour un MVP, intégrer l’acte d'achat valide l’ensemble du processus de bout en bout, assurant ainsi la complétude du cycle d'achat/revente.
+Ce scénario permet aux utilisateurs de réviser leurs articles avant de finaliser leur commande. Intégrer cette fonctionnalité dans un MVP pourrait être ambitieux, mais une alternative serait de proposer une mise en relation directe entre vendeurs et acheteurs, simulant un système de petites annonces.
 
  #### Étapes :
 1. L’utilisateur accède à son panier pour revoir les articles qu’il a sélectionnés.
 2. Il vérifie les détails des articles, les conditions de vente, et les frais d’expédition.
-3. Il choisit une méthode de paiement.
-4. Il valide le paiement et finalise son achat.
+3. Il choisit une méthode d'échange.
+4. Il valide la transaction.
 
+*Remarque : Pour un MVP, il peut être judicieux d’éviter l’intégration complète du paiement en ligne et de se concentrer sur une interface de mise en relation.*
 
 
 
@@ -131,13 +125,13 @@ Fig5 : Prototype 1 - Capture d'écran de la page de recherche
 
 #### Analyse GreenFrame
 Voici le premier résultat obtenir sur notre application pour 2 scénarios : 
-- Scénario 1: Consulter la page d'accueil
-- Scénario 2: Consulter la page d'articles
+- Scénario 1: Consulter la page d'accueil,
+- scénario 2: Consulter la page d'articles.
 [1er Résultat GreenFrame Swapp](https://app.greenframe.io/analyses/e49632a6-7d22-4fad-8da5-18c6048cd532)
 
 Nous remarquons que l'impact environnemental s'est alourdi : 80mg pour les deux scénarios dont :
-- 48 mg pour le scénario 1
-- 32 mg pour le scénario 2
+- 48 mg pour le scénario 1,
+- 32 mg pour le scénario 2.
   
 Donc on peut largement améliorer le scénario 1. Nous avons identifié que le problème principale était l'image de fond de notre page d'accueil que nous avons supprimée pour améliorer le résultat.
 
@@ -161,8 +155,8 @@ Pour les mêmes scénario, voici le résultat :
 [2eme Résultat GreenFrame Swapp](https://app.greenframe.io/analyses/b8d3ddbf-e5d7-4fcd-b874-3183741a2be6)
 
 Nous remarquons que le retour meilleur : 63mg pour les deux scénarios dont :
-- 31 mg pour le scénario 1
-- 32 mg pour le scénario 2
+- 31 mg pour le scénario 1,
+- 32 mg pour le scénario 2.
 
 Cette réduction est principalement attribuée à la modification de l'image de fond, qui a permis de réduire significativement les échanges réseau. En effet, l'impact du filtrage côté client est négligeable, car aucune requête supplémentaire n'est émise. Ce raisonnement repose sur l'hypothèse que l'impact énergétique est principalement lié à la taille des éléments chargés via le réseau.
 
@@ -204,19 +198,19 @@ Facteurs d'augmentation des données :
 
 **Nombre d'utilisateurs**
 Chaque nouvel utilisateur inscrit est susceptible de :
--  Ajouter des annonces (texte, photos, descriptions).
--  Effectuer des interactions (messages, transactions, évaluations, etc.).
+-  Ajouter des annonces (texte, photos, descriptions) ;
+-  effectuer des interactions (messages, transactions, évaluations, etc.).
 
 L'augmentation est non linéaire puisque le nombre de nouveaux utilisateurs peut croître rapidement grâce au bouche-à-oreille et aux campagnes de marketing.
 
 **Volume d'annonces**
--  Chaque utilisateur peut publier plusieurs annonces.
--  Les annonces restent dans la base de données (même après la vente ou l'expiration) pour des raisons de traçabilité et d'historique.
--  La croissance est approximativement linéaire en fonction du nombre d'utilisateurs et de leur activité.
+-  Chaque utilisateur peut publier plusieurs annonces ;
+-  les annonces restent dans la base de données (même après la vente ou l'expiration) pour des raisons de traçabilité et d'historique ;
+-  la croissance est approximativement linéaire en fonction du nombre d'utilisateurs et de leur activité.
   
 **Médias associés (photos)**
--  Chaque annonce inclut plusieurs photos (généralement 3 à 5).
--  Ces fichiers multimédias représentent la majeure partie de l'empreinte en stockage.
+-  Chaque annonce inclut plusieurs photos (généralement 3 à 5) ;
+-  ces fichiers multimédias représentent la majeure partie de l'empreinte en stockage.
   
 ### Avant ajustements
 
@@ -273,9 +267,9 @@ L'intégration d'une limite stricte à **25 articles maximum par affichage** a �
 
 Trois modes d'accès aux articles sont actuellement disponibles :
 
-- **Recherche par titre** : L'utilisateur effectue une recherche, et les résultats sont filtrés pour correspondre uniquement aux titres pertinents, limités à 25 articles.  
-- **Navigation par catégorie** : L'utilisateur sélectionne une catégorie spécifique et accède à une liste triée et restreinte à 25 articles maximum.  
-- **Recherche dans une catégorie** : En combinant les deux méthodes, l'utilisateur peut affiner davantage les résultats, qui restent plafonnés à 25 articles.  
+- **Recherche par titre** : L'utilisateur effectue une recherche, et les résultats sont filtrés pour correspondre uniquement aux titres pertinents, limités à 25 articles ;  
+- **navigation par catégorie** : L'utilisateur sélectionne une catégorie spécifique et accède à une liste triée et restreinte à 25 articles maximum ;  
+- **recherche dans une catégorie** : En combinant les deux méthodes, l'utilisateur peut affiner davantage les résultats, qui restent plafonnés à 25 articles.  
 
 En cas de dépassement de la limite de 25 articles, seuls les résultats les plus pertinents, classés par ordre de prix (du moins cher au plus cher), sont affichés. Ce choix permet de réduire significativement la charge de traitement et la quantité de données transférées.
 
@@ -290,8 +284,6 @@ Cette optimisation démontre l'importance d'adopter une conception numérique re
 Dans ce prototype, nous avons ajouté un nouveau scénario à notre implémentation. Dans le cadre d'une plateforme de vente et d'achat de vêtements d'occasion entre particuliers, il est essentiel de permettre aux utilisateurs d'accéder aux détails d'un article après avoir cliqué sur celui-ci suite à une recherche.
 
 Nous avons donc conçu et développé la page de détails d'un article, conformément à la maquette initiale.
-
-Voici un screenshot d'une page de détails d'un article :
 
 ![Page de détails d'un article](screenshots/prototype5_ItemPage.png)
 Fig10 : Prototype 5 - Page de détails d'un article
@@ -310,10 +302,10 @@ Fig 11 : Impact avec GreenFrame du scénario 3 : "Consulter les détails d'un ar
 Cette image montre les métriques de performance et d'impact environnemental pour un scénario de consultation d'article en ligne.
 
 Points clés :
-- Consommation totale : 106 mg/min ou 33 mg par exécution (comme mentionné précédemment)
-- L'écran consomme 93% des ressources (69 mWh)
-- Le GreenFrame browser génère la majorité des émissions CO2 (32 mg eq.)
-- Deux composants backend (swapp-static-hosting et swapp-backend) ont un impact minimal
+- Consommation totale : 106 mg/min ou 33 mg par exécution (comme mentionné précédemment),
+- l'écran consomme 93% des ressources (69 mWh),
+- le GreenFrame browser génère la majorité des émissions CO2 (32 mg eq.),
+- deux composants backend (swapp-static-hosting et swapp-backend) ont un impact minimal.
   
 La précision de 2.04% indique une marge d'erreur relativement faible dans ces mesures.
 
@@ -351,14 +343,14 @@ Grâce à notre approche d’**éco-conception**, notre produit s'est avéré ne
 
 Pour réduire l'empreinte écologique de nos produits numériques, voici les principales pratiques identifiées :
 
-- **Mesurer l’impact** dès la conception et tout au long du cycle de vie, en utilisant des outils adaptés.
-- **Limiter et compresser les images**, ou mieux, privilégier des formats légers comme le **SVG** au lieu du **PNG**.
-- **Réduire la création de nouvelles pages** et opter pour des architectures optimisées avec une **pagination claire**.
-- **Bannir le scroll infini**, qui encourage une consommation non contrôlée de ressources et nuit à l'expérience utilisateur.
-- **Supprimer les requêtes superflues** et **filtrer les données** pour ne transmettre que ce qui est réellement nécessaire.
-- **Limiter les publicités** ou opter pour des **business plans plus éco-responsables** qui ne reposent pas uniquement sur le tracking et la consommation massive de ressources.
-- **Minimiser le temps passé sur les applications**, en concevant des expériences centrées sur l'efficacité et non sur la rétention abusive.
-- **Utiliser une base de données** bien conçue et optimisée pour réduire les temps de réponse et limiter les requêtes inutiles.
+- **Mesurer l’impact** dès la conception et tout au long du cycle de vie, en utilisant des outils adaptés ;
+- **limiter et compresser les images**, ou mieux, privilégier des formats légers comme le **SVG** au lieu du **PNG** ;
+- **réduire la création de nouvelles pages** et opter pour des architectures optimisées avec une **pagination claire** ;
+- **bannir le scroll infini**, qui encourage une consommation non contrôlée de ressources et nuit à l'expérience utilisateur ;
+- **supprimer les requêtes superflues** et **filtrer les données** pour ne transmettre que ce qui est réellement nécessaire ;
+- **limiter les publicités** ou opter pour des **business plans plus éco-responsables** qui ne reposent pas uniquement sur le tracking et la consommation massive de ressources ;
+- **minimiser le temps passé sur les applications**, en concevant des expériences centrées sur l'efficacité et non sur la rétention abusive ;
+- **utiliser une base de données** bien conçue et optimisée pour réduire les temps de réponse et limiter les requêtes inutiles.
 
 En conclusion, ce projet a mis en lumière le rôle clé des développeurs et concepteurs dans la réduction de l'empreinte écologique du numérique. Les technologies actuelles offrent déjà des solutions concrètes pour un numérique plus durable. Il ne nous reste qu'à les appliquer, en veillant à toujours privilégier la simplicité, l'optimisation et l'éthique dans nos choix.
 
