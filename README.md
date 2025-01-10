@@ -124,6 +124,34 @@ Fig5 : Prototype 1 - Capture d'écran de la page de recherche
 
 
 #### Analyse GreenFrame
+
+
+|                   | **GreenFrame browser** | **Swapp-static hosting-1** | **Total**                |
+|-------------------|-------------------------|-----------------------------|--------------------------|
+| **CPU**           | 0.8 mWh (1%)           | 0 mWh (0%)                 | 0.8 mWh (1%)            |
+| **Network**       | 1.7 mWh (2%)           | 1.1 mWh (2%)               | 2.8 mWh (4%)            |
+| **Screen**        | 67 mWh (95%)           | 0 mWh (0%)                 | 67 mWh (95%)            |
+| **Memory**        | 0.1 mWh (0%)           | 0 mWh (0%)                 | 0.1 mWh (0%)            |
+| **Disk**          | 0 mWh (0%)             | 0 mWh (0%)                 | 0 mWh (0%)              |
+| **Total énergie** | 70 mWh                 | 1.1 mWh                    | **71.1 mWh (100%)**     |
+| **Total carbone** | 30 mg eq. CO₂          | 0.5 mg eq. CO₂             | **31 mg eq. CO₂**       |
+
+*Tab1 : résultats GreenFrame de la page d'accueil du prototype 1*
+
+
+|                   | **GreenFrame browser** | **Swapp-static hosting-1** | **Total**                |
+|-------------------|-------------------------|-----------------------------|--------------------------|
+| **CPU**           | 1 mWh (1%)             | 0 mWh (0%)                 | 1 mWh (1%)              |
+| **Network**       | 1.7 mWh (2%)           | 1.1 mWh (2%)               | 2.8 mWh (4%)            |
+| **Screen**        | 69 mWh (96%)           | 0 mWh (0%)                 | 69 mWh (96%)            |
+| **Memory**        | 0.1 mWh (0%)           | 0 mWh (0%)                 | 0.1 mWh (0%)            |
+| **Disk**          | 0 mWh (0%)             | 0 mWh (0%)                 | 0 mWh (0%)              |
+| **Total énergie** | 71 mWh                 | 1.1 mWh                    | **72.1 mWh (100%)**     |
+| **Total carbone** | 32 mg eq. CO₂          | 0.5 mg eq. CO₂             | **32.5 mg eq. CO₂**     |
+
+*Tab2 : résultats GreenFrame de la page d'articles du prototype 1*
+
+
 Voici le premier résultat obtenir sur notre application pour 2 scénarios : 
 - Scénario 1: Consulter la page d'accueil,
 - scénario 2: Consulter la page d'articles.
