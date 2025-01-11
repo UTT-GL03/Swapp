@@ -52,9 +52,9 @@ Ce scénario illustre l’expérience utilisateur pour trouver un produit partic
 
 
 # Analyse des impacts de nos concurrents avec GreenIt-Analysis
-Pour cette étude, nous avons mesuré l’impact environnemental des scénarios 1 et 2 à l’aide de GreenItAnalysis, car ils sont réalisables sans compte utilisateur, contrairement aux scénarios 3 et 4. Le scénario 4, en particulier, nécessite de finaliser un achat, ce qui demande une connexion et des interactions impossibles à reproduire dans le cadre de notre analyse actuelle.
+Pour cette étude, nous avons mesuré l’impact environnemental des scénarios 1 et 2 à l’aide de GreenItAnalysis, car ils sont réalisables sans compte utilisateur.
 
-### Analyse de Vinted
+### Résultats d'analyse de Vinted
 
 | Scénario                        | ecolIndex | Part due aux actions | Eau (cl) | GES (gCO2e) | Bonnes pratiques à mettre en œuvre |
 |---------------------------------|-----------|-----------------------|----------|-------------|-------------------------------------|
@@ -119,7 +119,7 @@ Pour cette étude, nous avons mesuré l’impact environnemental des scénarios 
 ***Tab4** : GreenIT-Analysis Plugin : Impact de Vinted d'après le scénario 2 : rechercher des articles spécifiques et ajouter un article au panier*
 
 
-### Analyse de Depop
+### Résultats d'analyse de Depop
 Nous avons d'abord tenté d'utiliser la version automatisée de GreenIT-Analysis avec un fichier .yml, mais nous avons rencontré plusieurs obstacles, notamment des problèmes liés aux captchas sur les sites analysés. Face à ces limitations, nous avons opté pour une approche manuelle à l'aide du plugin GreenIT-Analysis pour contourner ces problèmes et poursuivre l'étude.
 
 | Date               | Url                                                       | Nombre requêtes | Taille (kb) | Taille du DOM | GES  | Eau   | ecolIndex | Note | Description de la page mesurée                                                                             |
@@ -141,6 +141,7 @@ Nous avons d'abord tenté d'utiliser la version automatisée de GreenIT-Analysis
 
 ***Tab6** : GreenIT-Analysis Plugin : Impact de Depop d'après le scénario 2 : rechercher des articles spécifiques et ajouter un article au panier*
 
+### Réflexions analytiques
 
 Les analyses réalisées avec GreenAnalysis mettent en lumière des stratégies distinctes entre Vinted et Depop, ainsi que des impacts environnementaux notables. Vinted utilise un scroll automatique sur sa page d’accueil, ce qui engendre une augmentation modérée du nombre de requêtes et de la taille du DOM à mesure du chargement des contenus. Depop, quant à lui, adopte un scroll infini sur ses pages de recherche ou de catégories d’articles, ce qui provoque une forte hausse des requêtes, du poids des données et de la complexité du DOM, avec un impact environnemental plus marqué sur ces pages. Toutefois, Depop affiche généralement de meilleurs scores EcoIndex que Vinted, notamment sur ses pages d’accueil et de création de compte. Cela montre une meilleure optimisation des ressources pour certaines interactions simples.
 
@@ -175,7 +176,7 @@ Pour ce premier prototype, nous créons les composants nécessaires à notre gri
 ![Prototype 1 - Capture d'écran de la page d'accueil](screenshots/prototype1_home.png)
 ***Fig4** : Prototype 1 - Capture d'écran de la page d'accueil*
 
-|                   | **GreenFrame browser** | **Swapp-static hosting-1** | **Total**                |
+|                   | **Navigateur GreenFrame** | **Hébergement statique Swapp** | **Total**                |
 |-------------------|-------------------------|-----------------------------|--------------------------|
 | **CPU**           | 1.4 mWh (2%)           | 0 mWh (0%)                 | 1.4 mWh (1%)            |
 | **Réseau**       | 20 mWh (22%)           | 19 mWh (100%)              | 40 mWh (36%)            |
@@ -192,7 +193,7 @@ Pour ce premier prototype, nous créons les composants nécessaires à notre gri
 ***Fig5** : Prototype 1 - Capture d'écran de la page de recherche*
 
 
-|                   | **GreenFrame browser** | **Swapp-static hosting-1** | **Total**                |
+|                   | **Navigateur GreenFrame** | **Hébergement statique Swapp** | **Total**                |
 |-------------------|-------------------------|-----------------------------|--------------------------|
 | **CPU**           | 1 mWh (1%)             | 0 mWh (0%)                 | 1 mWh (1%)              |
 | **Réseau**       | 1.7 mWh (2%)           | 1.1 mWh (2%)               | 2.8 mWh (4%)            |
@@ -210,7 +211,7 @@ Nous observons une différence notable d'énergie nécessaire au réseau entre l
 ![Prototype 1 - Capture d'écran de l'image de fond](screenshots/prototype2_home.png)
 ***Fig6** : Prototype 1 - Capture d'écran de la page d'accueil et sa nouvelle image de fond*
 
-|                   | **GreenFrame browser** | **Swapp-static hosting-1** | **Total**                |
+|                   | **Navigateur GreenFrame** | **Hébergement statique Swapp** | **Total**                |
 |-------------------|-------------------------|-----------------------------|--------------------------|
 | **CPU**           | 0.8 mWh (1%)           | 0 mWh (0%)                 | 0.8 mWh (1%)            |
 | **Réseau**       | 1.7 mWh (2%)           | 1.1 mWh (2%)               | 2.8 mWh (4%)            |
@@ -233,7 +234,7 @@ Nous créons la logique de liste déroulante des filtres à partir de données s
 ![Prototype 2 - Capture d'écran des listes déroulantes](screenshots/prototype2_search.png)
 ***Fig7** : Prototype 2 - Capture d'écran de la page de recherche, liste déroulante ouverte*
 
-|                   | **GreenFrame browser** | **Swapp-static hosting-1** | **Total**                |
+|                   | **Navigateur GreenFrame** | **Hébergement statique Swapp** | **Total**                |
 |-------------------|-------------------------|-----------------------------|--------------------------|
 | **CPU**           | 0.9 mWh (1%)           | 0 mWh (0%)                 | 0.9 mWh (1%)              |
 | **Réseau**       | 2 mWh (3%)             | 1.4 mWh (100%)             | 3.5 mWh (4%)            |
@@ -256,7 +257,7 @@ Les bases de données présentent de nombreux avantages par rapport aux fichiers
 Pour ce troisième prototype, nous permettons la recherche fonctionnelle depuis la barre de recherche, mais tout le filtrage reste codé côté client. Ainsi, l’intégralité des articles est toujours récupérée depuis la base de données. La véritable nouveauté ici réside dans leur gestion dynamique et leur accessibilité améliorée par le biais d’une base de données.
 
 
-|                   | **GreenFrame browser** | **Swapp-static hosting-1** | **Swapp-backend-1**      | **Total**                |
+|                   | **Navigateur GreenFrame** | **Hébergement statique Swapp** | **Backend Swapp**      | **Total**                |
 |-------------------|-------------------------|-----------------------------|--------------------------|--------------------------|
 | **CPU**           | 1 mWh (1%)             | 0 mWh (0%)                 | 1.1 mWh (91%)           | 2.1 mWh (3%)            |
 | **Réseau**        | 2.1 mWh (3%)           | 1.4 mWh (100%)             | 0.1 mWh (6%)            | 3.6 mWh (5%)            |
@@ -281,91 +282,100 @@ Par conséquent, nous avons modifié notre sample_data.hbs pour que les titres n
 ***Fig9** : Fichier `sample_data.hbs` utilisé pour la génération de données*
 
 ### Passage à l'échelle 
-
 Dans le cadre de notre service, la croissance des données est principalement liée à deux aspects : le volume des annonces et les médias associés (photos). L'évolution de ces données est directement liée à la croissance du nombre d'utilisateurs et au rythme de publication des annonces.
 
-Facteurs d'augmentation des données :
+#### Facteurs d'augmentation des données :
 
-**Nombre d'utilisateurs**
-Chaque nouvel utilisateur inscrit est susceptible de :
--  ajouter des annonces (texte, photos, descriptions) ;
--  effectuer des interactions (messages, transactions, évaluations, etc.).
+- **Nombre d'utilisateurs**
+Chaque nouvel utilisateur inscrit est susceptible d'ajouter des annonces (texte, photos, descriptions) et d'effectuer des interactions (messages, transactions, évaluations, etc.). L'augmentation est non linéaire puisque le nombre de nouveaux utilisateurs peut croître rapidement grâce au bouche-à-oreille et aux campagnes de marketing.
 
-L'augmentation est non linéaire puisque le nombre de nouveaux utilisateurs peut croître rapidement grâce au bouche-à-oreille et aux campagnes de marketing.
+- **Volume d'annonces**  
+Chaque utilisateur peut publier plusieurs annonces et ces annonces restent dans la base de données (même après la vente ou l'expiration) pour des raisons de traçabilité et d'historique. La croissance est approximativement linéaire en fonction du nombre d'utilisateurs et de leur activité.
 
-**Volume d'annonces**
--  Chaque utilisateur peut publier plusieurs annonces ;
--  les annonces restent dans la base de données (même après la vente ou l'expiration) pour des raisons de traçabilité et d'historique ;
--  la croissance est approximativement linéaire en fonction du nombre d'utilisateurs et de leur activité.
-  
-**Médias associés (photos)**
--  Chaque annonce inclut plusieurs photos (généralement 3 à 5) ;
--  ces fichiers multimédias représentent la majeure partie de l'empreinte en stockage.
-  
+- **Médias associés (photos)**  
+Chaque annonce inclut plusieurs photos (généralement 3 à 5). Ces fichiers multimédias représentent la majeure partie de l'empreinte en stockage.
+
+
 ### Avant ajustements
 
-##### Passage de 15 à 3000 articles
+#### Passage de 15 à 3000 à 10 000 articles
 
-La figure ci-dessous illustre l'évolution de l'impact environnemental lors du passage à l'échelle, marqué par une augmentation significative du nombre d'articles publiés, passant de **15 à 3000**.
+| **Nombre d'articles** | **Composant**   | **Navigateur GreenFrame**            | **Hébergement statique Swapp**             | **Backend Swapp**                  | **Total**                                |
+|------------------------|-----------------|--------------------------------------|-------------------------------------------|------------------------------------|----------------------------------------|
+| **15 articles**        | **CPU**         | 1 mWh (1%)                          | 0 mWh (0%)                                | 1,1 mWh (91%)                      | 2,1 mWh (3%)                           |
+|                        | **Réseau**      | 2,1 mWh (3%)                        | 1,4 mWh (100%)                            | 0,1 mWh (6%)                       | 3,6 mWh (5%)                           |
+|                        | **Écran**       | 68 mWh (96%)                        | 0 mWh (0%)                                | 0 mWh (0%)                         | 68 mWh (92%)                           |
+|                        | **Mémoire**     | 0,1 mWh (0%)                        | 0 mWh (0%)                                | 0 mWh (3%)                         | 0,1 mWh (0%)                           |
+|                        | **Disque**      | 0 mWh (0%)                          | 0 mWh (0%)                                | 0 mWh (0%)                         | 0 mWh (0%)                             |
+|                        | **Total énergie** | 71 mWh                             | 1,4 mWh                                  | 1,3 mWh                            | **73,7 mWh**                           |
+|                        | **Total carbone** | 31 mg éq. CO₂                      | 0,6 mg éq. CO₂                            | 0,6 mg éq. CO₂                     | **32,2 mg éq. CO₂**                    |
+| **3 000 articles**      | **CPU**         | 2,8 mWh (3%) 📈 **+180%**           | 0 mWh (0%)                                | 3,3 mWh (22%) 📈 **+200%**         | 6,1 mWh (7%) 📈 **+190%**              |
+| [👉 Consulter la comparaison sur GreenFrame](https://app.greenframe.io/analyses/ea051cca-9845-4d4c-af3d-bfeb0614a009?compareWith=c6672ae6-8fe4-46a5-b1fa-2306ac2b92b6)                       | **Réseau**      | 14 mWh (16%) 📈 **+567%**           | 1,4 mWh (100%)                            | 12 mWh (78%) 📈 **+11,900%**       | 27,4 mWh (31%) 📈 **+661%**            |
+|                        | **Écran**       | 69 mWh (81%) 📈 **+1.5%**           | 0 mWh (0%)                                | 0 mWh (0%)                         | 69 mWh (62%) 📈 **+1.5%**              |
+|                        | **Mémoire**     | 0,1 mWh (0%)                        | 0 mWh (0%)                                | 0,1 mWh (0%)                       | 0,2 mWh (0%) 📈 **+100%**              |
+|                        | **Disque**      | 0 mWh (0%)                          | 0 mWh (0%)                                | 0 mWh (0%)                         | 0 mWh (0%)                             |
+|                        | **Total énergie** | 86 mWh 📈 **+21%**                 | 1,4 mWh                                  | 15 mWh 📈 **+1,054%**              | **102,4 mWh** 📈 **+39%**              |
+|                        | **Total carbone** | 38 mg éq. CO₂ 📈 **+23%**          | 0,6 mg éq. CO₂                            | 6,8 mg éq. CO₂ 📈 **+1,033%**      | **45,4 mg éq. CO₂** 📈 **+41%**        |
+| **10 000 articles**     | **CPU**         | 6,9 mWh (6%) 📈 **+146%**           | 0 mWh (0%)                                | 8,2 mWh (17%) 📈 **+148%**         | 15,1 mWh (9%) 📈 **+148%**             |
+| [👉 Consulter la comparaison sur GreenFrame](https://app.greenframe.io/analyses/69912ae1-82c6-450f-845b-5c8271359974)                       | **Réseau**      | 41 mWh (34%) 📈 **+193%**           | 1,4 mWh (100%)                            | 39 mWh (83%) 📈 **+225%**          | 81,4 mWh (48%) 📈 **+197%**            |
+|                        | **Écran**       | 73 mWh (60%) 📈 **+6%**             | 0 mWh (0%)                                | 0 mWh (0%)                         | 73 mWh (43%) 📈 **+6%**                |
+|                        | **Mémoire**     | 0,1 mWh (0%)                        | 0 mWh (0%)                                | 0,1 mWh (0%)                       | 0,2 mWh (0%)                           |
+|                        | **Disque**      | 0 mWh (0%)                          | 0 mWh (0%)                                | 0 mWh (0%)                         | 0 mWh (0%)                             |
+|                        | **Total énergie** | 121 mWh 📈 **+41%**                | 1,4 mWh                                  | 48 mWh 📈 **+220%**                | **170,4 mWh** 📈 **+66%**              |
+|                        | **Total carbone** | 53 mg éq. CO₂ 📈 **+39%**          | 0,6 mg éq. CO₂                            | 21 mg éq. CO₂ 📈 **+209%**         | **74,6 mg éq. CO₂** 📈 **+64%**        |
 
-- **Impact CPU** : +183 %, indiquant une charge accrue pour le traitement et le rendu des contenus.
-- **Impact réseau** : +666 %, reflétant une forte augmentation des besoins en bande passante pour gérer le trafic et diffuser les articles.
+***Tab12** : tableau comparatif de la page d'articles du prototype 3 en changeant le nombre d'articles de 15 à 3 000 à 10 0000*
 
-Ces évolutions mettent en évidence les défis environnementaux liés à une volumétrie croissante dans un système principalement backend-centric.
+L'augmentation de la consommation CPU est notable entre 10 articles et 10 000 articles, avec une hausse de 📈 +146% pour le Navigateur GreenFrame et de 📈 +148% pour le Backend Swapp. Cela s'explique par le fait que, avec un tri côté client, la charge de traitement est déplacée vers le navigateur, qui doit gérer un volume important de données. De son côté, le backend ne traite que les requêtes initiales, ce qui réduit son implication dans les opérations de tri ou de filtrage.
 
-- **Consommation initiale** (15 articles) : **33 mg** par exécution.
-- **Consommation après augmentation** (3000 articles) : **45 mg** par exécution.
+La consommation réseau montre une augmentation drastique, atteignant 📈 +193% pour le Navigateur GreenFrame, 📈 +225% pour le Backend Swapp et 📈 +197% pour le total réseau. Cela s'explique par le fait que l'ensemble des données est envoyé en une seule requête, quel que soit le nombre d'articles, augmentant la bande passante consommée. Le réseau devient ainsi un goulot d'étranglement potentiel, surtout pour des utilisateurs ayant une connexion instable ou limitée.
 
-[👉 Consulter la comparaison sur GreenFrame](https://app.greenframe.io/analyses/ea051cca-9845-4d4c-af3d-bfeb0614a009?compareWith=8a88512a-f15e-45d7-9cc4-eb526ddee293)
+La consommation énergétique de l'écran reste stable avec une augmentation de 📈 +6% pour 10 000 articles. Cela indique que la visualisation des données n'est pas un facteur déterminant dans l'augmentation de l'énergie consommée, car les interfaces ne changent pas significativement en termes de complexité graphique.
 
-
-##### Passage de 3000 à 10 000 articles
-
-Avec une nouvelle augmentation du nombre d'articles, passant de **3000 à 10 000**, les impacts environnementaux continuent de croître de manière significative :
-
-- **Impact CPU** : +138 %, traduisant une intensification des besoins en traitement backend.
-- **Impact réseau** : +202 %, révélant des exigences accrues en bande passante.
-
-- **Consommation avec 3000 articles** : **46 mg** par exécution.
-- **Consommation avec 10 000 articles** : **75 mg** par exécution.
-
-[👉 Consulter la comparaison sur GreenFrame](https://app.greenframe.io/analyses/69912ae1-82c6-450f-845b-5c8271359974)
-
-
-##### Modification du Scénario de Test : Recherche élargie
-
-Pour analyser davantage les impacts, le scénario de test 2 a été modifié en recherchant **"veste"** au lieu de **"veste en cuir"**, élargissant ainsi la base de données.
-
-- **Impact CPU** : +189 %, comparé à la base (3000 articles).
-- **Impact réseau** : +327 %, reflétant une augmentation significative des échanges de données.
-
-- **Consommation** : **91 mg** par exécution.
-
-[👉 Consulter la comparaison sur GreenFrame](https://app.greenframe.io/analyses/8ecae6e7-d978-4f09-9170-58bea466c79e?compareWith=10090b4c-090e-4659-99e3-5b0f65b6f0f6)
-
+La consommation mémoire reste négligeable, bien qu'elle double en passant de 10 à 3 000 articles. Cela peut devenir problématique pour des volumes encore plus importants de données, surtout sur des appareils avec des ressources limitées.
 
 ### Après ajustements
 
-Comme expliqué plus haut, nous récupérions encore une quantité massive d'articles, triés côté client et entièrement affichés, ce qui augmente fortement l'impact lié à l'utilisation du processeur. Nous passons donc à un filtrage côté serveur, en conservant tous les types de filtrage précédemment définis côté client.
+Pour limiter cette augmentation de l'impact de l'application, nous décidons de mettre en place un système de pagination et de trier côté serveur.
 
-L'intégration d'une limite stricte à **25 articles maximum par affichage** a été une décision centrale dans la conception de notre plateforme, en réponse aux enjeux d'optimisation des performances et de réduction de l'impact environnemental. Associée à l'obligation d'utiliser des filtres lors des recherches, cette approche garantit une expérience utilisateur ciblée et écoresponsable.
+#### Tri côté serveur
+
+Comme expliqué plus haut, nous récupérions encore une quantité massive d'articles, triés côté client et entièrement affichés, ce qui augmente fortement l'impact lié à l'utilisation du processeur. Nous passons donc à un filtrage côté serveur, en conservant tous les types de filtrage précédemment définis côté client.
 
 Trois modes d'accès aux articles sont actuellement disponibles :
 
 - **Recherche par titre** : L'utilisateur effectue une recherche, et les résultats sont filtrés pour correspondre uniquement aux titres pertinents, limités à 25 articles ;  
 - **navigation par catégorie** : L'utilisateur sélectionne une catégorie spécifique et accède à une liste triée et restreinte à 25 articles maximum ;  
-- **recherche dans une catégorie** : En combinant les deux méthodes, l'utilisateur peut affiner davantage les résultats, qui restent plafonnés à 25 articles.  
+- **recherche dans une catégorie** : En combinant les deux méthodes, l'utilisateur peut affiner davantage les résultats, qui restent plafonnés à 25 articles.
 
-En cas de dépassement de la limite de 25 articles, seuls les résultats les plus pertinents, classés par ordre de prix (du moins cher au plus cher), sont affichés. Ce choix permet de réduire significativement la charge de traitement et la quantité de données transférées.
+#### Mise en place de la pagination
 
-Les bénéfices de cette approche sont clairement mesurables. Avant l'implémentation de cette stratégie, notre plateforme consommait en moyenne **91 mg par exécution**, selon les données de GreenFrame. Après l'application de la limitation et des filtres obligatoires, nous avons atteint une consommation réduite à **33 mg par exécution**, soit une réduction de **plus de 63 %**. 
+L'intégration d'une limite stricte à **25 articles maximum par affichage** a été une décision centrale dans la conception de notre plateforme, en réponse aux enjeux d'optimisation des performances et de réduction de l'impact environnemental. Associée à l'obligation d'utiliser des filtres lors des recherches, cette approche garantit une expérience utilisateur ciblée et écoresponsable.
+
+En cas de dépassement de la limite de 25 articles, nous permettons à l'utilisateur de cliquer sur un bouton pour charger 25 articles suivants. Nous évitons le système de scroll infini pour ne pas décourager l'utilsateur à charger davantage de contenu que le nécessaire.
+
+#### Résultats
+
+|                   | **Navigateur GreenFrame** | **Hébergement statique Swapp** | **Backend Swapp**      | **Total**                |
+|-------------------|-------------------------|-----------------------------|--------------------------|--------------------------|
+| **CPU**           | 1.1 mWh (2%)            | 0 mWh (0%)                  | 1.3 mWh (93%)            | 2.4 mWh (3%)            |
+| **Réseau**        | 2 mWh (3%)              | 1.4 mWh (100%)              | 0 mWh (1%)               | 3.4 mWh (5%)            |
+| **Écran**         | 68 mWh (96%)            | 0 mWh (0%)                  | 0 mWh (0%)               | 68 mWh (92%)            |
+| **Mémoire**       | 0.1 mWh (0%)            | 0 mWh (0%)                  | 0.1 mWh (6%)             | 0.2 mWh (0%)            |
+| **Disque**        | 0 mWh (0%)              | 0 mWh (0%)                  | 0 mWh (0%)               | 0 mWh (0%)              |
+| **Total énergie** | 71 mWh                  | 1.4 mWh                     | 1.4 mWh                  | **73.8 mWh**            |
+| **Total carbone** | 31 mg eq. CO₂           | 0.6 mg eq. CO₂              | 0.6 mg eq. CO₂           | **32.2 mg eq. CO₂**     |
+
+***Tab13** : résultats [GreenFrame](https://app.greenframe.io/analyses/f1dd4bc8-0a4d-4e3a-9bb6-dc5adc9bbb5d) de la page d'articles du prototype 4 après ajustements*
+
+Les bénéfices de cette approche sont clairement mesurables. Avant l'implémentation de cette stratégie, notre page de résultats consommait en moyenne **75 mg par exécution**, selon les données de GreenFrame. Après l'application de la limitation et des filtres obligatoires, nous avons atteint une consommation réduite à **32 mg par exécution**, soit une réduction de **plus de 57 %**. 
 
 Cette optimisation démontre l'importance d'adopter une conception numérique responsable et sobre, non seulement pour minimiser l'impact environnemental mais également pour améliorer les performances globales du système. Notre démarche illustre comment des choix techniques simples, tels que la limitation des résultats ou l'application de filtres obligatoires, peuvent avoir un impact significatif sur la durabilité des plateformes numériques tout en offrant une expérience utilisateur optimisée et fluide.
 
 
 ## Prototype 5
 
-Dans ce prototype, nous avons ajouté un nouveau scénario à notre implémentation. Dans le cadre d'une plateforme de vente et d'achat de vêtements d'occasion entre particuliers, il est essentiel de permettre aux utilisateurs d'accéder aux détails d'un article après avoir cliqué sur celui-ci suite à une recherche.
+Dans ce prototype, nous avons complété le scénario 2 à notre implémentation. Dans le cadre d'une plateforme de vente et d'achat de vêtements d'occasion entre particuliers, il est essentiel de permettre aux utilisateurs d'accéder aux détails d'un article après avoir cliqué sur celui-ci suite à une recherche.
 
 Nous avons donc conçu et développé la page de détails d'un article, conformément à la maquette initiale.
 
@@ -374,24 +384,34 @@ Nous avons donc conçu et développé la page de détails d'un article, conform�
 
 L'ajout de cette nouvelle page entraîne une augmentation de la "Global Estimated Consumption" (= Consommation Énergétique Estimée Globale) de l'application. Cela est dû à l'impact énergétique de la page, notamment en raison des ressources qu'elle nécessite pour être chargée et affichée. Cependant, cette fonctionnalité est indispensable pour le bon fonctionnement de l'application et permet d'offrir des services essentiels aux utilisateurs. En pratique, cette page génère une consommation estimée de 33 mg d'énergie. Comparée à d'autres pages de l'application ou à des scénarios similaires, cette consommation reste raisonnable et ne compromet pas l'efficacité globale de l'application.
 
-### Illustration
+|                   | **Navigateur GreenFrame** | **Hébergement statique Swapp** | **Backend Swapp**      | **Total**                |
+|-------------------|---------------------------|-------------------------------|------------------------|--------------------------|
+| **CPU**           | 0.9 mWh (1%)              | 0 mWh (0%)                    | 1.4 mWh (93%)          | 2.3 mWh (3%)             |
+| **Réseau**        | 1.8 mWh (2%)              | 1.1 mWh (99%)                 | 0 mWh (1%)             | 2.9 mWh (4%)             |
+| **Écran**         | 69 mWh (96%)              | 0 mWh (0%)                    | 0 mWh (0%)             | 69 mWh (93%)             |
+| **Mémoire**       | 0 mWh (0%)                | 0 mWh (0%)                    | 0.1 mWh (6%)           | 0.1 mWh (0%)             |
+| **Disque**        | 0 mWh (0%)                | 0 mWh (0%)                    | 0 mWh (0%)             | 0 mWh (0%)               |
+| **Total énergie** | 72 mWh                    | 1.1 mWh                       | 1.5 mWh                | **74.6 mWh**             |
+| **Total carbone** | 32 mg eq. CO₂             | 0.5 mg eq. CO₂                | 0.6 mg eq. CO₂         | **33.1 mg eq. CO₂**      |
 
-Ci-dessous, une capture des détails de consommation pour le scénario 3 : "Consulter les détails d'un article" :
-
-![GreenFrame : Impact du scénario 3](screenshots/scenario3.png)
-***Fig 11** : Impact avec GreenFrame du scénario 3 : "Consulter les détails d'un article"*
-
-Cette image montre les métriques de performance et d'impact environnemental pour un scénario de consultation d'article en ligne.
-
-Points clés :
-- Consommation totale : 106 mg/min ou 33 mg par exécution (comme mentionné précédemment),
-- l'écran consomme 93% des ressources (69 mWh),
-- le GreenFrame browser génère la majorité des émissions CO2 (32 mg eq.),
-- deux composants backend (swapp-static-hosting et swapp-backend) ont un impact minimal.
-  
-La précision de 2.04% indique une marge d'erreur relativement faible dans ces mesures.
+***Tab13** : résultats [GreenFrame](https://app.greenframe.io/analyses/6a658731-ccad-48a2-b486-0f46f9c1eff5) de la page de détails d'un articles du prototype 5*
 
 Ces données permettent d'identifier l'affichage comme le principal point d'optimisation pour réduire l'empreinte environnementale de cette fonctionnalité.
+
+Les résultats globaux de notre application sont alors les suivants.
+
+|                   | **Page d'accueil**        | **Page de résultats**         | **Page d'article**     | **Total**                |
+|-------------------|---------------------------|-------------------------------|------------------------|--------------------------|
+| **CPU**           | 2.2 mWh (3%)             | 2.3 mWh (3%)                 | 2.3 mWh (3%)          | 6.8 mWh (3%)            |
+| **Réseau**        | 4.5 mWh (6%)             | 3.5 mWh (5%)                 | 2.9 mWh (4%)          | 10.9 mWh (5%)           |
+| **Écran**         | 67 mWh (91%)             | 68 mWh (92%)                 | 69 mWh (93%)          | 204 mWh (92%)           |
+| **Mémoire**       | 0.1 mWh (0%)             | 0.1 mWh (0%)                 | 0.1 mWh (0%)          | 0.3 mWh (0%)            |
+| **Disque**        | 0 mWh (0%)               | 0 mWh (0%)                   | 0 mWh (0%)            | 0 mWh (0%)              |
+| **Total énergie** | 73.3 mWh                 | 73.9 mWh                     | 74.3 mWh              | **222 mWh**             |
+| **Total carbone** | 32.5 mg eq. CO₂          | 32.2 mg eq. CO₂              | 33.1 mg eq. CO₂       | **98 mg eq. CO₂**       |
+
+***Tab14** : résultats [GreenFrame](https://app.greenframe.io/analyses/6a658731-ccad-48a2-b486-0f46f9c1eff5) globaux de notre application*
+
 
 
 
