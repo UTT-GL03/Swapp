@@ -28,23 +28,6 @@ Enfin, il est essentiel de rappeler que si les plateformes de seconde main ont r
 
 
 
-# Benchmarks de nos principaux concurrents
-
-Nous avons fait le test sur 5 pages :
-- [Vinted](https://www.vinted.fr/),
-- [Depop](https://www.depop.com/fr/),
-- [Leboncoin](https://www.leboncoin.fr/),
-- [Etsy](https://www.etsy.com/fr)
-- [Geev](https://www.geev.com/fr/recherche/objets?location=48.862725%2C2.287592&type=donation&distance=15000).
-
-Sur ces 5 pages, seules 2 ont fonctionné correctement : Vinted et Geev. Deepop a "Scénario failed" et Leboncoin et Etsy sont bloqués sur des pages de Captcha.
-
-Voici le résultat pour Vinted : [Résultat GreenFrame Vinted](https://app.greenframe.io/analyses/547cd8a6-e40c-4a03-b636-f107d62ddc51)
-
-Voici le résulat pour Geev : [Résultat GreenFrame Geev](https://app.greenframe.io/analyses/9aab1aad-f384-4412-93f9-d540625cb52d)
-
-
-
 
 # Scénarios d'usage
 Nous faisons l'hypothèse que les utilisateurs visitent les plateformes de vente d'articles de seconde main lors de moments opportunistes, que ce soit pendant leurs pauses, dans les transports en commun ou à la maison. Ces visites peuvent être motivées par la recherche d'articles spécifiques, la découverte de bonnes affaires ou la consultation de nouveautés.
@@ -95,15 +78,15 @@ Pour cette étude, nous avons mesuré l’impact environnemental des scénarios 
 Nous avons d'abord tenté d'utiliser la version automatisée de GreenIT-Analysis avec un fichier .yml, mais nous avons rencontré plusieurs obstacles, notamment des problèmes liés aux captchas sur les sites analysés. 
 Voici néanmoins un exemple de résultat obtenu pour Vinted :
 ![GreenIT-Analysis Vinted YML](screenshots/GreenITAnalysis_Automatique.png)
-Fig1 : GreenIT-Analysis : Impact de Vinted obtenu automatiquement à partir d'un fichier .yml
+***Fig1** : GreenIT-Analysis : Impact de Vinted obtenu automatiquement à partir d'un fichier .yml*
 
 Face à ces limitations, nous avons opté pour une approche manuelle à l'aide du plugin GreenIT-Analysis pour contourner ces problèmes et poursuivre l'étude.
 
 ![GreenIT-Analysis Vinted](screenshots/GreenIT-Analysis_Vinted.png)
-Fig2 : GreenIT-Analysis Plugin : Impact de Vinted
+***Fig2** : GreenIT-Analysis Plugin : Impact de Vinted*
 
 ![GreenIT-Analysis Vinted](screenshots/GreenIT-Analysis_Depop.png)
-Fig3 : GreenIT-Analysis Plugin : Impact de Depop
+***Fig3** : GreenIT-Analysis Plugin : Impact de Depop*
 
 Les analyses réalisées avec GreenAnalysis mettent en lumière des stratégies distinctes entre Vinted et Depop, ainsi que des impacts environnementaux notables. Vinted utilise un scroll automatique sur sa page d’accueil, ce qui engendre une augmentation modérée du nombre de requêtes et de la taille du DOM à mesure du chargement des contenus. Depop, quant à lui, adopte un scroll infini sur ses pages de recherche ou de catégories d’articles, ce qui provoque une forte hausse des requêtes, du poids des données et de la complexité du DOM, avec un impact environnemental plus marqué sur ces pages. Toutefois, Depop affiche généralement de meilleurs scores EcoIndex que Vinted, notamment sur ses pages d’accueil et de création de compte. Cela montre une meilleure optimisation des ressources pour certaines interactions simples.
 
@@ -114,17 +97,17 @@ Cependant, de manière générale, les deux plateformes affichent des performanc
 Afin de limiter au maximum l'afflux de données inutile, nous avons choisi de mettre en place une page d'accueil sans scroll, dans laquelle il est possible de sélectionner une catégorie ou taper un élément spécifique dans le champ de saisie. 
 
 ![Maquette page d'accueil](mockups/MockupHomepage.png)
-Fig4 : maquette de la page d'accueil
+***Fig4** : maquette de la page d'accueil*
 
 Cette même idée est poursuivie dans la page de recherche. Les items sont donc à minima triés par catégorie, afin de limiter les données à récupérer. Il est possible de pousser la recherche en lançant une recherche par une chaîne de caractères ou en précisant un état, une taille, une couleur, un prix, sa localisation.
 
 ![Maquette page de recherche](mockups/MockupSearch.png)
-Fig5 : maquette de la page de recherche
+***Fig5** : maquette de la page de recherche*
 
 Le nombre d'images admis par item est de 4, à la taille maximale de 1Mo.
 
 ![Maquette page de détails d'un item](mockups/MockupItem.png)
-Fig6 : maquette de la page descriptive d'un élément
+***Fig6** : maquette de la page descriptive d'un élément*
 
 L'échantillon de données a été créé par dummy-json selon les attributs de catégorie, état, taille, couleur, prix et localisation évoqués préalablement.
 
@@ -136,26 +119,23 @@ L'échantillon de données a été créé par dummy-json selon les attributs de 
 Pour ce premier prototype, nous créons les composants nécessaires à notre grille de résultats, à partir de 3 éléments codés en dur dans notre fichier. Aucune recherche ou filtrage n'est fonctionnel.
 
 ![Prototype 1 - Capture d'écran de la page d'accueil](screenshots/prototype1_home.png)
-Fig7 : Prototype 1 - Capture d'écran de la page d'accueil
-
-![Prototype 1 - Capture d'écran de la page de recherche](screenshots/prototype1_search.png)
-Fig8 : Prototype 1 - Capture d'écran de la page de recherche
-
-
-#### Analyse GreenFrame
-
+***Fig7** : Prototype 1 - Capture d'écran de la page d'accueil*
 
 |                   | **GreenFrame browser** | **Swapp-static hosting-1** | **Total**                |
 |-------------------|-------------------------|-----------------------------|--------------------------|
-| **CPU**           | 0.8 mWh (1%)           | 0 mWh (0%)                 | 0.8 mWh (1%)            |
-| **Network**       | 1.7 mWh (2%)           | 1.1 mWh (2%)               | 2.8 mWh (4%)            |
-| **Screen**        | 67 mWh (95%)           | 0 mWh (0%)                 | 67 mWh (95%)            |
+| **CPU**           | 1.4 mWh (2%)           | 0 mWh (0%)                 | 1.4 mWh (1%)            |
+| **Network**       | 20 mWh (22%)           | 19 mWh (100%)              | 40 mWh (36%)            |
+| **Screen**        | 68 mWh (76%)           | 0 mWh (0%)                 | 68 mWh (62%)            |
 | **Memory**        | 0.1 mWh (0%)           | 0 mWh (0%)                 | 0.1 mWh (0%)            |
 | **Disk**          | 0 mWh (0%)             | 0 mWh (0%)                 | 0 mWh (0%)              |
-| **Total énergie** | 70 mWh                 | 1.1 mWh                    | **71.1 mWh (100%)**     |
-| **Total carbone** | 30 mg eq. CO₂          | 0.5 mg eq. CO₂             | **31 mg eq. CO₂**       |
+| **Total énergie** | 89.5 mWh               | 19 mWh                     | **109 mWh**      |
+| **Total carbone** | 40 mg eq. CO₂          | 0.8 mg eq. CO₂             | **48 mg eq. CO₂**       |
 
-*Tab1 : résultats GreenFrame de la page d'accueil du prototype 1*
+***Tab1** : résultats [GreenFrame](https://app.greenframe.io/analyses/f63f0b3b-9f65-46f8-9c53-6b6da46fbd43) de la page d'accueil du prototype 1*
+
+
+![Prototype 1 - Capture d'écran de la page de recherche](screenshots/prototype1_search.png)
+***Fig8** : Prototype 1 - Capture d'écran de la page de recherche*
 
 
 |                   | **GreenFrame browser** | **Swapp-static hosting-1** | **Total**                |
@@ -168,36 +148,37 @@ Fig8 : Prototype 1 - Capture d'écran de la page de recherche
 | **Total énergie** | 71 mWh                 | 1.1 mWh                    | **72.1 mWh (100%)**     |
 | **Total carbone** | 32 mg eq. CO₂          | 0.5 mg eq. CO₂             | **32.5 mg eq. CO₂**     |
 
-*Tab2 : résultats GreenFrame de la page d'articles du prototype 1*
+***Tab2** : résultats [GreenFrame](https://app.greenframe.io/analyses/f63f0b3b-9f65-46f8-9c53-6b6da46fbd43) de la page d'articles du prototype 1*
+
+Nous observons une différence notable d'énergie nécessaire au network entre la page d'accueil et la page de résultats. L'onglet réseau de l'inspecteur nous fait remarquer la taille considérable de l'image de fond au format PNG. Nous décidons alors de la changer pour utiliser le format SGV (car le SVG utilise des descriptions vectorielles basées sur le texte pour définir les formes et les couleurs, ce qui permet de réduire la taille du fichier, contrairement au PNG qui stocke chaque pixel individuellement, ce qui augmente la quantité de données nécessaires).
 
 
-Voici le premier résultat obtenir sur notre application pour 2 scénarios : 
-- Scénario 1: Consulter la page d'accueil,
-- scénario 2: Consulter la page d'articles.
-[1er Résultat GreenFrame Swapp](https://app.greenframe.io/analyses/e49632a6-7d22-4fad-8da5-18c6048cd532)
+![Prototype 2 - Capture d'écran de l'image de fond](screenshots/prototype2_home.png)
+***Fig9** : Prototype 2 - Capture d'écran de la page de recherche, liste déroulante ouvert*
 
-Nous remarquons que l'impact environnemental s'est alourdi : 80mg pour les deux scénarios dont :
-- 48 mg pour le scénario 1,
-- 32 mg pour le scénario 2.
-  
-Donc on peut largement améliorer le scénario 1. Nous avons identifié que le problème principale était l'image de fond de notre page d'accueil que nous avons supprimée pour améliorer le résultat.
+|                   | **GreenFrame browser** | **Swapp-static hosting-1** | **Total**                |
+|-------------------|-------------------------|-----------------------------|--------------------------|
+| **CPU**           | 0.8 mWh (1%)           | 0 mWh (0%)                 | 0.8 mWh (1%)            |
+| **Network**       | 1.7 mWh (2%)           | 1.1 mWh (2%)               | 2.8 mWh (4%)            |
+| **Screen**        | 67 mWh (95%)           | 0 mWh (0%)                 | 67 mWh (95%)            |
+| **Memory**        | 0.1 mWh (0%)           | 0 mWh (0%)                 | 0.1 mWh (0%)            |
+| **Disk**          | 0 mWh (0%)             | 0 mWh (0%)                 | 0 mWh (0%)              |
+| **Total énergie** | 70 mWh                 | 1.1 mWh                    | **71.1 mWh (100%)**     |
+| **Total carbone** | 30 mg eq. CO₂          | 0.5 mg eq. CO₂             | **31 mg eq. CO₂**       |
+
+***Tab3** : résultats [GreenFrame](https://app.greenframe.io/analyses/b8d3ddbf-e5d7-4fcd-b874-3183741a2be6) de la page d'accueil du prototype 1 avec une nouvelle image de fond*
+
+La seule modification de l'image a effectivement permis une réduction de 98% de la dépense en énergie liée au network.
+
 
 ## Prototype 2 
 Pour ce deuxième prototype, nous mettons à jour dynamiquement la grille de résultats en fonction d'une chaîne de caractères de recherche, à partir de données statiques. Seule la barre de recherche est pour l'instant fonctionnelle.
 
-Nous décidons de changer l'image de fond de la page d'accueil, la remplaçant par un png plus léger.
-
-![Prototype 2 - Capture d'écran de l'image de fond](screenshots/prototype2_home.png)
-Fig9 : Prototype 2 - Capture d'écran de la page de recherche, liste déroulante ouvert
-
-
 Nous créons la logique de liste déroulante des filtres à partir de données statiques. Nous permettons la mise à jour des filtres à la fermeture des listes déroulantes. Ainsi, nous permettons une première fonctionnalité de filtrage côté client.
 
 ![Prototype 2 - Capture d'écran des listes déroulantes](screenshots/prototype2_search.png)
-Fig10 : Prototype 2 - Capture d'écran de la page de recherche, liste déroulante ouverte
+***Fig10** : Prototype 2 - Capture d'écran de la page de recherche, liste déroulante ouverte*
 
-
-#### Analyse GreenFrame
 Pour les mêmes scénario, voici le résultat :
 [2eme Résultat GreenFrame Swapp](https://app.greenframe.io/analyses/b8d3ddbf-e5d7-4fcd-b874-3183741a2be6)
 
@@ -211,19 +192,12 @@ Cette réduction est principalement attribuée à la modification de l'image de 
 
 Dans cette troisième version du prototype, les données sont désormais centralisées dans une base de données CouchDB, accessible via une API Web. L’adoption d’une telle solution offre plusieurs avantages : elle permet d’ajouter, de modifier et de gérer les articles de manière plus fluide, tout en offrant une plus grande flexibilité pour le filtrage et l’accès aux données.
 
-Pourquoi choisir une base de données plutôt qu’un fichier statique ?
-
-→ Exécution de requêtes dynamiques et complexes pour un accès plus précis aux données
-
-→ Meilleure gestion de l’espace de stockage et des performances à grande échelle
-
-→ Modification et mise à jour des données facilitées, sans avoir à manipuler manuellement un fichier volumineux
+Les bases de données présentent de nombreux avantages par rapport aux fichiers statiques. Elles permettent d'exécuter des requêtes complexes et dynamiques, offrant ainsi un accès plus précis et flexible aux données. De plus, elles optimisent la gestion de l'espace de stockage et les performances, en particulier lorsque les volumes de données sont importants. Enfin, les bases de données facilitent considérablement les modifications et les mises à jour, éliminant la nécessité de manipuler manuellement de grands fichiers, ce qui est souvent source d'erreurs.
 
 Pour ce troisième prototype, nous permettons la recherche fonctionnelle depuis la barre de recherche, mais tout le filtrage reste codé côté client. Ainsi, l’intégralité des articles est toujours récupérée depuis la base de données. La véritable nouveauté ici réside dans leur gestion dynamique et leur accessibilité améliorée par le biais d’une base de données.
 
-#### Analyse GreenFrame
 ![GreenFrame : Impact de l'ajout du backend](screenshots/GreenFrame_ajout_backend.png)
-Fig11 : GreenFrame : Impact de l'ajout du backend
+***Fig11** : GreenFrame : Impact de l'ajout du backend*
 
 => Pas de changement significatif au niveau des performances réseau, mais une augmentation de l'utilisation du CPU a été constatée. Cela s'explique par la création et le déploiement d'un backend, un composant naturellement plus demandant en ressources de calcul.
 
@@ -235,7 +209,7 @@ Un problème est relevé : puisque nous avons créé aléatoirement des titres d
 Par conséquent, nous avons modifié notre sample_data.hbs pour que les titres ne comprennent ni des valeurs possibles de catégorie, de couleur et de matière. Les descriptions sont toutes modifiées pour correspondre à un "lorem ipsum" de 100 mots.
 
 ![Jeu de données](screenshots/sample_data-hbs.png)
-Fig12 : Fichier `sample_data.hbs` utilisé pour la génération de données
+***Fig12** : Fichier `sample_data.hbs` utilisé pour la génération de données*
 
 ### Passage à l'échelle 
 
@@ -260,8 +234,6 @@ L'augmentation est non linéaire puisque le nombre de nouveaux utilisateurs peut
 -  ces fichiers multimédias représentent la majeure partie de l'empreinte en stockage.
   
 ### Avant ajustements
-
-#### Analyse GreenFrame
 
 ##### Passage de 15 à 3000 articles
 
@@ -307,7 +279,6 @@ Pour analyser davantage les impacts, le scénario de test 2 a été modifié en 
 
 ### Après ajustements
 
-#### Perspectives
 Comme expliqué plus haut, nous récupérions encore une quantité massive d'articles, triés côté client et entièrement affichés, ce qui augmente fortement l'impact lié à l'utilisation du processeur. Nous passons donc à un filtrage côté serveur, en conservant tous les types de filtrage précédemment définis côté client.
 
 L'intégration d'une limite stricte à **25 articles maximum par affichage** a été une décision centrale dans la conception de notre plateforme, en réponse aux enjeux d'optimisation des performances et de réduction de l'impact environnemental. Associée à l'obligation d'utiliser des filtres lors des recherches, cette approche garantit une expérience utilisateur ciblée et écoresponsable.
@@ -320,7 +291,6 @@ Trois modes d'accès aux articles sont actuellement disponibles :
 
 En cas de dépassement de la limite de 25 articles, seuls les résultats les plus pertinents, classés par ordre de prix (du moins cher au plus cher), sont affichés. Ce choix permet de réduire significativement la charge de traitement et la quantité de données transférées.
 
-#### Analyse GreenFrame
 Les bénéfices de cette approche sont clairement mesurables. Avant l'implémentation de cette stratégie, notre plateforme consommait en moyenne **91 mg par exécution**, selon les données de GreenFrame. Après l'application de la limitation et des filtres obligatoires, nous avons atteint une consommation réduite à **33 mg par exécution**, soit une réduction de **plus de 63 %**. 
 
 Cette optimisation démontre l'importance d'adopter une conception numérique responsable et sobre, non seulement pour minimiser l'impact environnemental mais également pour améliorer les performances globales du système. Notre démarche illustre comment des choix techniques simples, tels que la limitation des résultats ou l'application de filtres obligatoires, peuvent avoir un impact significatif sur la durabilité des plateformes numériques tout en offrant une expérience utilisateur optimisée et fluide.
@@ -334,8 +304,6 @@ Nous avons donc conçu et développé la page de détails d'un article, conform�
 
 ![Page de détails d'un article](screenshots/prototype5_ItemPage.png)
 Fig13 : Prototype 5 - Page de détails d'un article
-
-### Analyse avec GreenFrame
 
 L'ajout de cette nouvelle page entraîne une augmentation de la "Global Estimated Consumption" (= Consommation Énergétique Estimée Globale) de l'application. Cela est dû à l'impact énergétique de la page, notamment en raison des ressources qu'elle nécessite pour être chargée et affichée. Cependant, cette fonctionnalité est indispensable pour le bon fonctionnement de l'application et permet d'offrir des services essentiels aux utilisateurs. En pratique, cette page génère une consommation estimée de 33 mg d'énergie. Comparée à d'autres pages de l'application ou à des scénarios similaires, cette consommation reste raisonnable et ne compromet pas l'efficacité globale de l'application.
 
