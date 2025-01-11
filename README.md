@@ -75,18 +75,93 @@ Ce scénario permet aux utilisateurs de réviser leurs articles avant de finalis
 # Analyse des impacts de nos concurrents avec GreenIt-Analysis
 Pour cette étude, nous avons mesuré l’impact environnemental des scénarios 1 et 2 à l’aide de GreenItAnalysis, car ils sont réalisables sans compte utilisateur, contrairement aux scénarios 3 et 4. Le scénario 4, en particulier, nécessite de finaliser un achat, ce qui demande une connexion et des interactions impossibles à reproduire dans le cadre de notre analyse actuelle.
 
-Nous avons d'abord tenté d'utiliser la version automatisée de GreenIT-Analysis avec un fichier .yml, mais nous avons rencontré plusieurs obstacles, notamment des problèmes liés aux captchas sur les sites analysés. 
-Voici néanmoins un exemple de résultat obtenu pour Vinted :
-![GreenIT-Analysis Vinted YML](screenshots/GreenITAnalysis_Automatique.png)
-***Fig1** : GreenIT-Analysis : Impact de Vinted obtenu automatiquement à partir d'un fichier .yml*
+### Analyse de Vinted
 
-Face à ces limitations, nous avons opté pour une approche manuelle à l'aide du plugin GreenIT-Analysis pour contourner ces problèmes et poursuivre l'étude.
+| Scénario                        | ecolIndex | Part due aux actions | Eau (cl) | GES (gCO2e) | Bonnes pratiques à mettre en œuvre |
+|---------------------------------|-----------|-----------------------|----------|-------------|-------------------------------------|
+| Chargement de la page         | G 🔴         | 58                    | 4.5      | 3           | 9                                   |
+| Cliquer sur la première suggestion | G 🔴    | 17                    | 4.5      | 3           | 9                                   |
+| Définir le prix minimum       | D ⚪         | 0                     | 3.09     | 2.06        | 5                                   |
+| Définir le prix maximum       | D ⚪         | 0                     | 3.15     | 2.1         | 6                                   |
 
-![GreenIT-Analysis Vinted](screenshots/GreenIT-Analysis_Vinted.png)
-***Fig2** : GreenIT-Analysis Plugin : Impact de Vinted*
+***Tab1** : GreenIT-Analysis : Impact de Vinted obtenu automatiquement à partir d'un fichier .yml*
 
-![GreenIT-Analysis Vinted](screenshots/GreenIT-Analysis_Depop.png)
-***Fig3** : GreenIT-Analysis Plugin : Impact de Depop*
+
+| Bonne pratique                                      | Effort | Impact | Priorité | Grade |
+|-----------------------------------------------------|--------|--------|----------|-------|
+| Ajouter des expires ou cache-control headers (>= 95%) | 3      | 4      | 4        | ❌     |
+| Compresser les ressources (>= 95%)                  | 9      | 9      | 9        | ✅     |
+| Limiter le nombre de domaines (< 3)                 | 3      | 4      | 3        | ❌     |
+| Ne pas retailler les images dans le navigateur      | 4      | 4      | 4        | ❌     |
+| Éviter les tags SRC vides                           | 9      | 9      | 9        | ✅     |
+| Externaliser les CSS                                | 4      | 4      | 4        | ✅     |
+| Externaliser les JS                                 | 4      | 4      | 4        | ✅     |
+| Éviter les requêtes en erreur                       | 9      | 9      | 9        | ❌     |
+| Limiter le nombre de requêtes HTTP (< 27)           | 3      | 4      | 4        | ❌     |
+| Ne pas télécharger des images inutilement           | 9      | 9      | 9        | ❌     |
+| Valider le JavaScript                               | 3      | 3      | 3        | ❌     |
+| Taille maximum des cookies par domaine (< 512 Octets) | 9      | 9      | 9        | ✅     |
+| Minifier les CSS (>= 95%)                           | 3      | 4      | 4        | ✅     |
+| Minifier les JS (>= 95%)                            | 3      | 4      | 4        | ✅     |
+| Pas de cookie pour les ressources statiques         | 9      | 9      | 9        | ✅     |
+| Éviter les redirections                             | 3      | 3      | 3        | ❌     |
+| Optimiser les images bitmap                         | 4      | 4      | 4        | ✅     |
+| Optimiser les images SVG                            | 4      | 4      | 4        | ✅     |
+| Ne pas utiliser de plugins                          | 9      | 9      | 9        | ❌     |
+| Fournir une print CSS                               | 4      | 3      | 3        | ✅     |
+| N'utilisez pas les boutons standards des réseaux sociaux | 4  | 4      | 4        | ✅     |
+| Limiter le nombre de fichiers CSS (< 3)             | 4      | 4      | 4        | ✅     |
+| Utiliser des ETags (>= 95%)                         | 9      | 9      | 9        | ✅     |
+| Utiliser des polices de caractères standards        | 3      | 4      | 4        | ✅     |
+
+***Tab2** : GreenIT-Analysis : tableau des bonnes pratiques de Vinted obtenu automatiquement à partir d'un fichier .yml*
+
+
+
+| Date               | Url                                                   | Nombre requêtes | Taille (kb) | Taille du DOM | GES  | Eau   | ecolIndex | Note | Description de la page mesurée                                                                            |
+|--------------------|-------------------------------------------------------|-----------------|-------------|---------------|------|-------|-----------|------|-----------------------------------------------------------------------------------------------------------|
+| 10/01/2025 18:59   | https://www.vinted.fr/                                | 139             | 5199        | 3010          | 2.76 | 4.15  | 11.75     | F 🟠    | Page d'accueil                                                                                           |
+| 10/01/2025 19:00   | https://www.vinted.fr/                                | 285             | 10778       | 9362          | 2.90 | 4.35  | 4.96      | G 🔴    | Page d'accueil après avoir scrollé (chargement de nouveaux articles et augmentation du nombre de requêtes) |
+| 10/01/2025 19:01   | https://www.vinted.fr/catalog/4-clothing              | 237             | 7298        | 10004         | 2.88 | 4.31  | 6.17      | G 🔴    | Page "Voir tout" de la catégorie "Femme"                                                                 |
+| 10/01/2025 19:01   | https://www.vinted.fr/catalog/2984-designer-b         | 381             | 12614       | 6897          | 2.90 | 4.35  | 4.92      | G 🔴    | Page "Sacs de créateurs" de la catégorie "Articles de créateurs"                                         |
+
+***Tab3** : GreenIT-Analysis Plugin : Impact de Vinted d'après le scénario 1 : consulter les articles sur la page de recherche*
+
+
+
+| Date               | Url                                                   | Nombre requêtes | Taille (kb) | Taille du DOM | GES  | Eau   | ecolIndex | Note | Description de la page mesurée                                                                                 |
+|--------------------|-------------------------------------------------------|-----------------|-------------|---------------|------|-------|-----------|------|-----------------------------------------------------------------------------------------------------------------|
+| 10/01/2025 19:14   | https://www.vinted.fr/                                | 135             | 9374        | 3014          | 2.78 | 4.16  | 11.17     | F 🟠    | Page d'accueil                                                                                                  |
+| 10/01/2025 19:14   | https://www.vinted.fr/catalog?search_text=veste+en+cuir| 314             | 8772        | 10296         | 2.90 | 4.35  | 4.95      | G 🔴    | Page après recherche du terme "veste en cuir"                                                                   |
+| 10/01/2025 19:14   | https://www.vinted.fr/catalog?search_text=veste+en+cuir| 408             | 10353       | 10422         | 2.90 | 4.35  | 4.90      | G 🔴    | Page après avoir appliqué les filtres de prix                                                                   |
+| 10/01/2025 19:14   | https://www.vinted.fr/items/5626428632-grun           | 71              | 2132        | 1079          | 2.27 | 3.41  | 36.44     | E 🟡    | Page de détails d'un article                                                                                    |
+| 10/01/2025 19:15   | https://www.vinted.fr/items/5626428632-grun           | 80              | 2230        | 1142          | 2.33 | 3.50  | 33.33     | E 🟡    | N'ayant pas de compte, la page après avoir cliqué "Acheter" correspond à la page d'inscription.                |
+
+***Tab4** : GreenIT-Analysis Plugin : Impact de Vinted d'après le scénario 2 : rechercher des articles spécifiques et ajouter un article au panier*
+
+
+### Analyse de Depop
+Nous avons d'abord tenté d'utiliser la version automatisée de GreenIT-Analysis avec un fichier .yml, mais nous avons rencontré plusieurs obstacles, notamment des problèmes liés aux captchas sur les sites analysés. Face à ces limitations, nous avons opté pour une approche manuelle à l'aide du plugin GreenIT-Analysis pour contourner ces problèmes et poursuivre l'étude.
+
+| Date               | Url                                                       | Nombre requêtes | Taille (kb) | Taille du DOM | GES  | Eau   | ecolIndex | Note | Description de la page mesurée                                                                             |
+|--------------------|-----------------------------------------------------------|-----------------|-------------|---------------|------|-------|-----------|------|------------------------------------------------------------------------------------------------------------|
+| 10/01/2025 19:28   | https://www.depop.com/fr/?moduleOrigin=menu               | 168             | 3121        | 816           | 2.46 | 3.69  | 27.17     | E 🟡    | Page d'accueil                                                                                            |
+| 10/01/2025 19:28   | https://www.depop.com/fr/category/womens/dresses          | 235             | 2491        | 1334          | 2.67 | 4.00  | 16.53     | F 🟠    | Page "Robes" de la catégorie "Vêtements pour femmes"                                                      |
+| 10/01/2025 19:28   | https://www.depop.com/fr/category/womens/dresses          | 712             | 6457        | 3966          | 2.89 | 4.34  | 5.30      | G 🔴    | Même page que la précédente mais après avoir scrollé (scroll infini)                                      |
+
+***Tab5** : GreenIT-Analysis Plugin : Impact de Depop d'après le scénario 1 : consulter les articles sur la page de recherche*
+
+
+| Date               | Url                                                       | Nombre requêtes | Taille (kb) | Taille du DOM | GES  | Eau   | ecolIndex | Note | Description de la page mesurée                                                                             |
+|--------------------|-----------------------------------------------------------|-----------------|-------------|---------------|------|-------|-----------|------|------------------------------------------------------------------------------------------------------------|
+| 10/01/2025 19:35   | https://www.depop.com/fr/?moduleOrigin=menu               | 173             | 2924        | 816           | 2.46 | 3.68  | 27.18     | E 🟡    | Page d'accueil                                                                                            |
+| 10/01/2025 19:35   | https://www.depop.com/fr/?moduleOrigin=menu               | 324             | 4297        | 1202          | 2.71 | 4.06  | 14.60     | F 🟠    | Page après recherche du terme "veste en cuir"                                                             |
+| 10/01/2025 19:35   | https://www.depop.com/fr/?moduleOrigin=menu               | 457             | 5154        | 1223          | 2.73 | 4.09  | 13.63     | F 🟠    | Page après avoir appliqué les filtres de prix                                                             |
+| 10/01/2025 19:36   | https://www.depop.com/products/rosavalentina/             | 235             | 3375        | 1199          | 2.67 | 4.00  | 16.64     | F 🟠    | Page de détails d'un article                                                                              |
+| 10/01/2025 19:36   | https://www.depop.com/login?titleKey=Content              | 139             | 1676        | 264           | 1.93 | 2.89  | 53.66     | D ⚪    | Page de création de compte. N'ayant pas de compte, la page après avoir cliqué "Acheter maintenant" correspond à cette page. |
+
+***Tab6** : GreenIT-Analysis Plugin : Impact de Depop d'après le scénario 2 : rechercher des articles spécifiques et ajouter un article au panier*
+
 
 Les analyses réalisées avec GreenAnalysis mettent en lumière des stratégies distinctes entre Vinted et Depop, ainsi que des impacts environnementaux notables. Vinted utilise un scroll automatique sur sa page d’accueil, ce qui engendre une augmentation modérée du nombre de requêtes et de la taille du DOM à mesure du chargement des contenus. Depop, quant à lui, adopte un scroll infini sur ses pages de recherche ou de catégories d’articles, ce qui provoque une forte hausse des requêtes, du poids des données et de la complexité du DOM, avec un impact environnemental plus marqué sur ces pages. Toutefois, Depop affiche généralement de meilleurs scores EcoIndex que Vinted, notamment sur ses pages d’accueil et de création de compte. Cela montre une meilleure optimisation des ressources pour certaines interactions simples.
 
@@ -97,17 +172,17 @@ Cependant, de manière générale, les deux plateformes affichent des performanc
 Afin de limiter au maximum l'afflux de données inutile, nous avons choisi de mettre en place une page d'accueil sans scroll, dans laquelle il est possible de sélectionner une catégorie ou taper un élément spécifique dans le champ de saisie. 
 
 ![Maquette page d'accueil](mockups/MockupHomepage.png)
-***Fig4** : maquette de la page d'accueil*
+***Fig1** : maquette de la page d'accueil*
 
 Cette même idée est poursuivie dans la page de recherche. Les items sont donc à minima triés par catégorie, afin de limiter les données à récupérer. Il est possible de pousser la recherche en lançant une recherche par une chaîne de caractères ou en précisant un état, une taille, une couleur, un prix, sa localisation.
 
 ![Maquette page de recherche](mockups/MockupSearch.png)
-***Fig5** : maquette de la page de recherche*
+***Fig2** : maquette de la page de recherche*
 
 Le nombre d'images admis par item est de 4, à la taille maximale de 1Mo.
 
 ![Maquette page de détails d'un item](mockups/MockupItem.png)
-***Fig6** : maquette de la page descriptive d'un élément*
+***Fig3** : maquette de la page descriptive d'un élément*
 
 L'échantillon de données a été créé par dummy-json selon les attributs de catégorie, état, taille, couleur, prix et localisation évoqués préalablement.
 
@@ -119,56 +194,56 @@ L'échantillon de données a été créé par dummy-json selon les attributs de 
 Pour ce premier prototype, nous créons les composants nécessaires à notre grille de résultats, à partir de 3 éléments codés en dur dans notre fichier. Aucune recherche ou filtrage n'est fonctionnel.
 
 ![Prototype 1 - Capture d'écran de la page d'accueil](screenshots/prototype1_home.png)
-***Fig7** : Prototype 1 - Capture d'écran de la page d'accueil*
+***Fig4** : Prototype 1 - Capture d'écran de la page d'accueil*
 
 |                   | **GreenFrame browser** | **Swapp-static hosting-1** | **Total**                |
 |-------------------|-------------------------|-----------------------------|--------------------------|
 | **CPU**           | 1.4 mWh (2%)           | 0 mWh (0%)                 | 1.4 mWh (1%)            |
-| **Network**       | 20 mWh (22%)           | 19 mWh (100%)              | 40 mWh (36%)            |
-| **Screen**        | 68 mWh (76%)           | 0 mWh (0%)                 | 68 mWh (62%)            |
-| **Memory**        | 0.1 mWh (0%)           | 0 mWh (0%)                 | 0.1 mWh (0%)            |
-| **Disk**          | 0 mWh (0%)             | 0 mWh (0%)                 | 0 mWh (0%)              |
+| **Réseau**       | 20 mWh (22%)           | 19 mWh (100%)              | 40 mWh (36%)            |
+| **Ecran**        | 68 mWh (76%)           | 0 mWh (0%)                 | 68 mWh (62%)            |
+| **Mémoire**        | 0.1 mWh (0%)           | 0 mWh (0%)                 | 0.1 mWh (0%)            |
+| **Disque**          | 0 mWh (0%)             | 0 mWh (0%)                 | 0 mWh (0%)              |
 | **Total énergie** | 89.5 mWh               | 19 mWh                     | **109 mWh**      |
 | **Total carbone** | 40 mg eq. CO₂          | 0.8 mg eq. CO₂             | **48 mg eq. CO₂**       |
 
-***Tab1** : résultats [GreenFrame](https://app.greenframe.io/analyses/f63f0b3b-9f65-46f8-9c53-6b6da46fbd43) de la page d'accueil du prototype 1*
+***Tab7** : résultats [GreenFrame](https://app.greenframe.io/analyses/f63f0b3b-9f65-46f8-9c53-6b6da46fbd43) de la page d'accueil du prototype 1*
 
 
 ![Prototype 1 - Capture d'écran de la page de recherche](screenshots/prototype1_search.png)
-***Fig8** : Prototype 1 - Capture d'écran de la page de recherche*
+***Fig5** : Prototype 1 - Capture d'écran de la page de recherche*
 
 
 |                   | **GreenFrame browser** | **Swapp-static hosting-1** | **Total**                |
 |-------------------|-------------------------|-----------------------------|--------------------------|
 | **CPU**           | 1 mWh (1%)             | 0 mWh (0%)                 | 1 mWh (1%)              |
-| **Network**       | 1.7 mWh (2%)           | 1.1 mWh (2%)               | 2.8 mWh (4%)            |
-| **Screen**        | 69 mWh (96%)           | 0 mWh (0%)                 | 69 mWh (96%)            |
-| **Memory**        | 0.1 mWh (0%)           | 0 mWh (0%)                 | 0.1 mWh (0%)            |
-| **Disk**          | 0 mWh (0%)             | 0 mWh (0%)                 | 0 mWh (0%)              |
-| **Total énergie** | 71 mWh                 | 1.1 mWh                    | **72.1 mWh (100%)**     |
+| **Réseau**       | 1.7 mWh (2%)           | 1.1 mWh (2%)               | 2.8 mWh (4%)            |
+| **Ecran**        | 69 mWh (96%)           | 0 mWh (0%)                 | 69 mWh (96%)            |
+| **Mémoire**        | 0.1 mWh (0%)           | 0 mWh (0%)                 | 0.1 mWh (0%)            |
+| **Disque**          | 0 mWh (0%)             | 0 mWh (0%)                 | 0 mWh (0%)              |
+| **Total énergie** | 71 mWh                 | 1.1 mWh                    | **72.1 mWh**     |
 | **Total carbone** | 32 mg eq. CO₂          | 0.5 mg eq. CO₂             | **32.5 mg eq. CO₂**     |
 
-***Tab2** : résultats [GreenFrame](https://app.greenframe.io/analyses/f63f0b3b-9f65-46f8-9c53-6b6da46fbd43) de la page d'articles du prototype 1*
+***Tab8** : résultats [GreenFrame](https://app.greenframe.io/analyses/f63f0b3b-9f65-46f8-9c53-6b6da46fbd43) de la page d'articles du prototype 1*
 
-Nous observons une différence notable d'énergie nécessaire au network entre la page d'accueil et la page de résultats. L'onglet réseau de l'inspecteur nous fait remarquer la taille considérable de l'image de fond au format PNG. Nous décidons alors de la changer pour utiliser le format SGV (car le SVG utilise des descriptions vectorielles basées sur le texte pour définir les formes et les couleurs, ce qui permet de réduire la taille du fichier, contrairement au PNG qui stocke chaque pixel individuellement, ce qui augmente la quantité de données nécessaires).
+Nous observons une différence notable d'énergie nécessaire au réseau entre la page d'accueil et la page de résultats. L'onglet réseau de l'inspecteur nous fait remarquer la taille considérable de l'image de fond au format PNG. Nous supposons que l'impact énergétique est principalement lié à la taille des éléments chargés via le réseau. Nous décidons alors de la changer pour utiliser le format SGV (car le SVG utilise des descriptions vectorielles basées sur le texte pour définir les formes et les couleurs, ce qui permet de réduire la taille du fichier, contrairement au PNG qui stocke chaque pixel individuellement, ce qui augmente la quantité de données nécessaires). 
 
 
-![Prototype 2 - Capture d'écran de l'image de fond](screenshots/prototype2_home.png)
-***Fig9** : Prototype 2 - Capture d'écran de la page de recherche, liste déroulante ouvert*
+![Prototype 1 - Capture d'écran de l'image de fond](screenshots/prototype2_home.png)
+***Fig6** : Prototype 1 - Capture d'écran de la page d'accueil et sa nouvelle image de fond*
 
 |                   | **GreenFrame browser** | **Swapp-static hosting-1** | **Total**                |
 |-------------------|-------------------------|-----------------------------|--------------------------|
 | **CPU**           | 0.8 mWh (1%)           | 0 mWh (0%)                 | 0.8 mWh (1%)            |
-| **Network**       | 1.7 mWh (2%)           | 1.1 mWh (2%)               | 2.8 mWh (4%)            |
-| **Screen**        | 67 mWh (95%)           | 0 mWh (0%)                 | 67 mWh (95%)            |
-| **Memory**        | 0.1 mWh (0%)           | 0 mWh (0%)                 | 0.1 mWh (0%)            |
-| **Disk**          | 0 mWh (0%)             | 0 mWh (0%)                 | 0 mWh (0%)              |
-| **Total énergie** | 70 mWh                 | 1.1 mWh                    | **71.1 mWh (100%)**     |
+| **Réseau**       | 1.7 mWh (2%)           | 1.1 mWh (2%)               | 2.8 mWh (4%)            |
+| **Ecran**        | 67 mWh (95%)           | 0 mWh (0%)                 | 67 mWh (95%)            |
+| **Mémoire**        | 0.1 mWh (0%)           | 0 mWh (0%)                 | 0.1 mWh (0%)            |
+| **Disque**          | 0 mWh (0%)             | 0 mWh (0%)                 | 0 mWh (0%)              |
+| **Total énergie** | 70 mWh                 | 1.1 mWh                    | **71.1 mWh**     |
 | **Total carbone** | 30 mg eq. CO₂          | 0.5 mg eq. CO₂             | **31 mg eq. CO₂**       |
 
-***Tab3** : résultats [GreenFrame](https://app.greenframe.io/analyses/b8d3ddbf-e5d7-4fcd-b874-3183741a2be6) de la page d'accueil du prototype 1 avec une nouvelle image de fond*
+***Tab9** : résultats [GreenFrame](https://app.greenframe.io/analyses/b8d3ddbf-e5d7-4fcd-b874-3183741a2be6) de la page d'accueil du prototype 1 avec une nouvelle image de fond*
 
-La seule modification de l'image a effectivement permis une réduction de 98% de la dépense en énergie liée au network.
+La seule modification de l'image a effectivement permis une réduction de 98% de la dépense en énergie liée au réseau.
 
 
 ## Prototype 2 
@@ -177,16 +252,21 @@ Pour ce deuxième prototype, nous mettons à jour dynamiquement la grille de ré
 Nous créons la logique de liste déroulante des filtres à partir de données statiques. Nous permettons la mise à jour des filtres à la fermeture des listes déroulantes. Ainsi, nous permettons une première fonctionnalité de filtrage côté client.
 
 ![Prototype 2 - Capture d'écran des listes déroulantes](screenshots/prototype2_search.png)
-***Fig10** : Prototype 2 - Capture d'écran de la page de recherche, liste déroulante ouverte*
+***Fig7** : Prototype 2 - Capture d'écran de la page de recherche, liste déroulante ouverte*
 
-Pour les mêmes scénario, voici le résultat :
-[2eme Résultat GreenFrame Swapp](https://app.greenframe.io/analyses/b8d3ddbf-e5d7-4fcd-b874-3183741a2be6)
+|                   | **GreenFrame browser** | **Swapp-static hosting-1** | **Total**                |
+|-------------------|-------------------------|-----------------------------|--------------------------|
+| **CPU**           | 0.9 mWh (1%)           | 0 mWh (0%)                 | 0.9 mWh (1%)              |
+| **Réseau**       | 2 mWh (3%)             | 1.4 mWh (100%)             | 3.5 mWh (4%)            |
+| **Ecran**        | 68 mWh (96%)           | 0 mWh (0%)                 | 68 mWh (96%)            |
+| **Mémoire**        | 0.1 mWh (0%)           | 0 mWh (0%)                 | 0.1 mWh (0%)            |
+| **Disque**          | 0 mWh (0%)             | 0 mWh (0%)                 | 0 mWh (0%)              |
+| **Total énergie** | 71 mWh                 | 1.4 mWh                    | **72.4 mWh**     |
+| **Total carbone** | 31 mg eq. CO₂          | 0.6 mg eq. CO₂             | **32.8 mg eq. CO₂**     |
 
-Nous remarquons que le retour meilleur : 63mg pour les deux scénarios dont :
-- 31 mg pour le scénario 1,
-- 32 mg pour le scénario 2.
+***Tab10** : résultats [GreenFrame](https://app.greenframe.io/analyses/182b10cd-8ab3-4a05-b1c6-5ab2f9d097c0) de la page d'articles du prototype 2*
 
-Cette réduction est principalement attribuée à la modification de l'image de fond, qui a permis de réduire significativement les échanges réseau. En effet, l'impact du filtrage côté client est négligeable, car aucune requête supplémentaire n'est émise. Ce raisonnement repose sur l'hypothèse que l'impact énergétique est principalement lié à la taille des éléments chargés via le réseau.
+La mise à jour dynamique des filtres a augmenté de 25% l'énergie liée au réseau. Les autres dépenses énergétiques restent inchangées.
 
 ## Prototype 3 : Données dynamiques & Chargement dynamique
 
@@ -196,12 +276,22 @@ Les bases de données présentent de nombreux avantages par rapport aux fichiers
 
 Pour ce troisième prototype, nous permettons la recherche fonctionnelle depuis la barre de recherche, mais tout le filtrage reste codé côté client. Ainsi, l’intégralité des articles est toujours récupérée depuis la base de données. La véritable nouveauté ici réside dans leur gestion dynamique et leur accessibilité améliorée par le biais d’une base de données.
 
-![GreenFrame : Impact de l'ajout du backend](screenshots/GreenFrame_ajout_backend.png)
-***Fig11** : GreenFrame : Impact de l'ajout du backend*
 
-=> Pas de changement significatif au niveau des performances réseau, mais une augmentation de l'utilisation du CPU a été constatée. Cela s'explique par la création et le déploiement d'un backend, un composant naturellement plus demandant en ressources de calcul.
+|                   | **GreenFrame browser** | **Swapp-static hosting-1** | **Swapp-backend-1**      | **Total**                |
+|-------------------|-------------------------|-----------------------------|--------------------------|--------------------------|
+| **CPU**           | 1 mWh (1%)             | 0 mWh (0%)                 | 1.1 mWh (91%)           | 2.1 mWh (3%)            |
+| **Réseau**        | 2.1 mWh (3%)           | 1.4 mWh (100%)             | 0.1 mWh (6%)            | 3.6 mWh (5%)            |
+| **Écran**         | 68 mWh (96%)           | 0 mWh (0%)                 | 0 mWh (0%)              | 68 mWh (92%)            |
+| **Mémoire**       | 0.1 mWh (0%)           | 0 mWh (0%)                 | 0 mWh (3%)              | 0.1 mWh (0%)            |
+| **Disque**        | 0 mWh (0%)             | 0 mWh (0%)                 | 0 mWh (0%)              | 0 mWh (0%)              |
+| **Total énergie** | 71 mWh                 | 1.4 mWh                    | 1.3 mWh                 | **73.7 mWh**            |
+| **Total carbone** | 31 mg eq. CO₂          | 0.6 mg eq. CO₂             | 0.6 mg eq. CO₂          | **32.2 mg eq. CO₂**     |
 
-De ces différentes mesures, nous pouvons retenir que l'effet de l'introduction d'une base de données, quoique négligeable, est, pour l'instant, plutôt défavorable d'un point de vue écologique. Le bilan de ce changement devrait cependant rapidement s'inverser avec l'augmentation de la quantité de données gérées et les requêtes réalisées.
+***Tab11** : résultats [GreenFrame](https://app.greenframe.io/analyses/c6672ae6-8fe4-46a5-b1fa-2306ac2b92b6) de la page d'articles du prototype 3*
+
+Il n'y a pas de changement significatif au niveau des performances réseau, mais une augmentation de l'utilisation du CPU a été constatée. Cela s'explique par la création et le déploiement d'un backend, un composant naturellement plus demandant en ressources de calcul. 
+
+Nous pouvons retenir que l'effet de l'introduction d'une base de données, quoique négligeable, est, pour l'instant, plutôt défavorable d'un point de vue écologique. Le bilan de ce changement devrait cependant rapidement s'inverser avec l'augmentation de la quantité de données gérées et les requêtes réalisées.
 
 ## Prototype 4
 Un problème est relevé : puisque nous avons créé aléatoirement des titres d'articles et les valeurs des catégories, le filtrage, bien que fonctionnel, paraît douteux. En effet, un article pouvait jusqu'alors avoir un titre "Veste en cuir", une catégorie "Robe" et un description "Gilet tout doux". En sélectionnant la catégorie "Robe", obtenir un élément au titre de "Veste en cuir" laisse croire à une erreur de tri.
@@ -209,7 +299,7 @@ Un problème est relevé : puisque nous avons créé aléatoirement des titres d
 Par conséquent, nous avons modifié notre sample_data.hbs pour que les titres ne comprennent ni des valeurs possibles de catégorie, de couleur et de matière. Les descriptions sont toutes modifiées pour correspondre à un "lorem ipsum" de 100 mots.
 
 ![Jeu de données](screenshots/sample_data-hbs.png)
-***Fig12** : Fichier `sample_data.hbs` utilisé pour la génération de données*
+***Fig9** : Fichier `sample_data.hbs` utilisé pour la génération de données*
 
 ### Passage à l'échelle 
 
@@ -219,7 +309,7 @@ Facteurs d'augmentation des données :
 
 **Nombre d'utilisateurs**
 Chaque nouvel utilisateur inscrit est susceptible de :
--  Ajouter des annonces (texte, photos, descriptions) ;
+-  ajouter des annonces (texte, photos, descriptions) ;
 -  effectuer des interactions (messages, transactions, évaluations, etc.).
 
 L'augmentation est non linéaire puisque le nombre de nouveaux utilisateurs peut croître rapidement grâce au bouche-à-oreille et aux campagnes de marketing.
@@ -275,8 +365,6 @@ Pour analyser davantage les impacts, le scénario de test 2 a été modifié en 
 [👉 Consulter la comparaison sur GreenFrame](https://app.greenframe.io/analyses/8ecae6e7-d978-4f09-9170-58bea466c79e?compareWith=10090b4c-090e-4659-99e3-5b0f65b6f0f6)
 
 
-
-
 ### Après ajustements
 
 Comme expliqué plus haut, nous récupérions encore une quantité massive d'articles, triés côté client et entièrement affichés, ce qui augmente fortement l'impact lié à l'utilisation du processeur. Nous passons donc à un filtrage côté serveur, en conservant tous les types de filtrage précédemment définis côté client.
@@ -303,7 +391,7 @@ Dans ce prototype, nous avons ajouté un nouveau scénario à notre implémentat
 Nous avons donc conçu et développé la page de détails d'un article, conformément à la maquette initiale.
 
 ![Page de détails d'un article](screenshots/prototype5_ItemPage.png)
-Fig13 : Prototype 5 - Page de détails d'un article
+***Fig10** : Prototype 5 - Page de détails d'un article*
 
 L'ajout de cette nouvelle page entraîne une augmentation de la "Global Estimated Consumption" (= Consommation Énergétique Estimée Globale) de l'application. Cela est dû à l'impact énergétique de la page, notamment en raison des ressources qu'elle nécessite pour être chargée et affichée. Cependant, cette fonctionnalité est indispensable pour le bon fonctionnement de l'application et permet d'offrir des services essentiels aux utilisateurs. En pratique, cette page génère une consommation estimée de 33 mg d'énergie. Comparée à d'autres pages de l'application ou à des scénarios similaires, cette consommation reste raisonnable et ne compromet pas l'efficacité globale de l'application.
 
@@ -312,7 +400,7 @@ L'ajout de cette nouvelle page entraîne une augmentation de la "Global Estimate
 Ci-dessous, une capture des détails de consommation pour le scénario 3 : "Consulter les détails d'un article" :
 
 ![GreenFrame : Impact du scénario 3](screenshots/scenario3.png)
-Fig 14 : Impact avec GreenFrame du scénario 3 : "Consulter les détails d'un article"
+***Fig 11** : Impact avec GreenFrame du scénario 3 : "Consulter les détails d'un article"*
 
 Cette image montre les métriques de performance et d'impact environnemental pour un scénario de consultation d'article en ligne.
 
