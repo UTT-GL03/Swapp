@@ -51,27 +51,6 @@ Ce scénario illustre l’expérience utilisateur pour trouver un produit partic
 4. Il ajoute l’article au panier pour considération ultérieure.
 
 
-## Scénario 3 : Déposer une annonce
-Ce scénario couvre l'autre côté du cercle d'économie circulaire : la revente. En intégrant le dépôt d'annonces, la plateforme complète son objectif de prolonger la durée de vie des produits. Bien qu’il puisse ne pas être le premier scénario pour un MVP, le dépôt d’annonces est essentiel pour assurer un flux d’articles constants et garantir l’attractivité de la plateforme pour les acheteurs.
-
-#### Étapes :
-1. L’utilisateur accède à la section « Déposer une annonce ».
-2. Il fournit une photo représentative.
-3. Il ajoute une description.
-4. Il complète les informations essentielles (catégorie, prix, localisation).
-5. Il poste  l’annonce.
-
-## Scénario 4 : Consulter son panier et finaliser un achat (acte d'achat)
-Ce scénario permet aux utilisateurs de réviser leurs articles avant de finaliser leur commande. Intégrer cette fonctionnalité dans un MVP pourrait être ambitieux, mais une alternative serait de proposer une mise en relation directe entre vendeurs et acheteurs, simulant un système de petites annonces.
-
- #### Étapes :
-1. L’utilisateur accède à son panier pour revoir les articles qu’il a sélectionnés.
-2. Il vérifie les détails des articles, les conditions de vente, et les frais d’expédition.
-3. Il choisit une méthode d'échange.
-4. Il valide la transaction.
-
-*Remarque : Pour un MVP, il peut être judicieux d’éviter l’intégration complète du paiement en ligne et de se concentrer sur une interface de mise en relation.*
-
 # Analyse des impacts de nos concurrents avec GreenIt-Analysis
 Pour cette étude, nous avons mesuré l’impact environnemental des scénarios 1 et 2 à l’aide de GreenItAnalysis, car ils sont réalisables sans compte utilisateur, contrairement aux scénarios 3 et 4. Le scénario 4, en particulier, nécessite de finaliser un achat, ce qui demande une connexion et des interactions impossibles à reproduire dans le cadre de notre analyse actuelle.
 
